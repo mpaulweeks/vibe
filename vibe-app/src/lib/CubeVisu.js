@@ -1,3 +1,4 @@
+import BaseVisu from './BaseVisu';
 
 class Measurements {
   constructor(edge) {
@@ -42,21 +43,9 @@ class MouseTracker {
   }
 }
 
-class Canvas {
-  constructor() {
-    const self = this;
-    this.canvas = document.getElementById('canvas');
-    this.getCanvasSettings();
-    this.ctx = this.canvas.getContext('2d');
-
-    this.canvas.addEventListener('mousemove', evt => {
-      self.setMousePos(evt);
-    });
-    this.canvas.addEventListener('touchmove', evt => {
-      evt.preventDefault();
-      var touch = evt.touches[0];
-      self.setMousePos(touch);
-    }, false);
+class CubeVisu extends BaseVisu {
+  constructor(...props) {
+    super(...props);
 
     this.m = new Measurements(20);
     this.bgc = 'rgb(38,57,131)';
@@ -64,57 +53,31 @@ class Canvas {
 
     this.mt = new MouseTracker();
     this.currMouse = {
-      x: Math.floor(this.canvas.width/2),
-      y: Math.floor(this.canvas.height/2),
+      x: 100,
+      y: 100,
     };
     this.mouseSpeed = 0;
     this.mouseHits = {};
-    this.slowDown();
   }
-  slowDown() {
-    const self = this
-    const factor = 0.95;
-    this.mouseSpeed *= factor;
-    this.mt.slowDown(factor);
-    this.draw();
-    setTimeout(() => self.slowDown(), 1000/30);
-  }
-  getCanvasSettings() {
-    const { canvas } = this;
-    var canvasW = document.body.clientWidth; //document.width is obsolete
-    var canvasH = document.body.clientHeight; //document.height is obsolete
-    // only set on change, setting clears the canvas and introduces jaggies
-    if (canvasW !== canvas.width)
-      canvas.width = canvasW;
-    if (canvasH !== canvas.height)
-      canvas.height = canvasH;
-    return {
-      canvasW: canvasW,
-      canvasH: canvasH,
-    }
-  }
-  getMousePos(evt) {
-    const { canvas } = this;
-    // https://stackoverflow.com/a/17130415/6461842
-    var rect = canvas.getBoundingClientRect();
-    var {canvasW, canvasH} = this.getCanvasSettings();
-    return {
-      x: Math.min(canvasW - 1 , evt.clientX - rect.left),
-      y: Math.min(canvasH - 1, evt.clientY - rect.top),
-    };
-  }
-  setMousePos(evt){
+  onMove(mouseData) {
     const oldMouse = this.currMouse;
-    this.currMouse = this.getMousePos(evt);
+    this.currMouse = mouseData;
     const distance = Math.sqrt(Math.pow(oldMouse.x - this.currMouse.x, 2) + Math.pow(oldMouse.y - this.currMouse.y, 2));
     this.mouseSpeed = Math.min(2, this.mouseSpeed + distance / 50);
     this.mt.setByCoord(this.m, this.mouseSpeed, this.currMouse.x, this.currMouse.y);
   }
+  tick(canvasHelper) {
+    const factor = 0.95;
+    this.mouseSpeed *= factor;
+    this.mt.slowDown(factor);
+    this.draw(canvasHelper.getCanvasTools());
+  }
+
   getDistanceFromMouse(x, y){
     const { currMouse } = this;
     return Math.sqrt(Math.pow(currMouse.x - x, 2) + Math.pow(currMouse.y - y, 2));
   }
-  drawHex(xGrid, yGrid) {
+  drawHex(canvasTools, xGrid, yGrid) {
     let { edge, dx, dy, cubeWidth, cubeHeight } = this.m;
     let x = xGrid * cubeWidth;
     let y = yGrid * cubeHeight / 2;
@@ -131,7 +94,7 @@ class Canvas {
       y = cy - dy - edge/2;
     }
 
-    const { ctx } = this
+    const { ctx } = canvasTools;
     ctx.beginPath();
     let tx = x;
     let ty = y;
@@ -165,9 +128,9 @@ class Canvas {
     ctx.lineTo(cx, y + dy*2 + edge);
     ctx.stroke();
   }
-  draw() {
-    const { ctx, bgc, fgc } = this;
-    const { canvasW, canvasH } = this.getCanvasSettings();
+  draw(canvasTools) {
+    const { ctx, canvasW, canvasH } = canvasTools;
+    const { bgc, fgc } = this;
     ctx.fillStyle = bgc;
     ctx.strokeStyle = fgc;
     ctx.lineWidth = 1;
@@ -179,10 +142,10 @@ class Canvas {
     for (let y = -1; y < cubesY; y += 1) {
       const xOffset = y % 2 === 0 ? 1 : 0;
       for (let x = -1 + xOffset; x <= cubesX; x += 2) {
-        this.drawHex(x, y);
+        this.drawHex(canvasTools, x, y);
       }
     }
   }
 }
 
-new Canvas();
+export default CubeVisu;

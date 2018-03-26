@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Canvas from './Canvas';
-import Brain from './Brain';
+import Canvas from './view/Canvas';
+import Brain from './lib/Brain';
 
 class App extends React.Component {
   componentDidMount() {
