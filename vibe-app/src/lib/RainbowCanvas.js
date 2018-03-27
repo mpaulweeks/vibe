@@ -24,7 +24,7 @@ class RainbowCanvas extends BaseCanvas {
   }
 
   drawTilingSpikes(gms, settings){
-    const { mouseData, ctx, canvasW, canvasH } = this.getCanvasTools();
+    const { mouseData, canvasW, canvasH } = this.getCanvasTools();
     var xChunk = Math.ceil(canvasW / settings.tiling);
     var yChunk = Math.ceil(canvasH / settings.tiling);
     for (var x = 0; x < settings.tiling; x++){
@@ -50,7 +50,7 @@ class RainbowCanvas extends BaseCanvas {
   }
 
   drawHero(hero){
-    const { mouseData, ctx, canvasW, canvasH } = this.getCanvasTools();
+    const { ctx, canvasW, canvasH } = this.getCanvasTools();
     var center = {
       x: Math.floor(canvasW/2),
       y: Math.floor(canvasH/2),
@@ -64,7 +64,7 @@ class RainbowCanvas extends BaseCanvas {
   }
 
   drawGenericSpikes(gms, settings){
-    const { mouseData, ctx, canvasW, canvasH } = this.getCanvasTools();
+    const { ctx } = this.getCanvasTools();
     var {
       origin,
       minX, maxX, minY, maxY,
@@ -81,8 +81,9 @@ class RainbowCanvas extends BaseCanvas {
     gms.forEach(function (gradientModifier, gio){
       var grad = gradientModifier(ctx.createRadialGradient(origin.x, origin.y, 0, origin.x, origin.y, maxLength));
       ctx.fillStyle = grad;
-      for (var si = 0; si < ySpikes; si++){
-        var gi = gio;
+      let si, gi;
+      for (si = 0; si < ySpikes; si++){
+        gi = gio;
         ctx.beginPath();
         ctx.moveTo(minX, minY + ((gi + 0) * yChunk) + (si * yChunk * numGradients));
         ctx.lineTo(origin.x, origin.y);
@@ -98,8 +99,8 @@ class RainbowCanvas extends BaseCanvas {
         ctx.closePath();
         ctx.fill();
       }
-      for (var si = 0; si < xSpikes; si++){
-        var gi = gio;
+      for (si = 0; si < xSpikes; si++){
+        gi = gio;
         ctx.beginPath();
         ctx.moveTo(minX + ((gi + 0) * xChunk) + (si * xChunk * numGradients), maxY);
         ctx.lineTo(origin.x, origin.y);
@@ -169,8 +170,9 @@ class RainbowCanvas extends BaseCanvas {
     gms.forEach(function (gradientModifier, gio){
       var grad = gradientModifier(pctx.createRadialGradient(origin.x, origin.y, 0, origin.x, origin.y, maxLength));
       pctx.fillStyle = grad;
-      for (var si = 0; si < ySpikes; si++){
-        var gi = gio;
+      let si, gi;
+      for (si = 0; si < ySpikes; si++){
+        gi = gio;
         pctx.beginPath();
         pctx.moveTo(minX, minY + ((gi + 0) * yChunk) + (si * yChunk * numGradients));
         pctx.lineTo(origin.x, origin.y);
@@ -186,8 +188,8 @@ class RainbowCanvas extends BaseCanvas {
         pctx.closePath();
         pctx.fill();
       }
-      for (var si = 0; si < xSpikes; si++){
-        var gi = gio;
+      for (si = 0; si < xSpikes; si++){
+        gi = gio;
         pctx.beginPath();
         pctx.moveTo(minX + ((gi + 0) * xChunk) + (si * xChunk * numGradients), maxY);
         pctx.lineTo(origin.x, origin.y);
@@ -207,7 +209,7 @@ class RainbowCanvas extends BaseCanvas {
   }
 
   drawRing(ring){
-    const { mouseData, ctx, canvasW, canvasH } = this.getCanvasTools();
+    const { ctx } = this.getCanvasTools();
     var gradient = ctx.createRadialGradient(
       ring.origin.x, ring.origin.y, ring.getInner(),
       ring.origin.x, ring.origin.y, ring.getOuter()
@@ -222,7 +224,7 @@ class RainbowCanvas extends BaseCanvas {
   }
 
   drawParticle(ptcle){
-    const { mouseData, ctx, canvasW, canvasH } = this.getCanvasTools();
+    const { ctx } = this.getCanvasTools();
     var line = ptcle.getLine();
     ctx.strokeStyle = "red";
     ctx.beginPath();
@@ -233,13 +235,11 @@ class RainbowCanvas extends BaseCanvas {
   }
 
   drawVortexBackground(vortex){
-    const { mouseData, ctx, canvasW, canvasH } = this.getCanvasTools();
+    const { ctx } = this.getCanvasTools();
     var {
       coord,
-      coreSize,
       ringSize,
       percentDead,
-      gradientModifier,
     } = vortex.getDrawData();
 
     ctx.beginPath();
@@ -254,12 +254,10 @@ class RainbowCanvas extends BaseCanvas {
   }
 
   drawVortexCore(vortex){
-    const { mouseData, ctx, canvasW, canvasH } = this.getCanvasTools();
+    const { ctx } = this.getCanvasTools();
     var {
       coord,
       coreSize,
-      ringSize,
-      percentDead,
       gradientModifier,
     } = vortex.getDrawData();
 
