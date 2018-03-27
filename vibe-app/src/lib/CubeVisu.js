@@ -141,8 +141,7 @@ class CubeVisu extends BaseVisu {
     return new CubeCanvas(canvasHelper);
   }
   tick() {
-    this.canvas.mt.slowDown(0.95);
-    this.draw();
+    this.canvas.mt.slowDown(0.9);
   }
 }
 

@@ -17,6 +17,8 @@ class RainbowVisu extends BaseVisu {
   }
   tick() {
     this.patterns.get().step();
+  }
+  draw() {
     this.patterns.get().draw();
   }
 }
