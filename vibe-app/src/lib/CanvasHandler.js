@@ -51,6 +51,26 @@ class CanvasHandler {
       canvasH,
     };
   }
+  goFullScreen(){
+    const { canvas } = this;
+    // https://stackoverflow.com/a/16124664/6461842
+    if(canvas.requestFullScreen)
+      canvas.requestFullScreen();
+    else if(canvas.webkitRequestFullScreen)
+      canvas.webkitRequestFullScreen();
+    else if(canvas.mozRequestFullScreen)
+      canvas.mozRequestFullScreen();
+  }
+  drawStats(stats){
+    const { ctx } = this;
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0,160, 16 + 10*stats.length);
+    ctx.fillStyle = "white";
+    for (var i = 0; i < stats.length; i++){
+      ctx.fillText(stats[i][1], 10, 16 + 10*i);
+      ctx.fillText(stats[i][0], 60, 16 + 10*i);
+    }
+  }
 }
 
 export default CanvasHandler;

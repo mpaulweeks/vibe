@@ -1,3 +1,4 @@
+import BaseCanvas from './BaseCanvas';
 import BaseVisu from './BaseVisu';
 
 class Measurements {
@@ -13,6 +14,7 @@ class Measurements {
 class MouseTracker {
   constructor() {
     this.lookup = {};
+    this.mouseSpeed = 0;
   }
   toKey(x, y) {
     return `${x},${y}`;
@@ -37,48 +39,34 @@ class MouseTracker {
     }
   }
   slowDown(factor) {
+    this.mouseSpeed *= factor;
     for (let key in this.lookup) {
       this.lookup[key] *= factor;
     }
   }
 }
 
-class CubeVisu extends BaseVisu {
+class CubeCanvas extends BaseCanvas {
   constructor(...props) {
     super(...props);
-
-    this.m = new Measurements(20);
+    this.measure = new Measurements(20);
     this.bgc = 'rgb(38,57,131)';
     this.fgc = 'rgb(252, 253, 117)';
-
     this.mt = new MouseTracker();
-    this.currMouse = {
-      x: 100,
-      y: 100,
-    };
-    this.mouseSpeed = 0;
-    this.mouseHits = {};
   }
   onMove(mouseData) {
-    const oldMouse = this.currMouse;
-    this.currMouse = mouseData;
-    const distance = Math.sqrt(Math.pow(oldMouse.x - this.currMouse.x, 2) + Math.pow(oldMouse.y - this.currMouse.y, 2));
-    this.mouseSpeed = Math.min(2, this.mouseSpeed + distance / 50);
-    this.mt.setByCoord(this.m, this.mouseSpeed, this.currMouse.x, this.currMouse.y);
+    super.onMove(mouseData)
+    const { mt, prevMouseData } = this;
+    const distance = Math.sqrt(Math.pow(prevMouseData.x - mouseData.x, 2) + Math.pow(prevMouseData.y - mouseData.y, 2));
+    mt.mouseSpeed = Math.min(2, mt.mouseSpeed + distance / 50);
+    mt.setByCoord(this.measure, mt.mouseSpeed, mouseData.x, mouseData.y);
   }
-  tick(canvasHelper) {
-    const factor = 0.95;
-    this.mouseSpeed *= factor;
-    this.mt.slowDown(factor);
-    this.draw(canvasHelper.getCanvasTools());
-  }
-
   getDistanceFromMouse(x, y){
-    const { currMouse } = this;
+    const { currMouse } = this.mt;
     return Math.sqrt(Math.pow(currMouse.x - x, 2) + Math.pow(currMouse.y - y, 2));
   }
-  drawHex(canvasTools, xGrid, yGrid) {
-    let { edge, dx, dy, cubeWidth, cubeHeight } = this.m;
+  drawHex(xGrid, yGrid) {
+    let { edge, dx, dy, cubeWidth, cubeHeight } = this.measure;
     let x = xGrid * cubeWidth;
     let y = yGrid * cubeHeight / 2;
 
@@ -94,7 +82,7 @@ class CubeVisu extends BaseVisu {
       y = cy - dy - edge/2;
     }
 
-    const { ctx } = canvasTools;
+    const { ctx } = this.getCanvasTools();
     ctx.beginPath();
     let tx = x;
     let ty = y;
@@ -128,23 +116,33 @@ class CubeVisu extends BaseVisu {
     ctx.lineTo(cx, y + dy*2 + edge);
     ctx.stroke();
   }
-  draw(canvasTools) {
-    const { ctx, canvasW, canvasH } = canvasTools;
+  draw() {
+    const { ctx, canvasW, canvasH } = this.getCanvasTools();
     const { bgc, fgc } = this;
     ctx.fillStyle = bgc;
     ctx.strokeStyle = fgc;
     ctx.lineWidth = 1;
     ctx.fillRect(0, 0, canvasW, canvasH);
 
-    const { cubeHeight, cubeWidth } = this.m;
+    const { cubeHeight, cubeWidth } = this.measure;
     const cubesY = 1 + (canvasH / (cubeHeight / 2));
     const cubesX = 1 + (canvasW / cubeWidth);
     for (let y = -1; y < cubesY; y += 1) {
       const xOffset = y % 2 === 0 ? 1 : 0;
       for (let x = -1 + xOffset; x <= cubesX; x += 2) {
-        this.drawHex(canvasTools, x, y);
+        this.drawHex(x, y);
       }
     }
+  }
+}
+
+class CubeVisu extends BaseVisu {
+  createCanvas(canvasHelper) {
+    return new CubeCanvas(canvasHelper);
+  }
+  tick() {
+    this.canvas.mt.slowDown(0.95);
+    this.draw();
   }
 }
 
