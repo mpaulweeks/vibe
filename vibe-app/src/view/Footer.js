@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Jukebox from './Jukebox';
+
 const FooterContainer = styled.div`
   border-top: 10px solid white;
   text-align: center;
@@ -51,9 +53,6 @@ const SettingsRight = styled.div`
 const SettingsSelect = styled.div`
   width: 50px;
 `;
-const SongTitle = styled.div`
-  padding: 5px 0px;
-`;
 
 class Footer extends React.Component {
   constructor(props){
@@ -102,7 +101,7 @@ class Footer extends React.Component {
           todo settings
         </Row>
         <Row>
-          todo jukebox
+          <Jukebox></Jukebox>
         </Row>
         <Row>
           <a href="https://twitter.com/mpaulweeks">@mpaulweeks</a>
