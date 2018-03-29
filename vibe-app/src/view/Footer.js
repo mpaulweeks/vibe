@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Jukebox from './Jukebox';
+import RainbowSettings from './RainbowSettings';
+import CubeSettings from './CubeSettings';
 
 const FooterContainer = styled.div`
   border-top: 10px solid white;
@@ -29,31 +31,6 @@ const Row = styled.div`
   }
 `;
 
-const Subtitle = styled.div`
-  text-decoration: underline;
-`;
-const SettingsRow = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-
-  font-size: 16px;
-`;
-const SettingsLeft = styled.div`
-  width: calc(50% - 10px);
-  padding: 0px 5px;
-  text-align: right;
-`;
-const SettingsRight = styled.div`
-  width: calc(50% - 10px);
-  padding: 0px 5px;
-  text-align: left;
-`;
-const SettingsSelect = styled.div`
-  width: 50px;
-`;
-
 class Footer extends React.Component {
   constructor(props){
     super(props)
@@ -72,6 +49,7 @@ class Footer extends React.Component {
     });
   }
   render() {
+    const { brain } = this.props;
     const { type } = this.state;
     return (
       <FooterContainer>
@@ -89,16 +67,12 @@ class Footer extends React.Component {
           </button>
         </Row>
         <Row>
-          <div>
-            { type }
-          </div>
-          <div>
-            click anywhere in the rainbow to change the pattern
-          </div>
-          <Subtitle>
-            create your own pattern
-          </Subtitle>
-          todo settings
+          { type === 'rainbow' && (
+            <RainbowSettings brain={ brain }></RainbowSettings>
+          )}
+          { type === 'cube' && (
+            <CubeSettings brain={ brain }></CubeSettings>
+          )}
         </Row>
         <Row>
           <Jukebox></Jukebox>

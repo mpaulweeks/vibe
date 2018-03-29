@@ -2,6 +2,7 @@ class BaseVisu {
   constructor(parent) {
     this.parent = parent;
     this.canvas = this.createCanvas(parent.ch);
+    this.settings = [];
   }
   onClick(mouseData) {
     this.canvas.onClick(mouseData);
