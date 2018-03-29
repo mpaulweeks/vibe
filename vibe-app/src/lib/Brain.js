@@ -5,6 +5,10 @@ import RainbowVisu from './RainbowVisu';
 import CubeVisu from './CubeVisu';
 
 class Brain {
+  constructor() {
+    // this.visuType = 'rainbow';
+    this.visuType = 'cube';
+  }
   init(canvasElm) {
     this.ch = new CanvasHandler(
       canvasElm,
@@ -15,8 +19,6 @@ class Brain {
       'rainbow': new RainbowVisu(this),
       'cube': new CubeVisu(this),
     };
-    // this.visuType = 'rainbow';
-    this.visuType = 'cube';
 
     Looper.logicLoop(looper => {
       this.loopTick();

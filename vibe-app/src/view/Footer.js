@@ -56,18 +56,26 @@ const SongTitle = styled.div`
 `;
 
 class Footer extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      type: props.brain.visuType,
+    }
+  }
   onFullscreen() {
     this.props.brain.ch.goFullScreen();
   }
   setType(type) {
-    this.props.brain.setType(type);
+    const { brain } = this.props;
+    brain.setType(type);
+    this.setState({
+      type: brain.visuType,
+    });
   }
   render() {
+    const { type } = this.state;
     return (
       <FooterContainer>
-        <Row>
-          click anywhere in the rainbow to change the pattern
-        </Row>
         <Row>
           <button onClick={() => this.setType('rainbow')}>
             Rainbow
@@ -82,11 +90,19 @@ class Footer extends React.Component {
           </button>
         </Row>
         <Row>
-          <Subtitle> create your own pattern </Subtitle>
-          settings
+          <div>
+            { type }
+          </div>
+          <div>
+            click anywhere in the rainbow to change the pattern
+          </div>
+          <Subtitle>
+            create your own pattern
+          </Subtitle>
+          todo settings
         </Row>
         <Row>
-          jukebox
+          todo jukebox
         </Row>
         <Row>
           <a href="https://twitter.com/mpaulweeks">@mpaulweeks</a>
