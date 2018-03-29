@@ -5,7 +5,7 @@ import RainbowVisu from './RainbowVisu';
 import CubeVisu from './CubeVisu';
 
 class Brain {
-  constructor(canvasElm) {
+  init(canvasElm) {
     this.ch = new CanvasHandler(
       canvasElm,
       mouseData => this.onCanvasClick(mouseData),
@@ -28,6 +28,9 @@ class Brain {
         this.ch.drawStats(stats);
       }
     });
+  }
+  setType(type) {
+    this.visuType = type;
   }
   visuApp() {
     return this.visuLookup[this.visuType];

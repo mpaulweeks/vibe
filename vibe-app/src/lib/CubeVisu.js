@@ -49,7 +49,7 @@ class MouseTracker {
 class CubeCanvas extends BaseCanvas {
   constructor(...props) {
     super(...props);
-    this.measure = new Measurements(20);
+    this.measure = new Measurements(40);
     this.bgc = 'rgb(38,57,131)';
     this.fgc = 'rgb(252, 253, 117)';
     this.mt = new MouseTracker();
