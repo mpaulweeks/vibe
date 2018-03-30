@@ -23,23 +23,23 @@ class Pattern {
 class RainbowPatterns {
   constructor(cvas){
     this.cvas = cvas;
-    const drawFunc = cvas.getDrawFunc();
+    this.drawFunc = cvas.getDrawFunc();
     this.patterns = [
-      new Pattern(drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150}),
-      new Pattern(drawFunc, {numSlices: 1, sliceDifference: 0, groupWidth: 950}),
-      new Pattern(drawFunc, {numSlices: 4, sliceDifference: 2, groupWidth: 150}),
-      new Pattern(drawFunc, {numSlices: 32, sliceDifference: 1, groupWidth: 500}),
-      new Pattern(drawFunc, {numSlices: 16, sliceDifference: 8, groupWidth: 500}),
-      new Pattern(drawFunc, {numSlices: 32, sliceDifference: 16, groupWidth: 500}),
-      new Pattern(drawFunc, {numSlices: 16, sliceDifference: 1, groupWidth: 950}),
-      new Pattern(drawFunc, {numSlices: 9, sliceDifference: 4, groupWidth: 500}),
-      new Pattern(drawFunc, {numSlices: 9, sliceDifference: 4, groupWidth: 150, tiling: 2, centered: 1}),
-      new Pattern(drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, tiling: 3}),
-      new Pattern(drawFunc, {numSlices: 32, sliceDifference: 16, groupWidth: 500, tiling: 3, centered: 1}),
-      new Pattern(drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, phaseDelta: 0, colorRange: 80}),
-      new Pattern(drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, phaseDelta: 1}),
-      new Pattern(drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, phaseDelta: 3}),
-      new Pattern(drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, phaseDelta: 4}),
+      new Pattern(this.drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150}),
+      new Pattern(this.drawFunc, {numSlices: 1, sliceDifference: 0, groupWidth: 950}),
+      new Pattern(this.drawFunc, {numSlices: 4, sliceDifference: 2, groupWidth: 150}),
+      new Pattern(this.drawFunc, {numSlices: 32, sliceDifference: 1, groupWidth: 500}),
+      new Pattern(this.drawFunc, {numSlices: 16, sliceDifference: 8, groupWidth: 500}),
+      new Pattern(this.drawFunc, {numSlices: 32, sliceDifference: 16, groupWidth: 500}),
+      new Pattern(this.drawFunc, {numSlices: 16, sliceDifference: 1, groupWidth: 950}),
+      new Pattern(this.drawFunc, {numSlices: 9, sliceDifference: 4, groupWidth: 500}),
+      new Pattern(this.drawFunc, {numSlices: 9, sliceDifference: 4, groupWidth: 150, tiling: 2, centered: 1}),
+      new Pattern(this.drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, tiling: 3}),
+      new Pattern(this.drawFunc, {numSlices: 32, sliceDifference: 16, groupWidth: 500, tiling: 3, centered: 1}),
+      new Pattern(this.drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, phaseDelta: 0, colorRange: 80}),
+      new Pattern(this.drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, phaseDelta: 1}),
+      new Pattern(this.drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, phaseDelta: 3}),
+      new Pattern(this.drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, phaseDelta: 4}),
     ];
     this.patternIndex = 0;
     this.customPattern = null;
@@ -68,8 +68,7 @@ class RainbowPatterns {
     this.next(-1);
   }
   newCustom(settings){
-    const { cvas } = this;
-    this.customPattern = new Pattern(cvas.drawTilingSpikes, settings);
+    this.customPattern = new Pattern(this.drawFunc, settings);
   }
 }
 

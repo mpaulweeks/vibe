@@ -28,11 +28,20 @@ const SettingsSelect = styled.select`
 `;
 
 class RainbowSettings extends React.Component {
+  constructor(props){
+    super(props);
+    this.settingElms = [];
+  }
   onChange(setting, elm){
-    console.log(setting, elm)
+    var newSettings = {};
+    newSettings[elm.name] = parseInt(elm.value, 10);
+    console.log(newSettings)
+    this.props.brain.visuApp().setCustomSettings(newSettings);
+    this.forceUpdate();
   }
   render() {
-    const { settings } = this.props.brain.visuApp();
+    const visuApp = this.props.brain.visuApp();
+    const current = visuApp.getCurrentSettings();
     return (
       <div>
         <div>
@@ -41,13 +50,17 @@ class RainbowSettings extends React.Component {
         <Subtitle>
           create your own pattern
         </Subtitle>
-        {settings.map((s, si) => (
+        {visuApp.settings.map((s, si) => (
           <SettingsRow key={si}>
             <SettingsLeft>
               <label>{s.description}</label>
             </SettingsLeft>
             <SettingsRight>
-              <SettingsSelect onChange={elm => this.onChange(s, elm)}>
+              <SettingsSelect
+                onChange={elm => this.onChange(s, elm.target)}
+                name={s.name}
+                value={current[s.name]}
+              >
                 {s.options.map((o, oi) => (
                   <option key={si + '-' + oi} value={o.value}>{o.display}</option>
                 ))}

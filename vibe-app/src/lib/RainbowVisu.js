@@ -21,6 +21,16 @@ class RainbowVisu extends BaseVisu {
       new VisuSetting('tiling', 'number of displays across', 1, 5, 1),
     ];
   }
+  getCurrentSettings() {
+    return this.patterns.get().getSettings();
+  }
+  setCustomSettings(newSettings){
+    const combinedSettings = {
+      ...this.getCurrentSettings(),
+      ...newSettings,
+    }
+    this.patterns.newCustom(combinedSettings);
+  }
   onClick() {
     // override super
     this.patterns.next();

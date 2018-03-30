@@ -8,6 +8,8 @@ class Brain {
   constructor() {
     this.visuType = 'rainbow';
     // this.visuType = 'cube';
+
+    this.callbackFunc = () => {};
   }
   init(canvasElm) {
     this.ch = new CanvasHandler(
@@ -34,6 +36,9 @@ class Brain {
   setType(type) {
     this.visuType = type;
   }
+  setCallback(func) {
+    this.callbackFunc = func;
+  }
   visuApp() {
     return this.visuLookup[this.visuType];
   }
@@ -45,6 +50,7 @@ class Brain {
   }
   onCanvasClick(mouseData) {
     this.visuApp().onClick(mouseData);
+    this.callbackFunc();
   }
   onCanvasMove(mouseData) {
     this.visuApp().onMove(mouseData);

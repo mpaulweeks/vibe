@@ -17,7 +17,7 @@ class AudioManager {
     this.tracks = tracks;
     this.index = 1;
 
-    this.jukeboxPlaying = true;
+    this.jukeboxPlaying = false;
     // var jukeboxPlaying = getCookie(COOKIE_MUTE) === "false";
     // if (window.location.href.includes("file://")){
     //   jukeboxPlaying = false;
