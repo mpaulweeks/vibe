@@ -16,7 +16,8 @@ const PageContainer = styled.div`
 const FooterContainer = styled.div`
   border-top: 10px solid white;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
+  padding: 10px 0px;
 
   & a {
     color: #91D2FA;

@@ -5,6 +5,8 @@ import CubeSettings from './CubeSettings';
 
 import {
   Row,
+  SectionHeader,
+  Button,
 } from './Component';
 
 class Panel extends React.Component {
@@ -28,17 +30,18 @@ class Panel extends React.Component {
     return (
       <div>
         <Row>
-          <button onClick={() => this.setType('rainbow')}>
+          <SectionHeader>
+            change display
+          </SectionHeader>
+          <Button onClick={() => this.setType('rainbow')}>
             Rainbow
-          </button>
-          <button onClick={() => this.setType('cube')}>
+          </Button>
+          <Button onClick={() => this.setType('cube')}>
             Cube
-          </button>
-        </Row>
-        <Row>
-          <button onClick={() => this.onFullscreen()}>
+          </Button>
+          <Button onClick={() => this.onFullscreen()}>
             View Fullscreen
-          </button>
+          </Button>
         </Row>
         <Row>
           {brain.visuType === 'rainbow' && (

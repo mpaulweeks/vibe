@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Subtitle = styled.div`
-  text-decoration: underline;
-`;
+import {
+  Row,
+  Message,
+  SectionHeader,
+} from './Component';
 
 const SettingsRow = styled.div`
   width: 100%;
@@ -35,7 +37,6 @@ class RainbowSettings extends React.Component {
   onChange(setting, elm){
     var newSettings = {};
     newSettings[elm.name] = parseInt(elm.value, 10);
-    console.log(newSettings)
     this.props.brain.visuApp().setCustomSettings(newSettings);
     this.forceUpdate();
   }
@@ -44,30 +45,37 @@ class RainbowSettings extends React.Component {
     const current = visuApp.getCurrentSettings();
     return (
       <div>
-        <div>
-          click anywhere in the rainbow to change the pattern
-        </div>
-        <Subtitle>
-          create your own pattern
-        </Subtitle>
-        {visuApp.settings.map((s, si) => (
-          <SettingsRow key={si}>
-            <SettingsLeft>
-              <label>{s.description}</label>
-            </SettingsLeft>
-            <SettingsRight>
-              <SettingsSelect
-                onChange={elm => this.onChange(s, elm.target)}
-                name={s.name}
-                value={current[s.name]}
-              >
-                {s.options.map((o, oi) => (
-                  <option key={si + '-' + oi} value={o.value}>{o.display}</option>
-                ))}
-              </SettingsSelect>
-            </SettingsRight>
-          </SettingsRow>
-        ))}
+        <Row>
+          <SectionHeader>
+            instructions
+          </SectionHeader>
+          <Message>
+            click anywhere in the rainbow to change the pattern
+          </Message>
+        </Row>
+        <Row>
+          <SectionHeader>
+            create your own pattern
+          </SectionHeader>
+          {visuApp.settings.map((s, si) => (
+            <SettingsRow key={si}>
+              <SettingsLeft>
+                <label>{s.description}</label>
+              </SettingsLeft>
+              <SettingsRight>
+                <SettingsSelect
+                  onChange={elm => this.onChange(s, elm.target)}
+                  name={s.name}
+                  value={current[s.name]}
+                >
+                  {s.options.map((o, oi) => (
+                    <option key={si + '-' + oi} value={o.value}>{o.display}</option>
+                  ))}
+                </SettingsSelect>
+              </SettingsRight>
+            </SettingsRow>
+          ))}
+        </Row>
       </div>
     );
   }

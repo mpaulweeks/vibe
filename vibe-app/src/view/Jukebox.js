@@ -3,10 +3,15 @@ import styled from 'styled-components';
 
 import Audio from '../lib/Audio';
 
+import {
+  Button,
+} from './Component';
+
 const JukeboxContainer = styled.div`
 `;
 const SongTitle = styled.div`
   padding: 5px 0px;
+  font-size: 18px;
 `;
 const AudioElm = styled.audio`
   display: none;
@@ -34,12 +39,12 @@ class Jukebox extends React.Component {
           <a target="_blank" href={ data.url }>{ data.description }</a>
         </SongTitle>
         <div>
-          <button onClick={() => this.toggle()}>
+          <Button onClick={() => this.toggle()}>
             { data.isPlaying ? 'stop music' : 'play music' }
-          </button>
-          <button onClick={() => this.next()}>
+          </Button>
+          <Button onClick={() => this.next()}>
             next track
-          </button>
+          </Button>
         </div>
       </JukeboxContainer>
     );
