@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CanvasContainer = styled.div`
-  cursor: none;
+  /* cursor: none; */
   height: 100%;
 `;
 

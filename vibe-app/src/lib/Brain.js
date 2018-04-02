@@ -6,8 +6,8 @@ import CubeVisu from './CubeVisu';
 
 class Brain {
   constructor() {
-    this.visuType = 'rainbow';
-    // this.visuType = 'cube';
+    // this.visuType = 'rainbow';
+    this.visuType = 'cube';
 
     this.callbackFunc = () => {};
   }

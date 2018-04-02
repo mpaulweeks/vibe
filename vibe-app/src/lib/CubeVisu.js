@@ -2,8 +2,8 @@ import BaseCanvas from './BaseCanvas';
 import BaseVisu from './BaseVisu';
 
 class Measurements {
-  constructor(edge) {
-    this.edge = edge;
+  constructor(settings) {
+    this.edge = settings.edge;
     this.dx = this.edge * Math.sin(Math.PI/3);
     this.dy = this.edge * Math.cos(Math.PI/3);
     this.cubeHeight = this.dy * 2 + this.edge;
@@ -13,6 +13,7 @@ class Measurements {
 
 class MouseTracker {
   constructor() {
+    this.settings = {};
     this.lookup = {};
     this.mouseSpeed = 0;
   }
@@ -31,8 +32,9 @@ class MouseTracker {
     const { cubeHeight, cubeWidth } = measurement;
     const x = Math.floor(cx / cubeWidth);
     const y = Math.floor(cy / (cubeHeight / 2));
-    for (var xi = -1; xi <= 1; xi++) {
-      for (var yi = -1; yi <= 1; yi++) { // todo maybe +/- 2
+    const { spreadX, spreadY } = this.settings;
+    for (var xi = 0 - spreadX; xi <= spreadX; xi++) {
+      for (var yi = 0 - spreadY; yi <= spreadY; yi++) {
         const value = (xi === 0 && yi === 0) ? speed : speed * 0.5;
         this.setByGrid(x + xi, y + yi, value);
       }
@@ -44,22 +46,30 @@ class MouseTracker {
       this.lookup[key] *= factor;
     }
   }
+  setSettings(newSettings) {
+    this.settings = newSettings;
+  }
 }
 
 class CubeCanvas extends BaseCanvas {
   constructor(...props) {
     super(...props);
-    this.measure = new Measurements(40);
     this.bgc = 'rgb(38,57,131)';
     this.fgc = 'rgb(252, 253, 117)';
     this.mt = new MouseTracker();
+    this.settings = {};
+  }
+  onClick(mouseData) {
+    super.onClick(mouseData)
+    const { measure, mt } = this;
+    mt.setByCoord(measure, 2, mouseData.x, mouseData.y);
   }
   onMove(mouseData) {
     super.onMove(mouseData)
-    const { mt, prevMouseData } = this;
+    const { measure, mt, prevMouseData } = this;
     const distance = Math.sqrt(Math.pow(prevMouseData.x - mouseData.x, 2) + Math.pow(prevMouseData.y - mouseData.y, 2));
     mt.mouseSpeed = Math.min(2, mt.mouseSpeed + distance / 50);
-    mt.setByCoord(this.measure, mt.mouseSpeed, mouseData.x, mouseData.y);
+    mt.setByCoord(measure, mt.mouseSpeed, mouseData.x, mouseData.y);
   }
   getDistanceFromMouse(x, y){
     const { currMouse } = this.mt;
@@ -134,9 +144,30 @@ class CubeCanvas extends BaseCanvas {
       }
     }
   }
+  setSettings(newSettings) {
+    this.settings = newSettings;
+    this.measure = new Measurements(this.settings);
+    this.mt.setSettings(this.settings);
+  }
 }
 
 class CubeVisu extends BaseVisu {
+  constructor(props) {
+    super(props);
+    this.settings = {};
+    this.setSettings({
+      edge: 40,
+      spreadX: 0,
+      spreadY: 0,
+    });
+  }
+  setSettings(newSettings) {
+    this.settings = {
+      ...this.settings,
+      ...newSettings,
+    };
+    this.canvas.setSettings(this.settings);
+  }
   createCanvas(canvasHelper) {
     return new CubeCanvas(canvasHelper);
   }
