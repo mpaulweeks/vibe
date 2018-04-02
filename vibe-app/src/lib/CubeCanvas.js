@@ -78,6 +78,9 @@ class CubeCanvas extends BaseCanvas {
     ctx.moveTo(cx, cy);
     ctx.lineTo(cx, y + dy*2 + edge);
     ctx.stroke();
+
+    // debugging
+    // ctx.strokeText(`${ xGrid },${ yGrid }`, cx-5, cy-5);
   }
   draw() {
     const { ctx, canvasW, canvasH } = this.getCanvasTools();

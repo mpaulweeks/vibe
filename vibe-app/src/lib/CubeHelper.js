@@ -28,14 +28,15 @@ class MouseTracker {
   setByCoord(measurement, speed, cx, cy) {
     const { cubeHeight, cubeWidth } = measurement;
     const x = Math.floor((cx + (cubeWidth / 2)) / cubeWidth);
-    const y1 = Math.floor(cy / (cubeHeight / 2));
-    const y2 = Math.floor((cy - (cubeHeight / 2)) / (cubeHeight / 2));
+    let y = Math.floor(cy / cubeHeight) * 2;
+    if (x % 2 !== 0) {
+      y = (Math.floor((cy - (cubeHeight / 2)) / cubeHeight) * 2) + 1;
+    }
     const { spreadX, spreadY } = this.settings;
     for (var xi = 0 - spreadX; xi <= spreadX; xi++) {
       for (var yi = 0 - spreadY; yi <= spreadY; yi++) {
         const value = (xi === 0 && yi === 0) ? speed : speed * 0.5;
-        this.setByGrid(x + xi, y1 + yi, value);
-        this.setByGrid(x + xi, y2 + yi, value);
+        this.setByGrid(x + xi, y + yi, value);
       }
     }
   }
