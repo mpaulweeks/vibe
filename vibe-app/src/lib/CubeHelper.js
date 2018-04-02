@@ -1,3 +1,47 @@
+class DummyMouse {
+  constructor(speed, size, x, y) {
+    this.speed = speed;
+    this.size = size;
+    this.x = x;
+    this.y = y;
+    // always keep angle between -PI and PI
+    this.angle = (Math.random() * Math.PI * 2) - Math.PI;
+  }
+  move() {
+    const { speed, angle } = this;
+    const dx = speed * Math.cos(angle);
+    const dy = speed * Math.sin(angle);
+    this.x += dx;
+    this.y += dy;
+  }
+  reflectX() {
+    this.angle += Math.PI;
+    if (this.angle > Math.PI){
+      this.angle -= 2 * Math.PI;
+    }
+    this.angle *= -1;
+  }
+  reflectY() {
+    this.angle *= -1;
+  }
+  checkOutOfBounds(canvasW, canvasH){
+    // todo might need while loops to fix on resize, but they dont work as expected...
+    const { x, y } = this;
+    if (x < 0 || x > canvasW){
+      this.reflectX();
+      // while(x < 0 || x > canvasW){
+      //   this.move();
+      // }
+    }
+    if (y < 0 || y > canvasH){
+      this.reflectY();
+      // while(y < 0 || y > canvasH){
+      //   this.move();
+      // }
+    }
+  }
+}
+
 class Measurements {
   constructor(settings) {
     this.edge = settings.edge;
@@ -67,6 +111,7 @@ class MouseTracker {
 }
 
 export {
+  DummyMouse,
   Measurements,
   MouseTracker,
 }

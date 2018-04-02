@@ -25,6 +25,10 @@ class CubeCanvas extends BaseCanvas {
     mt.mouseSpeed = Math.min(2, mt.mouseSpeed + distance / 50);
     mt.setByCoord(measure, mt.mouseSpeed, mouseData.x, mouseData.y);
   }
+  dummyMouse(speed, x, y) {
+    const { measure, mt } = this;
+    mt.setByCoord(measure, speed, x, y);
+  }
   getDistanceFromMouse(x, y){
     const { currMouse } = this.mt;
     return Math.sqrt(Math.pow(currMouse.x - x, 2) + Math.pow(currMouse.y - y, 2));
