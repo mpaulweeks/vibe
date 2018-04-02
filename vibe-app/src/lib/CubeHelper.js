@@ -35,7 +35,10 @@ class MouseTracker {
     const { spreadX, spreadY } = this.settings;
     for (var xi = 0 - spreadX; xi <= spreadX; xi++) {
       for (var yi = 0 - spreadY; yi <= spreadY; yi++) {
-        const value = (xi === 0 && yi === 0) ? speed : speed * 0.5;
+        const ratioX = 1 - Math.abs(xi / (spreadX + 1));
+        const ratioY = 1 - Math.abs(yi / (spreadY + 1));
+        const ratio = Math.min(ratioX, ratioY);
+        const value = speed * ratio;
         this.setByGrid(x + xi, y + yi, value);
       }
     }

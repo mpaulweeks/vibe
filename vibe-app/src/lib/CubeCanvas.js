@@ -15,7 +15,8 @@ class CubeCanvas extends BaseCanvas {
   onClick(mouseData) {
     super.onClick(mouseData)
     const { measure, mt } = this;
-    mt.setByCoord(measure, 2, mouseData.x, mouseData.y);
+    mt.mouseSpeed = 2;
+    mt.setByCoord(measure, mt.mouseSpeed, mouseData.x, mouseData.y);
   }
   onMove(mouseData) {
     super.onMove(mouseData)

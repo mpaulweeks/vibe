@@ -7,7 +7,7 @@ class CubeVisu extends BaseVisu {
     this.settings = {};
     this.setSettings({
       edge: 40,
-      spreadX: 1,
+      spreadX: 2,
       spreadY: 1,
     });
   }
