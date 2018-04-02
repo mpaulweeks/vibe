@@ -2,7 +2,7 @@ class BaseVisu {
   constructor(parent) {
     this.parent = parent;
     this.canvas = this.createCanvas(parent.ch);
-    this.settings = [];
+    this.settingOptions = [];
   }
   onClick(mouseData) {
     this.canvas.onClick(mouseData);
@@ -14,6 +14,10 @@ class BaseVisu {
   draw() {
     this.canvas.draw();
   }
+  getCurrentSettings() {
+    return {};
+  }
+  setCustomSettings() {}
 }
 
 export default BaseVisu;

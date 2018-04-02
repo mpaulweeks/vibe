@@ -11,7 +11,7 @@ class RainbowVisu extends BaseVisu {
   constructor(...props) {
     super(...props);
     this.patterns = new RainbowPatterns(this.canvas);
-    this.settings = [
+    this.settingOptions = [
       new VisuSetting('phaseDelta', 'RGB shift', 0, 32, 1),
       new VisuSetting('colorRange', 'contrast', 0, 127, 1),
       new VisuSetting('numSlices', 'number of Slices per Group', 1, 32, 1),

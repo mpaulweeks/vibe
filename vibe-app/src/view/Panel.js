@@ -1,7 +1,6 @@
 import React from 'react';
 
-import RainbowSettings from './RainbowSettings';
-import CubeSettings from './CubeSettings';
+import CustomSettings from './CustomSettings';
 
 import {
   Row,
@@ -44,12 +43,7 @@ class Panel extends React.Component {
           </Button>
         </Row>
         <Row>
-          {brain.visuType === 'rainbow' && (
-            <RainbowSettings brain={ brain }></RainbowSettings>
-          )}
-          {brain.visuType === 'cube' && (
-            <CubeSettings brain={ brain }></CubeSettings>
-          )}
+          <CustomSettings brain={ brain }></CustomSettings>
         </Row>
       </div>
     );

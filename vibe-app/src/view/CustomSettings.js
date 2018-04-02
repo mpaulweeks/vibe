@@ -29,7 +29,7 @@ const SettingsSelect = styled.select`
   width: 50px;
 `;
 
-class RainbowSettings extends React.Component {
+class CustomSettings extends React.Component {
   constructor(props){
     super(props);
     this.settingElms = [];
@@ -57,7 +57,7 @@ class RainbowSettings extends React.Component {
           <SectionHeader>
             create your own pattern
           </SectionHeader>
-          {visuApp.settings.map((s, si) => (
+          {visuApp.settingOptions.map((s, si) => (
             <SettingsRow key={si}>
               <SettingsLeft>
                 <label>{s.description}</label>
@@ -81,4 +81,4 @@ class RainbowSettings extends React.Component {
   }
 }
 
-export default RainbowSettings;
+export default CustomSettings;
