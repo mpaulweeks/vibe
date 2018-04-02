@@ -23,7 +23,9 @@ class MouseTracker {
   }
   setByGrid(x, y, value) {
     const key = this.toKey(x, y);
-    this.lookup[key] = value;
+    if (!this.lookup[key] || this.lookup[key] < value){
+      this.lookup[key] = value;
+    }
   }
   setByCoord(measurement, speed, cx, cy) {
     const { cubeHeight, cubeWidth } = measurement;
