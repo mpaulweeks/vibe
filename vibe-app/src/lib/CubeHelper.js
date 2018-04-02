@@ -44,10 +44,20 @@ class MouseTracker {
     }
   }
   slowDown(factor) {
+    const deleteThreshold = 1 / (this.settings.edge * 2);
+
     this.mouseSpeed *= factor;
+
+    const toDel = [];
     for (let key in this.lookup) {
       this.lookup[key] *= factor;
+      if (this.lookup[key] < deleteThreshold) {
+        toDel.push(key);
+      }
     }
+    toDel.forEach(key => {
+      delete this.lookup[key];
+    });
   }
   setSettings(newSettings) {
     this.settings = newSettings;
