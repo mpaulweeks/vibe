@@ -1,34 +1,37 @@
 import BaseVisu from './BaseVisu';
 import CubeCanvas from './CubeCanvas';
-import VisuSetting from './VisuSetting';
-
+import {
+  NewIntegerSetting,
+  NewBooleanSetting,
+} from './VisuSetting';
 import {
   DummyMouse,
 } from './CubeHelper';
 
+const defaultSettings = {
+  edge: 40,
+  shrinkRate: 90,
+  spreadX: 1,
+  spreadY: 1,
+  countDummyMice: 5,
+};
+
 class CubeVisu extends BaseVisu {
   constructor(props) {
     super(props);
-    this.settings = {};
-    this.setCustomSettings({
-      edge: 40,
-      shrinkRate: 90,
-      spreadX: 1,
-      spreadY: 1,
-      countDummyMice: 30,
-    });
+    this.setCustomSettings(defaultSettings);
     this.settingOptions = [
-      new VisuSetting('edge', 'Cube Size', 20, 200, 5),
-      new VisuSetting('shrinkRate', 'Size Retention Rate %', 70, 99, 1),
-      new VisuSetting('spreadX', 'Splash Left/Right', 0, 20, 1),
-      new VisuSetting('spreadY', 'Splash Up/Down', 0, 20, 1),
-      new VisuSetting('countDummyMice', 'Automated Movers', 0, 30, 1),
+      NewIntegerSetting('edge', 'Cube Size', 20, 200, 5),
+      NewIntegerSetting('shrinkRate', 'Size Retention Rate %', 70, 99, 1),
+      NewIntegerSetting('spreadX', 'Splash Left/Right', 0, 20, 1),
+      NewIntegerSetting('spreadY', 'Splash Up/Down', 0, 20, 1),
+      NewIntegerSetting('countDummyMice', 'Automated Movers', 0, 30, 1),
     ];
     this.dummyMice = [];
   }
   setCustomSettings(newSettings) {
     this.settings = {
-      ...this.settings,
+      ...(this.settings || {}),
       ...newSettings,
     };
     this.canvas.setSettings(this.settings);
