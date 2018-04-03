@@ -6,7 +6,11 @@ class VisuSetting {
   }
 }
 
-function NewVisuSetting(name, description, options){
+function NewVisuSetting(name, description, listOptions){
+  const options = listOptions.map(tuple => ({
+    value: tuple[0],
+    display: tuple[1],
+  }))
   return new VisuSetting(name, description, options)
 }
 

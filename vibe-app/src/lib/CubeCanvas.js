@@ -7,8 +7,6 @@ import {
 class CubeCanvas extends BaseCanvas {
   constructor(...props) {
     super(...props);
-    this.bgc = 'rgb(38,57,131)';
-    this.fgc = 'rgb(252, 253, 117)';
     this.mt = new MouseTracker();
     this.settings = {};
   }
@@ -89,9 +87,9 @@ class CubeCanvas extends BaseCanvas {
   }
   draw() {
     const { ctx, canvasW, canvasH } = this.getCanvasTools();
-    const { bgc, fgc } = this;
-    ctx.fillStyle = bgc;
-    ctx.strokeStyle = fgc;
+    const { colorFace, colorEdge } = this.settings;
+    ctx.fillStyle = colorFace;
+    ctx.strokeStyle = colorEdge;
     ctx.lineWidth = 1;
     ctx.fillRect(0, 0, canvasW, canvasH);
 

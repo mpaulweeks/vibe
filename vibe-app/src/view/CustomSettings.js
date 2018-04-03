@@ -35,8 +35,12 @@ class CustomSettings extends React.Component {
     this.settingElms = [];
   }
   onChange(setting, elm){
-    var newSettings = {};
-    newSettings[elm.name] = parseInt(elm.value, 10);
+    const newSettings = {};
+    let value = elm.value;
+    if (!isNaN(value)){
+      value = parseInt(value, 10);
+    }
+    newSettings[elm.name] = value;
     this.props.brain.visuApp().setCustomSettings(newSettings);
     this.forceUpdate();
   }

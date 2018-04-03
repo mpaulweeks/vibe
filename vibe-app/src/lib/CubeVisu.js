@@ -1,8 +1,8 @@
 import BaseVisu from './BaseVisu';
 import CubeCanvas from './CubeCanvas';
 import {
+  NewVisuSetting,
   NewIntegerSetting,
-  NewBooleanSetting,
 } from './VisuSetting';
 import {
   DummyMouse,
@@ -14,6 +14,8 @@ const defaultSettings = {
   spreadX: 1,
   spreadY: 1,
   countDummyMice: 5,
+  colorFace: 'rgb(38,57,131)',
+  colorEdge: 'rgb(252,253,117)',
 };
 
 class CubeVisu extends BaseVisu {
@@ -26,6 +28,16 @@ class CubeVisu extends BaseVisu {
       NewIntegerSetting('spreadX', 'Splash Left/Right', 0, 20, 1),
       NewIntegerSetting('spreadY', 'Splash Up/Down', 0, 20, 1),
       NewIntegerSetting('countDummyMice', 'Automated Movers', 0, 30, 1),
+      NewVisuSetting('colorFace', 'Cube Color', [
+        ['rgb(38,57,131)', 'Blue'],
+        ['black', 'Black'],
+        ['white', 'White'],
+      ]),
+      NewVisuSetting('colorEdge', 'Edge Color', [
+        ['rgb(252,253,117)', 'Yellow'],
+        ['white', 'White'],
+        ['black', 'Black'],
+      ]),
     ];
     this.dummyMice = [];
   }
