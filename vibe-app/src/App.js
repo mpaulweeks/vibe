@@ -33,6 +33,10 @@ const FooterContainer = styled.div`
 class App extends React.Component {
   constructor(props){
     super(props)
+
+    // todo
+    window.cookies = props.cookies;
+
     this.brain = new Brain();
     this.state = {
       ready: false,
