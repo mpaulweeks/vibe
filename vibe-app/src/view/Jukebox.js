@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Audio from '../lib/Audio';
-
 import {
   Button,
 } from './Component';
@@ -19,15 +17,15 @@ const AudioElm = styled.audio`
 
 class Jukebox extends React.Component {
   toggle() {
-    Audio.togglePlay();
+    this.props.audio.togglePlay();
     this.forceUpdate();
   }
   next() {
-    Audio.nextTrack();
+    this.props.audio.nextTrack();
     this.forceUpdate();
   }
   render() {
-    const data = Audio.getData();
+    const data = this.props.audio.getData();
     return (
       <JukeboxContainer>
         { data.isPlaying && (

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Brain from './lib/Brain';
+import AudioManager from './lib/Audio';
 
 import Canvas from './view/Canvas';
 import Panel from './view/Panel';
@@ -34,10 +35,8 @@ class App extends React.Component {
   constructor(props){
     super(props)
 
-    // todo
-    window.cookies = props.cookies;
-
     this.brain = new Brain();
+    this.audio = new AudioManager(props.cookies);
     this.state = {
       ready: false,
     };
@@ -54,14 +53,17 @@ class App extends React.Component {
   }
   render() {
     const { ready } = this.state;
-    const { brain } = this;
+    const childrenProps = {
+      brain: this.brain,
+      audio: this.audio,
+    };
     return (
       <PageContainer>
         <Canvas ref="canvas"></Canvas>
         {ready && (
           <FooterContainer>
-            <Panel brain={brain}></Panel>
-            <Footer>></Footer>
+            <Panel {...childrenProps}></Panel>
+            <Footer {...childrenProps}>></Footer>
           </FooterContainer>
         )}
       </PageContainer>

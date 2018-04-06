@@ -8,10 +8,11 @@ import {
 
 class Footer extends React.Component {
   render() {
+    const childrenProps = this.props;
     return (
       <div>
         <Row>
-          <Jukebox></Jukebox>
+          <Jukebox {...childrenProps}></Jukebox>
         </Row>
         <Row>
           <a href="https://twitter.com/mpaulweeks">@mpaulweeks</a>
