@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Brain from './lib/Brain';
-import AudioManager from './lib/Audio';
+import AudioManager from './lib/AudioManager';
 
 import Canvas from './view/Canvas';
 import Panel from './view/Panel';
