@@ -38,7 +38,7 @@ class AudioManager {
     this.cookie = cookie;
 
     this.tracks = tracks;
-    this.index = 1;
+    this.index = 0;
 
     this.jukeboxPlaying = this.cookie.get(COOKIE_MUTE) === "false";
     this.loadTrack(this.cookie.get(COOKIE_SONG));
@@ -52,12 +52,9 @@ class AudioManager {
   }
   loadTrack(filename){
     const { tracks } = this;
-
-    var toLoad = tracks[0];
     for (var i = 0; i < tracks.length; i++){
       var currTitle = tracks[i].filename;
       if (currTitle === filename){
-        toLoad = tracks[i];
         this.index = i;
       }
     }
