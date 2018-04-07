@@ -11,9 +11,10 @@ class Brain {
 
     this.callbackFunc = () => {};
   }
-  init(canvasElm) {
+  init(canvasElm, otherClickables) {
     this.ch = new CanvasHandler(
       canvasElm,
+      otherClickables,
       mouseData => this.onCanvasClick(mouseData),
       mouseData => this.onCanvasMove(mouseData)
     )

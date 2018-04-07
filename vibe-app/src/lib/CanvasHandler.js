@@ -1,21 +1,25 @@
 class CanvasHandler {
-  constructor(canvasElm, clickCallback, moveCallback) {
+  constructor(canvasElm, otherClickables, clickCallback, moveCallback) {
     this.canvas = canvasElm;
     this.ensureCanvasDimensions();
     this.ctx = this.canvas.getContext('2d');
 
     const self = this;
-    this.canvas.addEventListener('click', evt => {
-      clickCallback(self.getMouseData(evt));
-    });
-    this.canvas.addEventListener('mousemove', evt => {
-      moveCallback(self.getMouseData(evt));
-    });
-    this.canvas.addEventListener('touchmove', touchEvt => {
-      touchEvt.preventDefault();
-      const evt = touchEvt.touches[0];
-      moveCallback(self.getMouseData(evt));
-    }, false);
+    const clickables = [this.canvas].concat(otherClickables);
+    console.log(clickables);
+    clickables.forEach(c => {
+      c.addEventListener('click', evt => {
+        clickCallback(self.getMouseData(evt));
+      });
+      c.addEventListener('mousemove', evt => {
+        moveCallback(self.getMouseData(evt));
+      });
+      c.addEventListener('touchmove', touchEvt => {
+        touchEvt.preventDefault();
+        const evt = touchEvt.touches[0];
+        moveCallback(self.getMouseData(evt));
+      }, false);
+    })
   }
   ensureCanvasDimensions() {
     const { canvas } = this;

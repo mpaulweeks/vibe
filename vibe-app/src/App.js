@@ -7,6 +7,7 @@ import AudioManager from './lib/AudioManager';
 import Canvas from './view/Canvas';
 import Panel from './view/Panel';
 import Footer from './view/Footer';
+import Popup from './view/Popup';
 
 
 const PageContainer = styled.div`
@@ -45,8 +46,12 @@ class App extends React.Component {
     window.brain = this.brain;
   }
   componentDidMount() {
-    this.brain.init(this.refs.canvas.elm);
-    console.log('mounted App', this.brain);
+    this.brain.init(
+      this.refs.canvas.elm,
+      [
+        this.refs.popup.elm,
+      ]
+    );
     this.setState({
       ready: true,
     })
@@ -66,6 +71,7 @@ class App extends React.Component {
             <Footer {...childrenProps}>></Footer>
           </FooterContainer>
         )}
+        <Popup ref="popup"></Popup>
       </PageContainer>
     );
   }
