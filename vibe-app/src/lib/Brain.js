@@ -4,12 +4,28 @@ import CanvasHandler from './CanvasHandler';
 import RainbowVisu from './RainbowVisu';
 import CubeVisu from './CubeVisu';
 
+const TYPES = [
+  'rainbow',
+  'cube',
+];
+
 class Brain {
   constructor() {
-    // this.visuType = 'rainbow';
-    this.visuType = 'cube';
-
+    this.setType(this.readUrl() || TYPES[0]);
     this.callbackFunc = () => {};
+  }
+  readUrl(){
+    const hash = window.location.hash;
+    if (hash){
+      const type = hash.substring(1).toLowerCase();
+      if (TYPES.includes(type)){
+        return type;
+      }
+    }
+    return null;
+  }
+  setUrl(){
+    window.location.hash = "#" + this.visuType;
   }
   init(canvasElm, otherClickables) {
     this.ch = new CanvasHandler(
@@ -36,6 +52,7 @@ class Brain {
   }
   setType(type) {
     this.visuType = type;
+    this.setUrl();
   }
   setCallback(func) {
     this.callbackFunc = func;
