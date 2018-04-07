@@ -21,6 +21,9 @@ const defaultSettings = {
 class CubeVisu extends BaseVisu {
   constructor(props) {
     super(props);
+    this.instructions = [
+      'move your mouse to make waves',
+    ]
     this.setCustomSettings(defaultSettings);
     this.settingOptions = [
       NewIntegerSetting('edge', 'Cube Size', 20, 200, 5),

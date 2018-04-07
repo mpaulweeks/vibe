@@ -53,9 +53,11 @@ class CustomSettings extends React.Component {
           <SectionHeader>
             instructions
           </SectionHeader>
-          <Message>
-            click anywhere in the rainbow to change the pattern
-          </Message>
+          {visuApp.instructions.map((m, mi) => (
+            <Message key={`instructions-${mi}`}>
+              {m}
+            </Message>
+          ))}
         </Row>
         <Row>
           <SectionHeader>
