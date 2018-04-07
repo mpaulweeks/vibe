@@ -7,6 +7,8 @@ visual experiments (now with React)
   - react gh pages?
 
 - feature parity
+  - import gravity
+  - custom instructions in panel
   - mobile aware?
   - last sweep for other things
 
