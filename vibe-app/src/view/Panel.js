@@ -32,12 +32,11 @@ class Panel extends React.Component {
           <SectionHeader>
             change display
           </SectionHeader>
-          <Button onClick={() => this.setType('rainbow')}>
-            Rainbow
-          </Button>
-          <Button onClick={() => this.setType('cube')}>
-            Cube
-          </Button>
+          {brain.types.map((t, i) => (
+            <Button key={`type-${i}`} onClick={() => this.setType(t.type)}>
+              {t.name}
+            </Button>
+          ))}
           <Button onClick={() => this.onFullscreen()}>
             View Fullscreen
           </Button>

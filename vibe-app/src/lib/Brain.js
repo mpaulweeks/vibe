@@ -2,23 +2,35 @@ import Looper from './Looper';
 import CanvasHandler from './CanvasHandler';
 
 import RainbowVisu from './RainbowVisu';
+import GravityVisu from './GravityVisu';
 import CubeVisu from './CubeVisu';
 
-const TYPES = [
-  'rainbow',
-  'cube',
+const Types = [
+  {
+    type: 'rainbow',
+    name: 'Rainbow',
+  },
+  {
+    type: 'gravity',
+    name: 'Gravity',
+  },
+  {
+    type: 'cube',
+    name: 'Cube',
+  },
 ];
 
 class Brain {
   constructor() {
-    this.setType(this.readUrl() || TYPES[0]);
+    this.types = Types;
+    this.setType(this.readUrl() || Types[0].type);
     this.callbackFunc = () => {};
   }
   readUrl(){
     const hash = window.location.hash;
     if (hash){
       const type = hash.substring(1).toLowerCase();
-      if (TYPES.includes(type)){
+      if (Types.includes(type)){
         return type;
       }
     }
@@ -36,6 +48,7 @@ class Brain {
     )
     this.visuLookup = {
       'rainbow': new RainbowVisu(this),
+      'gravity': new GravityVisu(this),
       'cube': new CubeVisu(this),
     };
 
