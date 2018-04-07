@@ -1,21 +1,9 @@
 import BaseVisu from './BaseVisu';
 import RainbowCanvas from './RainbowCanvas';
 
-import { Pattern } from './Pattern';
 import RingManager from './GravityRing';
 import ParticleManager from './GravityParticle';
 import VortexManager from './GravityVortex';
-
-const rainbowSettings = {
-  centered: 1,
-  phaseDelta: 0,
-  colorFloor: 60,
-  colorRange: 30,
-
-  numSlices: 4,
-  sliceDifference: 4,
-  groupWidth: 150,
-};
 
 class GravityVisu extends BaseVisu {
   constructor(...props) {
@@ -26,7 +14,6 @@ class GravityVisu extends BaseVisu {
     this.setCustomSettings({});
     this.settingOptions = [];
 
-    this.pattern = new Pattern(this.canvas.getDrawFunc(), rainbowSettings);
     this.rm = new RingManager(this.canvas);
     this.pm = new ParticleManager(this.canvas);
     this.vm = new VortexManager(this.canvas);
@@ -43,15 +30,14 @@ class GravityVisu extends BaseVisu {
     this.vm.newVortex(coord);
   }
   tick(){
-    const { rm, pm, vm, pattern } = this;
+    const { rm, pm, vm } = this;
     rm.step();
     pm.step(vm.getVortexes());
     vm.step();
-    pattern.step();
   }
   draw(){
-    const { rm, pm, vm, pattern } = this;
-    pattern.draw();
+    const { canvas, rm, pm, vm } = this;
+    canvas.clear('black');
     vm.drawBackgrounds();
     rm.draw();
     pm.draw();

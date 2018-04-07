@@ -15,11 +15,16 @@ class BaseCanvas {
     this.prevMouseData = this.mouseData;
     this.mouseData = mouseData;
   }
-  getCanvasTools(){
+  getCanvasTools() {
     return {
       ...this.canvasHandler.getCanvasTools(),
       mouseData: this.mouseData,
     }
+  }
+  clear(style) {
+    const { ctx, canvasW, canvasH } = this.getCanvasTools();
+    ctx.fillStyle = style;
+    ctx.fillRect(0, 0, canvasW, canvasH);
   }
 }
 
