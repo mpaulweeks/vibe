@@ -7,8 +7,15 @@ visual experiments (now with React)
   - react gh pages?
 
 - feature parity
-  - cookies
-  - popup
+  - mobile aware?
+  - last sweep for other things
+
+- specify mode via url
+  - sample.com/#rainbow
+
+- settings with dependencies
+  - eg: if cube not rainbow, then choose color
+  - settings wrapper that takes list, option obj of deps
 
 - next steps for cube
   - color picker for settings
