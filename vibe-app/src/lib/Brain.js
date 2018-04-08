@@ -30,7 +30,8 @@ class Brain {
     const hash = window.location.hash;
     if (hash){
       const type = hash.substring(1).toLowerCase();
-      if (Types.includes(type)){
+      const validTypes = this.types.map(t => t.type);
+      if (validTypes.includes(type)){
         return type;
       }
     }
