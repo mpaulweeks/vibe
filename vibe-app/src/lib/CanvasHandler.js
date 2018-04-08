@@ -1,5 +1,5 @@
 class CanvasHandler {
-  constructor(canvasElm, otherClickables, clickCallback, moveCallback) {
+  constructor(brain, canvasElm, otherClickables) {
     this.canvas = canvasElm;
     this.ensureCanvasDimensions();
     this.ctx = this.canvas.getContext('2d');
@@ -9,15 +9,21 @@ class CanvasHandler {
     console.log(clickables);
     clickables.forEach(c => {
       c.addEventListener('click', evt => {
-        clickCallback(self.getMouseData(evt));
+        brain.onCanvasMouseClick(self.getMouseData(evt));
       });
       c.addEventListener('mousemove', evt => {
-        moveCallback(self.getMouseData(evt));
+        brain.onCanvasMouseMove(self.getMouseData(evt));
+      });
+      c.addEventListener('mousedown', evt => {
+        brain.onCanvasMouseDown(self.getMouseData(evt));
+      });
+      c.addEventListener('mouseup', evt => {
+        brain.onCanvasMouseUp(self.getMouseData(evt));
       });
       c.addEventListener('touchmove', touchEvt => {
         touchEvt.preventDefault();
         const evt = touchEvt.touches[0];
-        moveCallback(self.getMouseData(evt));
+        brain.onCanvasMove(self.getMouseData(evt));
       }, false);
     })
   }

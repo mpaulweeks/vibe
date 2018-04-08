@@ -7,14 +7,18 @@ class BaseCanvas {
       y: 100,
     };
   }
-  onClick(mouseData) {
+
+  onMouseClick(mouseData) {
     this.prevMouseData = this.mouseData;
     this.mouseData = mouseData;
   }
-  onMove(mouseData) {
+  onMouseMove(mouseData) {
     this.prevMouseData = this.mouseData;
     this.mouseData = mouseData;
   }
+  onMouseDown(mouseData) {}
+  onMouseUp(mouseData) {}
+
   getCanvasTools() {
     return {
       ...this.canvasHandler.getCanvasTools(),

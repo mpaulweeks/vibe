@@ -38,7 +38,7 @@ class RainbowVisu extends BaseVisu {
     }
     this.patterns.newCustom(combinedSettings);
   }
-  onClick() {
+  onMouseClick() {
     // override super
     this.patterns.next();
   }

@@ -4,12 +4,20 @@ class BaseVisu {
     this.canvas = this.createCanvas(parent.ch);
     this.settingOptions = [];
   }
-  onClick(mouseData) {
-    this.canvas.onClick(mouseData);
+
+  onMouseClick(mouseData) {
+    this.canvas.onMouseClick(mouseData);
   }
-  onMove(mouseData) {
-    this.canvas.onMove(mouseData);
+  onMouseMove(mouseData) {
+    this.canvas.onMouseMove(mouseData);
   }
+  onMouseDown(mouseData) {
+    this.canvas.onMouseDown(mouseData);
+  }
+  onMouseUp(mouseData) {
+    this.canvas.onMouseUp(mouseData);
+  }
+
   tick() {}
   draw() {
     this.canvas.draw();

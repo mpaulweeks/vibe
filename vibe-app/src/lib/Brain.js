@@ -42,10 +42,9 @@ class Brain {
   }
   init(canvasElm, otherClickables) {
     this.ch = new CanvasHandler(
+      this,
       canvasElm,
       otherClickables,
-      mouseData => this.onCanvasClick(mouseData),
-      mouseData => this.onCanvasMove(mouseData)
     )
     this.visuLookup = {
       'rainbow': new RainbowVisu(this),
@@ -80,12 +79,18 @@ class Brain {
   loopDraw() {
     this.visuApp().draw();
   }
-  onCanvasClick(mouseData) {
-    this.visuApp().onClick(mouseData);
+  onCanvasMouseClick(mouseData) {
+    this.visuApp().onMouseClick(mouseData);
     this.callbackFunc();
   }
-  onCanvasMove(mouseData) {
-    this.visuApp().onMove(mouseData);
+  onCanvasMouseMove(mouseData) {
+    this.visuApp().onMouseMove(mouseData);
+  }
+  onCanvasMouseDown(mouseData) {
+    this.visuApp().onMouseDown(mouseData);
+  }
+  onCanvasMouseUp(mouseData) {
+    this.visuApp().onMouseUp(mouseData);
   }
 }
 

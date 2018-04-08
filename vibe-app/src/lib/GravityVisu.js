@@ -17,6 +17,7 @@ class GravityVisu extends BaseVisu {
     this.rm = new RingManager(this.canvas);
     this.pm = new ParticleManager(this.canvas);
     this.vm = new VortexManager(this.canvas);
+    this.mouseHoldVortex = null;
 
     for (var i = 0; i < 1000; i++){
       this.pm.newParticle();
@@ -25,9 +26,25 @@ class GravityVisu extends BaseVisu {
   createCanvas(canvasHelper) {
     return new RainbowCanvas(canvasHelper);
   }
-  onClick(){
-    var coord = this.canvas.getCanvasTools().mouseData;
-    this.vm.newVortex(coord);
+  onMouseClick(mouseData){
+    // todo covered by up/down?
+    // this.vm.newVortex(mouseData);
+  }
+  onMouseMove(mouseData){
+    if (this.mouseHoldVortex !== null){
+      this.mouseHoldVortex.updateRing(mouseData);
+    }
+  }
+  onMouseDown(mouseData){
+    if (this.mouseHoldVortex === null){
+      this.mouseHoldVortex = this.vm.newHoldVortex(mouseData);
+    }
+  }
+  onMouseUp(mouseData){
+    if (this.mouseHoldVortex !== null){
+      this.mouseHoldVortex.birth();
+      this.mouseHoldVortex = null;
+    }
   }
   tick(){
     const { rm, pm, vm } = this;
@@ -46,31 +63,3 @@ class GravityVisu extends BaseVisu {
 }
 
 export default GravityVisu;
-
-/* tbd
-  var mouseHoldVortex = null;
-  function mouseDown(e){
-    if (mouseHoldVortex === null){
-      var coord = cvas.getMousePos(e);
-      mouseHoldVortex = vm.newHoldVortex(coord);
-    }
-  }
-  function mouseUp(e){
-    if (mouseHoldVortex !== null){
-      mouseHoldVortex.birth();
-      mouseHoldVortex = null;
-    }
-  }
-  function mouseMove(e){
-    if (mouseHoldVortex !== null){
-      var coord = cvas.getMousePos(e);
-      mouseHoldVortex.updateRing(coord);
-    }
-  }
-  function mobileMouse(func){
-    return function(e){
-      e.preventDefault();
-      return func(e.touches[0]);
-    }
-  }
-*/

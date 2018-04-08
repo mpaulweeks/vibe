@@ -10,14 +10,14 @@ class CubeCanvas extends BaseCanvas {
     this.mt = new MouseTracker();
     this.settings = {};
   }
-  onClick(mouseData) {
-    super.onClick(mouseData)
+  onMouseClick(mouseData) {
+    super.onMouseClick(mouseData)
     const { measure, mt } = this;
     mt.mouseSpeed = 2;
     mt.setByCoord(measure, mt.mouseSpeed, mouseData.x, mouseData.y);
   }
-  onMove(mouseData) {
-    super.onMove(mouseData)
+  onMouseMove(mouseData) {
+    super.onMouseMove(mouseData)
     const { measure, mt, prevMouseData } = this;
     const distance = Math.sqrt(Math.pow(prevMouseData.x - mouseData.x, 2) + Math.pow(prevMouseData.y - mouseData.y, 2));
     mt.mouseSpeed = Math.min(2, mt.mouseSpeed + distance / 50);
