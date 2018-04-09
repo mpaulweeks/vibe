@@ -23,7 +23,7 @@ const disappear = keyframes`
 `;
 
 const PopupContainer = styled.div`
-  position: fixed;
+  position: absolute;
   top: 30px;
   left: 50%;
   transform: translate(-50%, 0%);
