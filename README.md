@@ -2,16 +2,13 @@
 visual experiments (now with React)
 
 ## todo
-- deploying
-  - https://medium.com/@omgwtfmarc/deploying-create-react-app-to-s3-or-cloudfront-48dae4ce0af
-  - react gh pages?
-
 - feature parity
   - mobile aware?
   - last sweep for other things
 
-- specify mode via url
-  - sample.com/#rainbow
+- specify settings via url
+  - sample.com/?settings=123456
+  - use bitly
 
 - settings with dependencies
   - eg: if cube not rainbow, then choose color

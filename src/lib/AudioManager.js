@@ -1,7 +1,7 @@
 
 class AudioTrack {
-  constructor(path, filename, description, url){
-    this.path = path;
+  constructor(filename, description, url){
+    this.path = 'https://s3.amazonaws.com/vibe.mpaulweeks.com/music';
     this.filename = filename;
     this.description = description;
     this.url = url;
@@ -14,22 +14,34 @@ const COOKIE_SONG = 'audioTrack';
 
 const tracks = [
   new AudioTrack(
-    'https://s3.amazonaws.com/vibe.mpaulweeks.com/music',
     'FIRSTAID_VibeWithYou.mp3',
     'FIRSTAID - Vibe With You',
     'https://first-aid.bandcamp.com/album/nostalgic-falling-down'
   ),
   new AudioTrack(
-    'https://s3.amazonaws.com/vibe.mpaulweeks.com/music',
     'TheFatRat_TimeLapse.mp3',
     'TheFatRat - Time Lapse',
     'https://lnk.to/tfrtimelapse'
   ),
   new AudioTrack(
-    'https://s3.amazonaws.com/vibe.mpaulweeks.com/music',
     'Justice_CloseCall.mp3',
     'Justice - Close Call',
     'https://itunes.apple.com/us/album/woman/id1151157609'
+  ),
+  new AudioTrack(
+    'GeorgeAndJonathan_UnicornsForever.mp3',
+    'George & Jonathan - Unicorns Forever',
+    'https://georgeandjonathan.bandcamp.com/album/beautiful-lifestyle',
+  ),
+  new AudioTrack(
+    'GeorgeAndJonathan_OneHundredLifetimes.mp3',
+    'George & Jonathan - One Hundred Lifetimes',
+    'https://georgeandjonathan.bandcamp.com/album/beautiful-lifestyle',
+  ),
+  new AudioTrack(
+    'SushiKiller_WaifuDream.mp3',
+    'Sushi Killer - Waifu Dream',
+    'https://soundcloud.com/sushi_killer/sushi-killer-waifu-dream'
   ),
 ];
 
