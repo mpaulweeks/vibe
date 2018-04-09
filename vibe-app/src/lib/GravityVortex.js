@@ -5,7 +5,12 @@ import {
 
 class Vortex {
   constructor(vSettings){
-    const { coord, isHold } = vSettings;
+    const {
+      coord,
+      isHold,
+      ringSize,
+      growthDelta,
+    } = vSettings;
     this.coord = coord;
     this.isHold = isHold;
 
@@ -14,9 +19,9 @@ class Vortex {
     this.coreSize = 20;
     this.deathSize = this.coreSize * 4;
     this.minSize = this.deathSize + 1;
-    this.ringSize = 200;
+    this.ringSize = ringSize;
     this.maxSize = this.ringSize;
-    this.growthDelta = -0.1;
+    this.growthDelta = growthDelta;
   }
 
   step(){
@@ -54,7 +59,7 @@ class Vortex {
   }
 
   eat(){
-    this.ringSize += this.growthDelta;
+    this.ringSize -= this.growthDelta / 100;
   }
 
   isInactive(){
@@ -83,10 +88,16 @@ class VortexManager {
   constructor(cvas){
     this.cvas = cvas;
     this.vortexes = [];
+    this.settings = {};
+  }
+
+  setSettings(newSettings){
+    this.settings = newSettings;
   }
 
   newVortex(coord){
     var v = new Vortex({
+      ...this.settings,
       coord: coord,
       isHold: false,
     });
@@ -96,6 +107,7 @@ class VortexManager {
 
   newHoldVortex(coord){
     var v = new Vortex({
+      ...this.settings,
       coord: coord,
       isHold: true,
     });

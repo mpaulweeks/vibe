@@ -26,7 +26,7 @@ const SettingsRight = styled.div`
   text-align: left;
 `;
 const SettingsSelect = styled.select`
-  width: 50px;
+  width: 100px;
 `;
 
 class CustomSettings extends React.Component {
