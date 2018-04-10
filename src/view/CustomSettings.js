@@ -25,16 +25,13 @@ const SettingsRight = styled.div`
   padding: 0px 5px;
   text-align: left;
 `;
-const SettingsSelect = styled.select`
-  width: 100px;
-`;
 
 class CustomSettings extends React.Component {
   constructor(props){
     super(props);
     this.settingElms = [];
   }
-  onChange(setting, elm){
+  onChange(elm){
     const newSettings = {};
     let value = elm.value;
     if (!isNaN(value)){
@@ -69,15 +66,7 @@ class CustomSettings extends React.Component {
                 <label>{s.description}</label>
               </SettingsLeft>
               <SettingsRight>
-                <SettingsSelect
-                  onChange={elm => this.onChange(s, elm.target)}
-                  name={s.name}
-                  value={current[s.name]}
-                >
-                  {s.options.map((o, oi) => (
-                    <option key={si + '-' + oi} value={o.value}>{o.display}</option>
-                  ))}
-                </SettingsSelect>
+                { s.renderOptions(current, elm => this.onChange(elm)) }
               </SettingsRight>
             </SettingsRow>
           ))}

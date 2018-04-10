@@ -21,5 +21,4 @@ visual experiments (now with React)
   - user mouse is rainbow color
 
 - songs
-  - George & Jonathan - Unicorns Forever
   - Rainbow (Eureka7)
