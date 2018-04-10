@@ -1,29 +1,8 @@
-import React from 'react'; // for jsx
-import styled from 'styled-components';
-
-const SettingsSelect = styled.select`
-  width: 100px;
-`;
-
 class VisuSetting {
   constructor(name, description, options){
     this.name = name;
     this.description = description;
     this.options = options;
-  }
-  renderOptions(current, callback){
-    const { name, options } = this;
-    return (
-      <SettingsSelect
-        onChange={elm => callback(elm.target)}
-        name={name}
-        value={current[name]}
-      >
-        {options.map((o, oi) => (
-          <option key={name + '-' + oi} value={o.value}>{o.display}</option>
-        ))}
-      </SettingsSelect>
-    );
   }
 }
 

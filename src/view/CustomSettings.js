@@ -25,6 +25,27 @@ const SettingsRight = styled.div`
   padding: 0px 5px;
   text-align: left;
 `;
+const SettingsSelect = styled.select`
+  width: 100px;
+`;
+
+class VisuSettingElm extends React.Component {
+  render() {
+    const { name, options } = this.props.data;
+    const { current, callback } = this.props;
+    return (
+      <SettingsSelect
+        onChange={elm => callback(elm.target)}
+        name={name}
+        value={current[name]}
+      >
+        {options.map((o, oi) => (
+          <option key={name + '-' + oi} value={o.value}>{o.display}</option>
+        ))}
+      </SettingsSelect>
+    );
+  }
+}
 
 class CustomSettings extends React.Component {
   constructor(props){
@@ -66,7 +87,11 @@ class CustomSettings extends React.Component {
                 <label>{s.description}</label>
               </SettingsLeft>
               <SettingsRight>
-                { s.renderOptions(current, elm => this.onChange(elm)) }
+                <VisuSettingElm
+                  data={ s }
+                  current={ current }
+                  callback={ elm => this.onChange(elm) }
+                ></VisuSettingElm>
               </SettingsRight>
             </SettingsRow>
           ))}
