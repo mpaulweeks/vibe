@@ -9,10 +9,10 @@ import { ChromePicker } from 'react-color'
 
 class ColorPicker extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
     this.state = {
       displayColorPicker: false,
-      hex: this.props.hex,
+      color: this.props.value,
     };
   }
 
@@ -25,8 +25,8 @@ class ColorPicker extends React.Component {
   };
 
   handleChange = (color) => {
-    this.props.callback(color.hex);
-    this.setState({ hex: color.hex })
+    this.props.onChange(color.hex);
+    this.setState({ color: color.hex })
   };
 
   render() {
@@ -36,7 +36,7 @@ class ColorPicker extends React.Component {
           width: '36px',
           height: '14px',
           borderRadius: '2px',
-          background: `${this.state.hex}`,
+          background: `${this.state.color}`,
           margin: '0 0',
         },
         swatch: {
@@ -68,7 +68,7 @@ class ColorPicker extends React.Component {
         </div>
         { this.state.displayColorPicker ? <div style={ styles.popover }>
           <div style={ styles.cover } onClick={ this.handleClose }/>
-          <ChromePicker color={ this.state.hex } onChange={ this.handleChange } />
+          <ChromePicker color={ this.state.color } onChange={ this.handleChange } />
         </div> : null }
 
       </div>

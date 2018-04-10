@@ -3,6 +3,7 @@ import CubeCanvas from './CubeCanvas';
 import {
   NewVisuSetting,
   NewIntegerSetting,
+  NewColorSetting,
 } from './VisuSetting';
 import {
   DummyMouse,
@@ -16,6 +17,7 @@ const defaultSettings = {
   countDummyMice: 5,
   colorFace: 'rgb(38,57,131)',
   colorEdge: 'rgb(252,253,117)',
+  colorTest: 'rgb(252,253,117)',
 };
 
 class CubeVisu extends BaseVisu {
@@ -41,6 +43,7 @@ class CubeVisu extends BaseVisu {
         ['white', 'White'],
         ['black', 'Black'],
       ]),
+      NewColorSetting('colorTest', 'Test Color'),
     ];
     this.dummyMice = [];
   }

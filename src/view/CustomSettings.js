@@ -6,6 +6,7 @@ import {
   Message,
   SectionHeader,
 } from './Component';
+import ColorPicker from './ColorPicker';
 
 const SettingsRow = styled.div`
   width: 100%;
@@ -29,8 +30,8 @@ const SettingsSelect = styled.select`
   width: 100px;
 `;
 
-class VisuSettingElm extends React.Component {
-  render() {
+class SettingEditor extends React.Component {
+  renderSelect() {
     const { name, options } = this.props.data;
     const { current, callback } = this.props;
     return (
@@ -44,6 +45,27 @@ class VisuSettingElm extends React.Component {
         ))}
       </SettingsSelect>
     );
+  }
+  renderColorPicker() {
+    const { name, pickerConfig } = this.props.data;
+    const { current, callback } = this.props;
+    return (
+      <ColorPicker
+        onChange={value => callback({ name: name, value: value })}
+        name={name}
+        value={current[name]}
+      ></ColorPicker>
+    );
+  }
+  render() {
+    const { type } = this.props.data;
+    if (type === 'select') {
+      return this.renderSelect();
+    }
+    if (type === 'color') {
+      return this.renderColorPicker();
+    }
+    return '';
   }
 }
 
@@ -87,11 +109,11 @@ class CustomSettings extends React.Component {
                 <label>{s.description}</label>
               </SettingsLeft>
               <SettingsRight>
-                <VisuSettingElm
+                <SettingEditor
                   data={ s }
                   current={ current }
                   callback={ elm => this.onChange(elm) }
-                ></VisuSettingElm>
+                ></SettingEditor>
               </SettingsRight>
             </SettingsRow>
           ))}

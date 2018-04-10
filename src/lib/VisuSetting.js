@@ -1,8 +1,18 @@
 class VisuSetting {
   constructor(name, description, options){
+    this.type = 'select';
     this.name = name;
     this.description = description;
     this.options = options;
+  }
+}
+
+class ColorSetting {
+  constructor(name, description, pickerConfig){
+    this.type = 'color'
+    this.name = name;
+    this.description = description;
+    this.pickerConfig = pickerConfig;
   }
 }
 
@@ -39,8 +49,13 @@ function NewBooleanSetting(name, description){
   return new VisuSetting(name, description, options)
 }
 
+function NewColorSetting(name, description){
+  return new ColorSetting(name, description, {})
+}
+
 export {
   NewVisuSetting,
   NewIntegerSetting,
   NewBooleanSetting,
+  NewColorSetting,
 };
