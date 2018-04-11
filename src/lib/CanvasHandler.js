@@ -6,7 +6,6 @@ class CanvasHandler {
 
     const self = this;
     const clickables = [this.canvas].concat(otherClickables);
-    console.log(clickables);
 
     function addMouseEvent(elm, eventType, brainFunc){
       elm.addEventListener(eventType, evt => {
@@ -21,11 +20,11 @@ class CanvasHandler {
     clickables.forEach(c => {
       addMouseEvent(c, 'click', md => brain.onCanvasMouseClick(md));
       addMouseEvent(c, 'mousemove', md => brain.onCanvasMouseMove(md));
-      addMouseEvent(c, 'touchmove', md => brain.onCanvasMouseMove(md));
       addMouseEvent(c, 'mousedown', md => brain.onCanvasMouseDown(md));
-      addMouseEvent(c, 'touchdown', md => brain.onCanvasMouseDown(md));
       addMouseEvent(c, 'mouseup', md => brain.onCanvasMouseUp(md));
-      addMouseEvent(c, 'touchup', md => brain.onCanvasMouseUp(md));
+      addMouseEvent(c, 'touchmove', md => brain.onCanvasTouchMove(md));
+      addMouseEvent(c, 'touchdown', md => brain.onCanvasTouchDown(md));
+      addMouseEvent(c, 'touchup', md => brain.onCanvasTouchUp(md));
     })
   }
   ensureCanvasDimensions() {
