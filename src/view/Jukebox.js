@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import {
+  Message,
   Button,
 } from './Component';
 
@@ -24,14 +25,15 @@ class Jukebox extends React.Component {
   }
   componentDidMount() {
     this.audio.addEventListener('ended', () => {
-      this.next();
+      this.next(true);
     });
-    this.ensurePlaying();
+    this.updateState();
 
     // debugging
     window.audio = this.audio;
+    // this.audio.currentTime = 185;
   }
-  ensurePlaying() {
+  updateState() {
     const { audio } = this;
     const { data } = this.state
     const newData = this.props.audio.getData();
@@ -51,13 +53,17 @@ class Jukebox extends React.Component {
       data: newData,
     })
   }
-  toggle() {
+  togglePlay() {
     this.props.audio.togglePlay();
-    this.ensurePlaying();
+    this.updateState();
   }
-  next() {
-    this.props.audio.nextTrack();
-    this.ensurePlaying();
+  toggleRepeat() {
+    this.props.audio.toggleRepeat();
+    this.updateState();
+  }
+  next(isTrackEnd) {
+    this.props.audio.nextTrack(isTrackEnd);
+    this.updateState();
   }
   render() {
     const { data } = this.state;
@@ -65,18 +71,24 @@ class Jukebox extends React.Component {
       <JukeboxContainer>
         <AudioElm innerRef={ elm => this.audio = elm }></AudioElm>
 
-        <div>you are currently listening to</div>
+        <Message>you are currently listening to</Message>
         <SongTitle>
           <a target="_blank" href={ data.url }>{ data.description }</a>
         </SongTitle>
-        <div>
-          <Button onClick={() => this.toggle()}>
+        <Message>
+          <Button onClick={() => this.togglePlay()}>
             { data.isPlaying ? 'stop music' : 'play music' }
           </Button>
           <Button onClick={() => this.next()}>
             next track
           </Button>
-        </div>
+        </Message>
+        <Message>
+          repeat track?
+          <Button onClick={() => this.toggleRepeat()}>
+            { data.repeat ? 'yes' : 'no' }
+          </Button>
+        </Message>
       </JukeboxContainer>
     );
   }
