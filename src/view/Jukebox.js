@@ -16,21 +16,54 @@ const AudioElm = styled.audio`
 `;
 
 class Jukebox extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data: {},
+    };
+  }
+  componentDidMount() {
+    this.audio.addEventListener('ended', () => {
+      this.next();
+    });
+    this.ensurePlaying();
+
+    // debugging
+    window.audio = this.audio;
+  }
+  ensurePlaying() {
+    const { audio } = this;
+    const { data } = this.state
+    const newData = this.props.audio.getData();
+
+    if (data.src !== newData.src){
+      audio.src = newData.src;
+    }
+    if (audio.paused === newData.isPlaying){
+      if (newData.isPlaying) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+
+    this.setState({
+      data: newData,
+    })
+  }
   toggle() {
     this.props.audio.togglePlay();
-    this.forceUpdate();
+    this.ensurePlaying();
   }
   next() {
     this.props.audio.nextTrack();
-    this.forceUpdate();
+    this.ensurePlaying();
   }
   render() {
-    const data = this.props.audio.getData();
+    const { data } = this.state;
     return (
       <JukeboxContainer>
-        { data.isPlaying && (
-          <AudioElm src={ data.src } autoPlay loop></AudioElm>
-        )}
+        <AudioElm innerRef={ elm => this.audio = elm }></AudioElm>
 
         <div>you are currently listening to</div>
         <SongTitle>
