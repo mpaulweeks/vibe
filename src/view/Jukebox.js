@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {
   Message,
   Button,
+  BigSelect,
 } from './Component';
 
 const JukeboxContainer = styled.div`
@@ -57,15 +58,16 @@ class Jukebox extends React.Component {
     this.props.audio.togglePlay();
     this.updateState();
   }
-  toggleRepeat() {
-    this.props.audio.toggleRepeat();
-    this.updateState();
-  }
   next(isTrackEnd) {
     this.props.audio.nextTrack(isTrackEnd);
     this.updateState();
   }
+  onChangePlaylistStyle(elm) {
+    this.props.audio.setPlaylistStyle(elm.value);
+    this.updateState();
+  }
   render() {
+    const { audio } = this.props;
     const { data } = this.state;
     return (
       <JukeboxContainer>
@@ -82,12 +84,14 @@ class Jukebox extends React.Component {
           <Button onClick={() => this.next()}>
             next track
           </Button>
-        </Message>
-        <Message>
-          repeat track?
-          <Button onClick={() => this.toggleRepeat()}>
-            { data.repeat ? 'yes' : 'no' }
-          </Button>
+          <BigSelect
+            onChange={elm => this.onChangePlaylistStyle(elm.target)}
+            value={ data.playlistStyle }
+          >
+            <option value={ audio.PlaylistStyle.Default }>play in order</option>
+            <option value={ audio.PlaylistStyle.Shuffle }>shuffle</option>
+            <option value={ audio.PlaylistStyle.RepeatSong }>repeat song</option>
+          </BigSelect>
         </Message>
       </JukeboxContainer>
     );

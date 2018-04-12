@@ -13,8 +13,13 @@ const SectionHeader = styled(Message)`
   font-size: 18px;
 `;
 
-
 const Button = styled.button`
+  margin: 0px 5px;
+  padding: 3px 6px;
+  font-size: 14px;
+`;
+
+const BigSelect = styled.select`
   margin: 0px 5px;
   padding: 3px 6px;
   font-size: 14px;
@@ -25,4 +30,5 @@ export {
   Message,
   SectionHeader,
   Button,
+  BigSelect,
 };

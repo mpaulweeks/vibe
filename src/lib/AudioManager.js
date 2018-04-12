@@ -9,9 +9,17 @@ class AudioTrack {
   }
 }
 
-const COOKIE_MUTE = 'audioMuted';
-const COOKIE_REPEAT = 'audioRepeat';
-const COOKIE_SONG = 'audioTrack';
+const Cookie = {
+  Mute: 'audio_muted',
+  PlaylistStyle: 'audio_playlist_style',
+  SongFileName: 'audio_song_filename',
+};
+
+const PlaylistStyle = {
+  Default: 'playlist_style_default',
+  Shuffle: 'playlist_style_shuffle',
+  RepeatSong: 'playlist_style_repeat_song',
+};
 
 const tracks = [
   new AudioTrack(
@@ -53,22 +61,19 @@ class AudioManager {
     this.tracks = tracks;
     this.index = 0;
 
-    this.isPlaying = this.cookie.get(COOKIE_MUTE) === "false";
-    this.repeat = this.cookie.get(COOKIE_REPEAT) === "true";
-    this.loadTrack(this.cookie.get(COOKIE_SONG));
+    this.isPlaying = this.cookie.get(Cookie.Mute) === "false";
+    this.playlistStyle = this.cookie.get(Cookie.PlaylistStyle) || PlaylistStyle.Default;
+    this.loadTrack(this.cookie.get(Cookie.SongFileName));
 
-    // todo
-    this.shuffling = false;
-    this.shuffledIndex = 0;
-    this.shuffledTracks = [];
+    this.PlaylistStyle = PlaylistStyle;
   }
   setCookie(){
     const options = {
       maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
     }
-    this.cookie.set(COOKIE_SONG, this.getData().filename, options);
-    this.cookie.set(COOKIE_MUTE, !this.isPlaying, options);
-    this.cookie.set(COOKIE_REPEAT, this.repeat, options);
+    this.cookie.set(Cookie.SongFileName, this.getData().filename, options);
+    this.cookie.set(Cookie.Mute, !this.isPlaying, options);
+    this.cookie.set(Cookie.PlaylistStyle, this.playlistStyle, options);
   }
   loadTrack(filename){
     const { tracks } = this;
@@ -84,24 +89,39 @@ class AudioManager {
     this.isPlaying = !this.isPlaying;
     this.setCookie();
   }
-  toggleRepeat(){
-    this.repeat = !this.repeat;
+  setPlaylistStyle(value){
+    console.log(value);
+    this.playlistStyle = value;
     this.setCookie();
   }
+  isRepeat(){
+    return this.playlistStyle === PlaylistStyle.RepeatSong;
+  }
+  isShuffle(){
+    return this.playlistStyle === PlaylistStyle.Shuffle;
+  }
   nextTrack(isTrackEnd){
-    const { tracks, index, repeat } = this;
-    if (isTrackEnd && repeat){
+    const { tracks, index } = this;
+    if (isTrackEnd && this.isRepeat()){
       // do nothing
       return;
     }
-    const newIndex = (index + 1 + tracks.length) % tracks.length;
+    let newIndex = index;
+    if (this.isShuffle()){
+      // todo even distribution
+      while(newIndex === index){
+        newIndex = Math.floor(Math.random()*tracks.length);
+      }
+    } else {
+      newIndex = (index + 1 + tracks.length) % tracks.length;
+    }
     this.loadTrack(tracks[newIndex].filename);
   }
   getData(){
     return {
       ...this.tracks[this.index],
       isPlaying: this.isPlaying,
-      repeat: this.repeat,
+      playlistStyle: this.playlistStyle,
     }
   }
 }
