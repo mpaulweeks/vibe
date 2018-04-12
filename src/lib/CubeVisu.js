@@ -8,25 +8,16 @@ import {
 import {
   DummyMouse,
 } from './CubeHelper';
-
-const defaultSettings = {
-  edge: 30,
-  shrinkRate: 90,
-  spreadX: 1,
-  spreadY: 1,
-  countDummyMice: 0,
-  colorFace: 'rgb(38,57,131)',
-  colorEdge: 'rgb(252,253,117)',
-  colorTest: 'rgb(252,253,117)',
-};
+import PatternManager from './CubeSettings';
 
 class CubeVisu extends BaseVisu {
   constructor(props) {
     super(props);
+    this.patternManager = new PatternManager();
+    this.updateCanvasSettings();
     this.instructions = [
       'move your mouse to make waves',
     ];
-    this.setCustomSettings(defaultSettings);
     this.settingOptions = [
       NewIntegerSetting('edge', 'Cube Size', 20, 200, 5),
       NewIntegerSetting('shrinkRate', 'Size Retention Rate %', 70, 99, 1),
@@ -35,24 +26,35 @@ class CubeVisu extends BaseVisu {
       NewIntegerSetting('countDummyMice', 'Automated Movers', 0, 30, 1),
       NewColorSetting('colorFace', 'Cube Color'),
       NewColorSetting('colorEdge', 'Edge Color'),
+      NewColorSetting('focusFace', 'Moving Cube Color'),
+      NewColorSetting('focusEdge', 'Moving Edge Color'),
     ];
     this.dummyMice = [];
   }
-  setCustomSettings(newSettings) {
-    this.settings = {
-      ...(this.settings || {}),
-      ...newSettings,
+  updateCanvasSettings() {
+    this.dummyMice = []; // reset mice position
+    this.canvas.setSettings(this.patternManager.get());
+  }
+  setCustomSetting(newSetting) {
+    const newSettings = {
+      ...this.getCurrentSettings(),
+      ...newSetting,
     };
-    this.canvas.setSettings(this.settings);
+    this.patternManager.newCustom(newSettings);
+    this.updateCanvasSettings();
   }
   getCurrentSettings() {
-    return this.settings;
+    return this.patternManager.get();
   }
   createCanvas(canvasHelper) {
     return new CubeCanvas(canvasHelper);
   }
+  onMouseClick() {
+    this.patternManager.next();
+    this.updateCanvasSettings();
+  }
   handleDummyMice() {
-    const { countDummyMice } = this.settings;
+    const { countDummyMice } = this.getCurrentSettings();
     const { dummyMice, canvas } = this;
     while (countDummyMice < dummyMice.length) {
       dummyMice.pop();
@@ -68,8 +70,9 @@ class CubeVisu extends BaseVisu {
     });
   }
   tick() {
+    const { shrinkRate } = this.getCurrentSettings();
     this.handleDummyMice();
-    this.canvas.mt.slowDown(this.settings.shrinkRate/100);
+    this.canvas.mt.slowDown(shrinkRate/100);
   }
 }
 

@@ -51,15 +51,16 @@ class ColorPicker extends React.Component {
       color: this.props.value,
     };
   }
+  componentWillReceiveProps(props){
+    this.setState({ color: props.value });
+  }
 
   handleClick = () => {
     this.setState({ displayColorPicker: !this.state.displayColorPicker })
   };
-
   handleClose = () => {
     this.setState({ displayColorPicker: false })
   };
-
   handleChange = (color) => {
     this.props.onChange(color.hex);
     this.setState({ color: color.hex })

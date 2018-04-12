@@ -84,7 +84,7 @@ class CustomSettings extends React.Component {
       value = parseInt(value, 10);
     }
     newSettings[elm.name] = value;
-    this.props.brain.visuApp().setCustomSettings(newSettings);
+    this.props.brain.visuApp().setCustomSetting(newSettings);
     this.forceUpdate();
   }
   render() {

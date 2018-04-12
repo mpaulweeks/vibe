@@ -32,6 +32,8 @@ class CubeCanvas extends BaseCanvas {
     return Math.sqrt(Math.pow(currMouse.x - x, 2) + Math.pow(currMouse.y - y, 2));
   }
   drawHex(xGrid, yGrid) {
+    const { ctx } = this.getCanvasTools();
+    const { colorFace, colorEdge, focusFace, focusEdge } = this.settings;
     let { edge, dx, dy, cubeWidth, cubeHeight } = this.measure;
     let x = xGrid * cubeWidth;
     let y = yGrid * cubeHeight / 2;
@@ -46,9 +48,14 @@ class CubeCanvas extends BaseCanvas {
       dy *= coeff;
       x = cx; //doesnt change
       y = cy - dy - edge/2;
+
+      ctx.fillStyle = focusFace;
+      ctx.strokeStyle = focusEdge;
+    } else {
+      ctx.fillStyle = colorFace;
+      ctx.strokeStyle = colorEdge;
     }
 
-    const { ctx } = this.getCanvasTools();
     ctx.beginPath();
     let tx = x;
     let ty = y;
@@ -87,9 +94,8 @@ class CubeCanvas extends BaseCanvas {
   }
   draw() {
     const { ctx, canvasW, canvasH } = this.getCanvasTools();
-    const { colorFace, colorEdge } = this.settings;
+    const { colorFace } = this.settings;
     ctx.fillStyle = colorFace;
-    ctx.strokeStyle = colorEdge;
     ctx.lineWidth = 1;
     ctx.fillRect(0, 0, canvasW, canvasH);
 
