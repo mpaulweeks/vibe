@@ -77,29 +77,40 @@ class Jukebox extends React.Component {
       <JukeboxContainer>
         <AudioElm innerRef={ elm => this.audio = elm }></AudioElm>
 
-        <Message>you are currently listening to</Message>
-        <SongTitle>
-          <a target="_blank" href={ data.url }>{ data.description }</a>
-        </SongTitle>
-        <Message>
+        { data.isPlaying ? (
+          <div>
+            <Message>you are currently listening to</Message>
+            <SongTitle>
+              <a target="_blank" href={ data.url }>{ data.description }</a>
+            </SongTitle>
+            <Message>
+              <Button onClick={() => this.prev()}>
+                prev track
+              </Button>
+              <Button onClick={() => this.next()}>
+                next track
+              </Button>
+              <BigSelect
+                onChange={elm => this.onChangePlaylistStyle(elm.target)}
+                value={ data.playlistStyle }
+              >
+                <option value={ audio.PlaylistStyle.Default }>play in order</option>
+                <option value={ audio.PlaylistStyle.Shuffle }>shuffle</option>
+                <option value={ audio.PlaylistStyle.RepeatSong }>repeat track</option>
+              </BigSelect>
+            </Message>
+            <Message>
+              <br/>
+              <Button onClick={() => this.togglePlay()}>
+                stop music
+              </Button>
+            </Message>
+          </div>
+        ) : (
           <Button onClick={() => this.togglePlay()}>
-            { data.isPlaying ? 'stop music' : 'play music' }
+            play music
           </Button>
-          <Button onClick={() => this.prev()}>
-            prev track
-          </Button>
-          <Button onClick={() => this.next()}>
-            next track
-          </Button>
-          <BigSelect
-            onChange={elm => this.onChangePlaylistStyle(elm.target)}
-            value={ data.playlistStyle }
-          >
-            <option value={ audio.PlaylistStyle.Default }>play in order</option>
-            <option value={ audio.PlaylistStyle.Shuffle }>shuffle</option>
-            <option value={ audio.PlaylistStyle.RepeatSong }>repeat track</option>
-          </BigSelect>
-        </Message>
+        )}
       </JukeboxContainer>
     );
   }
