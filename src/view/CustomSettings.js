@@ -15,15 +15,18 @@ const SettingsRow = styled.div`
   justify-content: center;
 
   font-size: 16px;
+  padding: 1px 0px;
 `;
 const SettingsLeft = styled.div`
   width: calc(50% - 10px);
+  margin: 0px;
   padding: 0px 5px;
+
+  display: inline;
   text-align: right;
 `;
-const SettingsRight = styled.div`
-  width: calc(50% - 10px);
-  padding: 0px 5px;
+const SettingsRight = styled(SettingsLeft)`
+  display: flex;
   text-align: left;
 `;
 const SettingsSelect = styled.select`

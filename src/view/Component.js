@@ -20,6 +20,7 @@ const Button = styled.button`
 `;
 
 const BigSelect = styled.select`
+  cursor: pointer;
   margin: 0px 5px;
   padding: 3px 6px;
   font-size: 14px;

@@ -10,7 +10,7 @@ import {
 } from './CubeHelper';
 
 const defaultSettings = {
-  edge: 40,
+  edge: 30,
   shrinkRate: 90,
   spreadX: 1,
   spreadY: 1,
@@ -33,17 +33,8 @@ class CubeVisu extends BaseVisu {
       NewIntegerSetting('spreadX', 'Splash Left/Right', 0, 20, 1),
       NewIntegerSetting('spreadY', 'Splash Up/Down', 0, 20, 1),
       NewIntegerSetting('countDummyMice', 'Automated Movers', 0, 30, 1),
-      NewVisuSetting('colorFace', 'Cube Color', [
-        ['rgb(38,57,131)', 'Blue'],
-        ['black', 'Black'],
-        ['white', 'White'],
-      ]),
-      NewVisuSetting('colorEdge', 'Edge Color', [
-        ['rgb(252,253,117)', 'Yellow'],
-        ['white', 'White'],
-        ['black', 'Black'],
-      ]),
-      NewColorSetting('colorTest', 'Test Color'),
+      NewColorSetting('colorFace', 'Cube Color'),
+      NewColorSetting('colorEdge', 'Edge Color'),
     ];
     this.dummyMice = [];
   }
