@@ -16,6 +16,7 @@ class CubeVisu extends BaseVisu {
     this.updateCanvasSettings();
     this.instructions = [
       'move your mouse to make waves',
+      'click anywhere in grid to change the pattern',
     ];
     this.settingOptions = [
       NewIntegerSetting('edge', 'Cube Size', 20, 200, 5),

@@ -90,7 +90,7 @@ class Jukebox extends React.Component {
           >
             <option value={ audio.PlaylistStyle.Default }>play in order</option>
             <option value={ audio.PlaylistStyle.Shuffle }>shuffle</option>
-            <option value={ audio.PlaylistStyle.RepeatSong }>repeat song</option>
+            <option value={ audio.PlaylistStyle.RepeatSong }>repeat track</option>
           </BigSelect>
         </Message>
       </JukeboxContainer>
