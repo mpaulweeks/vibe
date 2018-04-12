@@ -14,7 +14,7 @@ const defaultSettings = {
   shrinkRate: 90,
   spreadX: 1,
   spreadY: 1,
-  countDummyMice: 5,
+  countDummyMice: 0,
   colorFace: 'rgb(38,57,131)',
   colorEdge: 'rgb(252,253,117)',
   colorTest: 'rgb(252,253,117)',

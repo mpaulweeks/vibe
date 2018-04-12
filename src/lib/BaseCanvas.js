@@ -16,8 +16,14 @@ class BaseCanvas {
     this.prevMouseData = this.mouseData;
     this.mouseData = mouseData;
   }
-  onMouseDown(mouseData) {}
-  onMouseUp(mouseData) {}
+  onMouseDown(mouseData) {
+    this.prevMouseData = this.mouseData;
+    this.mouseData = mouseData;
+  }
+  onMouseUp(mouseData) {
+    this.prevMouseData = this.mouseData;
+    this.mouseData = mouseData;
+  }
 
   getCanvasTools() {
     return {

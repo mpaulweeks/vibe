@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const CanvasContainer = styled.div`
   cursor: none;
   height: 100%;
+  overflow: hidden;
 `;
 
 const CanvasElm = styled.canvas`

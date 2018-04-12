@@ -3,6 +3,7 @@ class CanvasHandler {
     this.canvas = canvasElm;
     this.ensureCanvasDimensions();
     this.ctx = this.canvas.getContext('2d');
+    this.lastEvt = null;
 
     const self = this;
     const clickables = [this.canvas].concat(otherClickables);
@@ -10,7 +11,6 @@ class CanvasHandler {
     function addMouseEvent(elm, eventType, brainFunc){
       elm.addEventListener(eventType, evt => {
         if (eventType.startsWith('touch')){
-          evt.preventDefault();
           evt = evt.touches[0];
         }
         const mouseData = self.getMouseData(evt);
@@ -23,8 +23,8 @@ class CanvasHandler {
       addMouseEvent(c, 'mousedown', md => brain.onCanvasMouseDown(md));
       addMouseEvent(c, 'mouseup', md => brain.onCanvasMouseUp(md));
       addMouseEvent(c, 'touchmove', md => brain.onCanvasTouchMove(md));
-      addMouseEvent(c, 'touchdown', md => brain.onCanvasTouchDown(md));
-      addMouseEvent(c, 'touchup', md => brain.onCanvasTouchUp(md));
+      addMouseEvent(c, 'touchstart', md => brain.onCanvasTouchDown(md));
+      addMouseEvent(c, 'touchend', md => brain.onCanvasTouchUp(md));
     })
   }
   ensureCanvasDimensions() {
@@ -46,6 +46,11 @@ class CanvasHandler {
     // https://stackoverflow.com/a/17130415/6461842
     const rect = canvas.getBoundingClientRect();
     const { canvasW, canvasH } = this.ensureCanvasDimensions();
+    if (evt) {
+      this.lastEvt = evt;
+    } else {
+      evt = this.lastEvt;
+    }
     return {
       evt: evt,
       x: Math.min(canvasW - 1 , evt.clientX - rect.left),

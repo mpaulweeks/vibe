@@ -22,11 +22,10 @@ const Types = [
 
 class Brain {
   constructor() {
+    this.touchHoldTimer = null;
     this.types = Types;
     this.setType(this.readUrl() || Types[0].type);
     this.callbackFunc = () => {};
-
-    this.touchHoldTimer = null;
   }
   readUrl(){
     const hash = window.location.hash;
@@ -73,7 +72,7 @@ class Brain {
   nextType() {
     let index = -1;
     Types.forEach((typeData, i) => {
-      if (typeData.type === this.type){
+      if (typeData.type === this.visuType){
         index = i;
       }
     });
@@ -94,16 +93,15 @@ class Brain {
     this.visuApp().draw();
   }
   startTouchHoldTimer() {
+    this.clearTouchHoldTimer();
     if (this.touchHoldTimer === null){
-      this.touchHoldTimer = window.setTimeout(() => this.nextType(), 2000);
-      console.log(this.touchHoldTimer);
+      this.touchHoldTimer = window.setTimeout(() => this.nextType(), 3000);
     }
   }
   clearTouchHoldTimer() {
     if (this.touchHoldTimer !== null){
       window.clearTimeout(this.touchHoldTimer);
       this.touchHoldTimer = null;
-      console.log(this.touchHoldTimer);
     }
   }
   onCanvasMouseClick(mouseData) {
@@ -120,16 +118,16 @@ class Brain {
     this.visuApp().onMouseUp(mouseData);
   }
   onCanvasTouchMove(mouseData) {
-    this.clearTouchHoldTimer();
-    this.visuApp().onMouseMove(mouseData);
+    this.startTouchHoldTimer();
+    this.onCanvasMouseMove(mouseData);
   }
   onCanvasTouchDown(mouseData) {
     this.startTouchHoldTimer();
-    this.visuApp().onMouseDown(mouseData);
+    this.onCanvasMouseDown(mouseData);
   }
   onCanvasTouchUp(mouseData) {
     this.clearTouchHoldTimer();
-    this.visuApp().onMouseUp(mouseData);
+    this.onCanvasMouseUp(mouseData);
   }
 }
 
