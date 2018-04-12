@@ -25,6 +25,14 @@ class CanvasHandler {
       addMouseEvent(c, 'touchmove', md => brain.onCanvasTouchMove(md));
       addMouseEvent(c, 'touchstart', md => brain.onCanvasTouchDown(md));
       addMouseEvent(c, 'touchend', md => brain.onCanvasTouchUp(md));
+      if (brain.isMobile){
+        // prevent right click on canvas, which overlaps with "hold for next"
+        c.oncontextmenu = event => {
+          event.preventDefault && event.preventDefault();
+          event.stopPropagation && event.stopPropagation();
+          return false;
+        };
+      }
     })
   }
   ensureCanvasDimensions() {

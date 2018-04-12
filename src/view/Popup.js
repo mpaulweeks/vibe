@@ -49,7 +49,7 @@ const PopupTitle = styled.div`
 
 class Popup extends React.Component {
   render() {
-    const { isMobile } = this.props;
+    const { isMobile } = this.props.brain;
     return (
       <PopupContainer innerRef={e => this.elm = e}>
         <div>
@@ -82,13 +82,7 @@ class Popup extends React.Component {
               SEE WHAT HAPPENS
             </div>
             <div>
-              SCROLL DOWN TO
-              <br/>
-              CHANGE APP
-              <br/>
-              PUT ON TUNES
-              <br/>
-              + OTHER OPTIONS
+              SCROLL DOWN FOR MORE
             </div>
           </div>
         )}
