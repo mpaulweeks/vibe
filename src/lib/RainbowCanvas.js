@@ -208,6 +208,15 @@ class RainbowCanvas extends BaseCanvas {
     });
   }
 
+  drawCursor(){
+    const { mouseData, ctx } = this.getCanvasTools();
+    ctx.beginPath();
+    ctx.arc(mouseData.x, mouseData.y, 10, 0, 2*Math.PI);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'white';
+    ctx.stroke();
+  }
+
   drawRing(ring){
     const { ctx } = this.getCanvasTools();
     var gradient = ctx.createRadialGradient(

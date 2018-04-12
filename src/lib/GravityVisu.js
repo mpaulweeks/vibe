@@ -55,16 +55,19 @@ class GravityVisu extends BaseVisu {
     // this.vm.newVortex(mouseData);
   }
   onMouseMove(mouseData){
+    super.onMouseMove(mouseData);
     if (this.mouseHoldVortex !== null){
       this.mouseHoldVortex.updateRing(mouseData);
     }
   }
   onMouseDown(mouseData){
+    super.onMouseMove(mouseData);
     if (this.mouseHoldVortex === null){
       this.mouseHoldVortex = this.vm.newHoldVortex(mouseData);
     }
   }
   onMouseUp(mouseData){
+    super.onMouseMove(mouseData);
     if (this.mouseHoldVortex !== null){
       this.mouseHoldVortex.birth();
       this.mouseHoldVortex = null;
@@ -83,6 +86,9 @@ class GravityVisu extends BaseVisu {
     rm.draw();
     pm.draw();
     vm.drawCores();
+    if (this.mouseHoldVortex === null){
+      canvas.drawCursor();
+    }
   }
 }
 
