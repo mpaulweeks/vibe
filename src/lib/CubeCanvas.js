@@ -20,7 +20,7 @@ class CubeCanvas extends BaseCanvas {
     super.onMouseMove(mouseData)
     const { measure, mt, prevMouseData } = this;
     const distance = Math.sqrt(Math.pow(prevMouseData.x - mouseData.x, 2) + Math.pow(prevMouseData.y - mouseData.y, 2));
-    mt.mouseSpeed = Math.min(2, mt.mouseSpeed + distance / 50);
+    mt.mouseSpeed = Math.min(1.5, mt.mouseSpeed + (distance / 100));
     mt.setByCoord(measure, mt.mouseSpeed, mouseData.x, mouseData.y);
   }
   dummyMouse(speed, x, y) {

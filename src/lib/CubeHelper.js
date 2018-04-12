@@ -81,8 +81,8 @@ class MouseTracker {
     const { spreadX, spreadY } = this.settings;
     for (var xi = 0 - spreadX; xi <= spreadX; xi++) {
       for (var yi = 0 - spreadY; yi <= spreadY; yi++) {
-        const ratioX = 1 - Math.abs(xi / (spreadX + 1));
-        const ratioY = 1 - Math.abs(yi / (spreadY + 1));
+        const ratioX = 1 - (Math.abs(xi) / Math.max(5, spreadX));
+        const ratioY = 1 - (Math.abs(yi) / Math.max(5, spreadY));
         const ratio = Math.min(ratioX, ratioY);
         const value = speed * ratio;
         this.setByGrid(x + xi, y + yi, value);
