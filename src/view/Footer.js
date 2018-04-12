@@ -4,6 +4,8 @@ import Jukebox from './Jukebox';
 
 import {
   Row,
+  AuthorFootnote,
+  CookieFootnote,
 } from './Component';
 
 class Footer extends React.Component {
@@ -15,7 +17,12 @@ class Footer extends React.Component {
           <Jukebox {...childrenProps}></Jukebox>
         </Row>
         <Row>
-          <a href="https://twitter.com/mpaulweeks">@mpaulweeks</a>
+          <AuthorFootnote>
+            created by <a href="https://twitter.com/mpaulweeks">@mpaulweeks</a>
+          </AuthorFootnote>
+          <CookieFootnote>
+            this site uses cookies to remember your music preferences for future visits
+          </CookieFootnote>
         </Row>
       </div>
     );
