@@ -8,11 +8,10 @@ class VisuSetting {
 }
 
 class ColorSetting {
-  constructor(name, description, pickerConfig){
+  constructor(name, description){
     this.type = 'color'
     this.name = name;
     this.description = description;
-    this.pickerConfig = pickerConfig;
   }
 }
 
@@ -50,7 +49,7 @@ function NewBooleanSetting(name, description){
 }
 
 function NewColorSetting(name, description){
-  return new ColorSetting(name, description, {})
+  return new ColorSetting(name, description)
 }
 
 export {

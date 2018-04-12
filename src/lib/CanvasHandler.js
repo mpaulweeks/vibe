@@ -15,7 +15,7 @@ class CanvasHandler {
         }
         const mouseData = self.getMouseData(evt);
         brainFunc(mouseData);
-      });
+      }, {passive: true});
     }
     clickables.forEach(c => {
       addMouseEvent(c, 'click', md => brain.onCanvasMouseClick(md));

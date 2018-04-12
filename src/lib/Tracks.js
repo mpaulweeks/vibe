@@ -137,7 +137,7 @@ const Tracks = [
   ],
   [
     'Tudd_FunkyRobo.mp3',
-    'Tudd - Funky Robo (From \"Sonic Adventure\")',
+    'Tudd - Funky Robo (From "Sonic Adventure")',
     'http://music.gamechops.com/track/tudd-funky-robo-from-sonic-adventure',
   ],
 ];

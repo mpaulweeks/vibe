@@ -50,7 +50,7 @@ class SettingEditor extends React.Component {
     );
   }
   renderColorPicker() {
-    const { name, pickerConfig } = this.props.data;
+    const { name } = this.props.data;
     const { current, callback } = this.props;
     return (
       <ColorPicker
