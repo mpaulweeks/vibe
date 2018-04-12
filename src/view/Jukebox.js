@@ -58,6 +58,10 @@ class Jukebox extends React.Component {
     this.props.audio.togglePlay();
     this.updateState();
   }
+  prev() {
+    this.props.audio.prevTrack();
+    this.updateState();
+  }
   next(isTrackEnd) {
     this.props.audio.nextTrack(isTrackEnd);
     this.updateState();
@@ -80,6 +84,9 @@ class Jukebox extends React.Component {
         <Message>
           <Button onClick={() => this.togglePlay()}>
             { data.isPlaying ? 'stop music' : 'play music' }
+          </Button>
+          <Button onClick={() => this.prev()}>
+            prev track
           </Button>
           <Button onClick={() => this.next()}>
             next track

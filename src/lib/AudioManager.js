@@ -1,10 +1,11 @@
+import Tracks from './Tracks';
 
 class AudioTrack {
-  constructor(filename, description, url){
+  constructor(trackData){
     this.path = 'https://s3.amazonaws.com/vibe.mpaulweeks.com/music';
-    this.filename = filename;
-    this.description = description;
-    this.url = url;
+    this.filename = trackData[0];
+    this.description = trackData[1];
+    this.url = trackData[2];
     this.src = this.path + '/' + this.filename;
   }
 }
@@ -21,44 +22,11 @@ const PlaylistStyle = {
   RepeatSong: 'playlist_style_repeat_song',
 };
 
-const tracks = [
-  new AudioTrack(
-    'FIRSTAID_VibeWithYou.mp3',
-    'FIRSTAID - Vibe With You',
-    'https://first-aid.bandcamp.com/album/nostalgic-falling-down'
-  ),
-  new AudioTrack(
-    'TheFatRat_TimeLapse.mp3',
-    'TheFatRat - Time Lapse',
-    'https://lnk.to/tfrtimelapse'
-  ),
-  new AudioTrack(
-    'Justice_CloseCall.mp3',
-    'Justice - Close Call',
-    'https://itunes.apple.com/us/album/woman/id1151157609'
-  ),
-  new AudioTrack(
-    'GeorgeAndJonathan_UnicornsForever.mp3',
-    'George & Jonathan - Unicorns Forever',
-    'https://georgeandjonathan.bandcamp.com/album/beautiful-lifestyle',
-  ),
-  new AudioTrack(
-    'GeorgeAndJonathan_OneHundredLifetimes.mp3',
-    'George & Jonathan - One Hundred Lifetimes',
-    'https://georgeandjonathan.bandcamp.com/album/beautiful-lifestyle',
-  ),
-  new AudioTrack(
-    'SushiKiller_WaifuDream.mp3',
-    'Sushi Killer - Waifu Dream',
-    'https://soundcloud.com/sushi_killer/sushi-killer-waifu-dream'
-  ),
-];
-
 class AudioManager {
   constructor(cookie){
     this.cookie = cookie;
 
-    this.tracks = tracks;
+    this.tracks = Tracks.map(t => new AudioTrack(t));
     this.index = 0;
 
     this.isPlaying = this.cookie.get(Cookie.Mute) === "false";
@@ -100,12 +68,8 @@ class AudioManager {
   isShuffle(){
     return this.playlistStyle === PlaylistStyle.Shuffle;
   }
-  nextTrack(isTrackEnd){
+  stepTrack(delta){
     const { tracks, index } = this;
-    if (isTrackEnd && this.isRepeat()){
-      // do nothing
-      return;
-    }
     let newIndex = index;
     if (this.isShuffle()){
       // todo even distribution
@@ -113,9 +77,19 @@ class AudioManager {
         newIndex = Math.floor(Math.random()*tracks.length);
       }
     } else {
-      newIndex = (index + 1 + tracks.length) % tracks.length;
+      newIndex = (index + delta + tracks.length) % tracks.length;
     }
     this.loadTrack(tracks[newIndex].filename);
+  }
+  nextTrack(isTrackEnd){
+    if (isTrackEnd && this.isRepeat()){
+      // do nothing
+      return;
+    }
+    this.stepTrack(1);
+  }
+  prevTrack(isTrackEnd){
+    this.stepTrack(-1);
   }
   getData(){
     return {
