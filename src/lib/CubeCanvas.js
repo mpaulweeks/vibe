@@ -14,18 +14,18 @@ class CubeCanvas extends BaseCanvas {
     super.onMouseClick(mouseData)
     const { measure, mt } = this;
     mt.mouseSpeed = 2;
-    mt.setByCoord(measure, mt.mouseSpeed, mouseData.x, mouseData.y);
+    mt.lastKey = mt.setByCoord(measure, mt.mouseSpeed, mouseData.x, mouseData.y, mt.lastKey);
   }
   onMouseMove(mouseData) {
     super.onMouseMove(mouseData)
     const { measure, mt, prevMouseData } = this;
     const distance = Math.sqrt(Math.pow(prevMouseData.x - mouseData.x, 2) + Math.pow(prevMouseData.y - mouseData.y, 2));
     mt.mouseSpeed = Math.min(1.5, mt.mouseSpeed + (distance / 100));
-    mt.setByCoord(measure, mt.mouseSpeed, mouseData.x, mouseData.y);
+    mt.lastKey = mt.setByCoord(measure, mt.mouseSpeed, mouseData.x, mouseData.y, mt.lastKey);
   }
-  dummyMouse(speed, x, y) {
+  dummyMouse(dm) {
     const { measure, mt } = this;
-    mt.setByCoord(measure, speed, x, y);
+    dm.lastKey = mt.setByCoord(measure, dm.size, dm.x, dm.y, dm.lastKey);
   }
   getDistanceFromMouse(x, y){
     const { currMouse } = this.mt;
@@ -40,9 +40,9 @@ class CubeCanvas extends BaseCanvas {
 
     const cx = x;
     const cy = y + dy + edge/2;
-    const speed = this.mt.getByGrid(xGrid, yGrid);
-    if (speed > 0){
-      const coeff = 1 + speed;
+    const size = this.mt.getByGrid(xGrid, yGrid).size;
+    if (size > 0){
+      const coeff = 1 + size;
       edge *= coeff;
       dx *= coeff;
       dy *= coeff;

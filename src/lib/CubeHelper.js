@@ -2,6 +2,7 @@ class DummyMouse {
   constructor(speed, size, x, y) {
     this.speed = speed;
     this.size = size;
+    this.lastKey = '';
     this.x = x;
     this.y = y;
     // always keep angle between -PI and PI
@@ -57,6 +58,7 @@ class MouseTracker {
     this.settings = {};
     this.lookup = {};
     this.mouseSpeed = 0;
+    this.lastKey = '';
   }
   toKey(x, y) {
     return `${x},${y}`;
@@ -65,29 +67,36 @@ class MouseTracker {
     const key = this.toKey(x, y);
     return this.lookup[key] || 0;
   }
-  setByGrid(x, y, value) {
+  setByGrid(x, y, newValue) {
     const key = this.toKey(x, y);
-    if (!this.lookup[key] || this.lookup[key] < value){
-      this.lookup[key] = value;
+    const existing = this.lookup[key];
+    if (!existing || existing.size < newValue.size){
+      this.lookup[key] = newValue;
     }
   }
-  setByCoord(measurement, speed, cx, cy) {
+  setByCoord(measurement, speed, cx, cy, lastKey) {
     const { cubeHeight, cubeWidth } = measurement;
     const x = Math.floor((cx + (cubeWidth / 2)) / cubeWidth);
     let y = Math.floor(cy / cubeHeight) * 2;
     if (x % 2 !== 0) {
       y = (Math.floor((cy - (cubeHeight / 2)) / cubeHeight) * 2) + 1;
     }
-    const { spreadX, spreadY } = this.settings;
-    for (var xi = 0 - spreadX; xi <= spreadX; xi++) {
-      for (var yi = 0 - spreadY; yi <= spreadY; yi++) {
-        const ratioX = 1 - (Math.abs(xi) / Math.max(5, spreadX));
-        const ratioY = 1 - (Math.abs(yi) / Math.max(5, spreadY));
-        const ratio = Math.min(ratioX, ratioY);
-        const value = speed * ratio;
-        this.setByGrid(x + xi, y + yi, value);
+
+    const key = this.toKey(x, y);
+    if (lastKey !== key){
+      const { spreadX, spreadY } = this.settings;
+      for (var xi = 0 - spreadX; xi <= spreadX; xi++) {
+        for (var yi = 0 - spreadY; yi <= spreadY; yi++) {
+          const ratioX = 1 - (Math.abs(xi) / Math.max(5, spreadX));
+          const ratioY = 1 - (Math.abs(yi) / Math.max(5, spreadY));
+          const ratio = Math.min(ratioX, ratioY);
+          const size = speed * ratio;
+          const newValue = { size };
+          this.setByGrid(x + xi, y + yi, newValue);
+        }
       }
     }
+    return key;
   }
   slowDown(factor) {
     const deleteThreshold = 1 / (this.settings.edge * 2);
@@ -96,8 +105,8 @@ class MouseTracker {
 
     const toDel = [];
     for (let key in this.lookup) {
-      this.lookup[key] *= factor;
-      if (this.lookup[key] < deleteThreshold) {
+      this.lookup[key].size *= factor;
+      if (this.lookup[key].size < deleteThreshold) {
         toDel.push(key);
       }
     }

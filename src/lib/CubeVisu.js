@@ -1,7 +1,6 @@
 import BaseVisu from './BaseVisu';
 import CubeCanvas from './CubeCanvas';
 import {
-  NewVisuSetting,
   NewIntegerSetting,
   NewColorSetting,
 } from './VisuSetting';
@@ -32,8 +31,8 @@ class CubeVisu extends BaseVisu {
     this.dummyMice = [];
   }
   updateCanvasSettings() {
-    this.dummyMice = []; // reset mice position
     this.canvas.setSettings(this.patternManager.get());
+    this.dummyMice = []; // reset mice position
   }
   setCustomSetting(newSetting) {
     const newSettings = {
@@ -60,13 +59,13 @@ class CubeVisu extends BaseVisu {
       dummyMice.pop();
     }
     while (countDummyMice > dummyMice.length) {
-      dummyMice.push(new DummyMouse(40, 1, 50, 50));
+      dummyMice.push(new DummyMouse(20, 1, 50, 50));
     }
     const { canvasW, canvasH } = canvas.getCanvasTools();
     dummyMice.forEach(dm => {
       dm.move();
       dm.checkOutOfBounds(canvasW, canvasH);
-      canvas.dummyMouse(dm.size, dm.x, dm.y);
+      canvas.dummyMouse(dm);
     });
   }
   tick() {

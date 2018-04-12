@@ -20,6 +20,17 @@ const presets = [
   {},
   {
     edge: 30,
+    shrinkRate: 99,
+    spreadX: 0,
+    spreadY: 0,
+    countDummyMice: 1,
+    colorFace: '#CCCCCC',
+    colorEdge: '#CCCCCC',
+    focusFace: '#CCCCCC',
+    focusEdge: '#999999',
+  },
+  {
+    edge: 30,
     spreadX: 1,
     spreadY: 1,
     countDummyMice: 3,
@@ -27,16 +38,6 @@ const presets = [
     colorEdge: Colors.Blue,
     focusFace: Colors.Black,
     focusEdge: Colors.Blue,
-  },
-  {
-    edge: 40,
-    spreadX: 20,
-    spreadY: 1,
-    countDummyMice: 1,
-    colorFace: '#FFFFFF',
-    colorEdge: '#FFFFFF',
-    focusFace: '#FFFFFF',
-    focusEdge: '#CCCCCC',
   },
 ]
 
