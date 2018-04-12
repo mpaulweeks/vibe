@@ -2,9 +2,8 @@
 visual experiments (now with React)
 
 ## todo
-- feature parity
-  - mobile aware?
-  - last sweep for other things
+- gravity
+  - view mouse by drawing cursor (when not in hold)
 
 - specify settings via url
   - sample.com/?settings=123456
