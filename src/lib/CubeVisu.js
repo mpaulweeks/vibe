@@ -40,6 +40,9 @@ class CubeVisu extends BaseVisu {
       ...this.getCurrentSettings(),
       ...newSetting,
     };
+    this.setCustomSettings(newSettings);
+  }
+  setCustomSettings(newSettings) {
     this.patternManager.newCustom(newSettings);
     this.updateCanvasSettings();
   }

@@ -1,5 +1,6 @@
 import Looper from './Looper';
 import CanvasHandler from './CanvasHandler';
+import UrlManager from './UrlManager';
 
 import RainbowVisu from './RainbowVisu';
 import GravityVisu from './GravityVisu';
@@ -33,22 +34,20 @@ class Brain {
     this.isMobile = MobileAndTabletCheck();
     this.touchHoldTimer = null;
     this.types = Types;
-    this.setType(this.readUrl() || Types[0].type);
+    this.urlManager = new UrlManager(this.types);
     this.callbackFunc = () => {};
   }
-  readUrl(){
-    const hash = window.location.hash;
-    if (hash){
-      const type = hash.substring(1).toLowerCase();
-      const validTypes = this.types.map(t => t.type);
-      if (validTypes.includes(type)){
-        return type;
-      }
+  handleUrl() {
+    const urlData = this.urlManager.processUrlParams();
+    this.setType(urlData.type || Types[0].type);
+
+    const { custom } = urlData.params;
+    if (custom){
+      this.visuApp().setCustomSettings(custom);
     }
-    return null;
   }
-  setUrl(){
-    window.location.hash = "#" + this.visuType;
+  getCustomUrl() {
+    return this.urlManager.generateUrl(this.visuType, this.visuApp().getCurrentSettings());
   }
   init(canvasElm, otherClickables) {
     this.ch = new CanvasHandler(
@@ -61,6 +60,7 @@ class Brain {
       'gravity': new GravityVisu(this),
       'cube': new CubeVisu(this),
     };
+    this.handleUrl();
 
     Looper.logicLoop(looper => {
       this.loopTick();
@@ -75,7 +75,7 @@ class Brain {
   }
   setType(type) {
     this.visuType = type;
-    this.setUrl();
+    this.urlManager.setUrl(this.visuType);
     this.clearTouchHoldTimer();
   }
   nextType() {

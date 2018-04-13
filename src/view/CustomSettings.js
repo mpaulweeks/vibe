@@ -121,6 +121,9 @@ class CustomSettings extends React.Component {
             </SettingsRow>
           ))}
         </Row>
+        <Row>
+          <a href={this.props.brain.getCustomUrl()}>permalink to these custom settings</a>
+        </Row>
       </div>
     );
   }
