@@ -81,6 +81,7 @@ class CustomSettings extends React.Component {
     this.state = {
       generatingUrl: false,
       customUrl: null,
+      error: false,
       copied: false,
     }
   }
@@ -88,6 +89,7 @@ class CustomSettings extends React.Component {
     this.setState({
       generatingUrl: false,
       customUrl: null,
+      error: false,
       copied: false,
     });
   }
@@ -116,6 +118,7 @@ class CustomSettings extends React.Component {
     this.setState({
       generatingUrl: false,
       customUrl: null,
+      error: false,
       copied: false,
     });
   }
@@ -123,20 +126,31 @@ class CustomSettings extends React.Component {
     this.setState({
       generatingUrl: true,
       customUrl: null,
+      error: false,
       copied: false,
     });
-    this.props.brain.generateCustomUrl().then(url => {
-      this.setState({
-        generatingUrl: false,
-        customUrl: url,
-        copied: false,
+    this.props.brain.generateCustomUrl()
+      .then(url => {
+        this.setState({
+          generatingUrl: false,
+          customUrl: url,
+          error: false,
+          copied: false,
+        });
+      })
+      .catch(err => {
+        this.setState({
+          generatingUrl: false,
+          customUrl: null,
+          error: true,
+          copied: false,
+        });
       });
-    });
   }
   render() {
     const visuApp = this.props.brain.visuApp();
     const current = visuApp.getCurrentSettings();
-    const { generatingUrl, customUrl } = this.state;
+    const { generatingUrl, customUrl, error, copied } = this.state;
     return (
       <div>
         <Row>
@@ -169,20 +183,26 @@ class CustomSettings extends React.Component {
           ))}
         </Row>
         <Row>
-          { customUrl ? (
+          { error && (
+            <Message>
+              permalinks are currently broken, please try again later
+            </Message>
+          )}
+          { !error && customUrl && (
             <div>
-            <Message>
-              permalink: <a target="_blank" href={customUrl}>{customUrl}</a>
-            </Message>
-            <Message>
-              <CopyToClipboard text={customUrl} onCopy={() => this.onCopy()}>
-                <Button>
-                  {this.state.copied ? 'copied!' : 'copy to clipboard'}
-                </Button>
-              </CopyToClipboard>
-            </Message>
+              <Message>
+                permalink: <a target="_blank" href={customUrl}>{customUrl}</a>
+              </Message>
+              <Message>
+                <CopyToClipboard text={customUrl} onCopy={() => this.onCopy()}>
+                  <Button>
+                    {copied ? 'copied!' : 'copy to clipboard'}
+                  </Button>
+                </CopyToClipboard>
+              </Message>
             </div>
-          ) : (
+          )}
+          { !error && !customUrl && (
             generatingUrl ? (
               <Message>
                 please wait, generating bitly link...
