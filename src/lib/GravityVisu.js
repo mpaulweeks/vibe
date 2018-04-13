@@ -86,7 +86,7 @@ class GravityVisu extends BaseVisu {
     rm.draw();
     pm.draw();
     vm.drawCores();
-    if (this.mouseHoldVortex === null){
+    if (!this.parent.isMobile && this.mouseHoldVortex === null){
       canvas.drawCursor();
     }
   }

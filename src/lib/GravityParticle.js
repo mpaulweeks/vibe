@@ -1,22 +1,18 @@
 class Particle {
   constructor(pSettings){
-    const { cSettings, origin, defaultAngle } = pSettings;
-    this.cSettings = cSettings;
-    this.origin = origin;
+    const { defaultAngle } = pSettings;
     this.defaultAngle = defaultAngle;
 
+    this.cSettings = {};
     this.coord = {};
     this.vector = {};
     this.angle = 0;
     this.free = false;
-    this.dead = false;
+    this.dead = true;
     this.speed = 5 + Math.floor(10 * Math.random());
     this.lineLength = 10 / this.speed;
     this.thickness = 5 + Math.floor(5 * Math.random());
     this.deathBuffer = 100;
-
-    this.reset();
-    this.step();
   }
 
   getLine(){
@@ -35,7 +31,8 @@ class Particle {
   }
 
   distanceFromOrigin(){
-    const { origin, coord } = this;
+    const { coord } = this;
+    const { origin } = this.cSettings;
     var dx = origin.x - coord.x;
     var dy = origin.y - coord.y;
     return Math.sqrt(dx*dx + dy*dy);
@@ -104,9 +101,11 @@ class Particle {
     return this.dead;
   }
 
-  reset(){
-    this.coord.x = this.origin.x;
-    this.coord.y = this.origin.y;
+  reset(cSettings){
+    this.cSettings = cSettings;
+    const { origin } = this.cSettings;
+    this.coord.x = origin.x;
+    this.coord.y = origin.y;
     this.angle = this.defaultAngle;
     this.free = false;
     this.dead = false;
@@ -118,6 +117,16 @@ class ParticleManager {
     this.cvas = cvas;
     this.particles = [];
   }
+  getCanvasSettings() {
+    const cSettings = this.cvas.getCanvasTools();
+    return {
+      ...cSettings,
+      origin: {
+        x: cSettings.canvasW/2,
+        y: cSettings.canvasH/2,
+      },
+    };
+  }
 
   newParticle(){
     const { cvas, particles } = this;
@@ -126,11 +135,6 @@ class ParticleManager {
     var angleRange = Math.PI;
     var defaultAngle = angleStart + (angleRange - (2*angleRange*Math.random()));
     var p = new Particle({
-      cSettings: cSettings,
-      origin: {
-        x: cSettings.canvasW/2,
-        y: cSettings.canvasH/2,
-      },
       defaultAngle: defaultAngle,
     });
     particles.push(p);
@@ -148,9 +152,10 @@ class ParticleManager {
 
   step(vortexes){
     const { particles } = this;
+    const cSettings = this.getCanvasSettings();
     particles.forEach(function(p){
       if (p.isDead()){
-        p.reset();
+        p.reset(cSettings);
       }
       p.step(vortexes);
     });
