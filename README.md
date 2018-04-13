@@ -2,6 +2,9 @@
 visual experiments (now with React)
 
 ## todo
+- keyboard support?
+  - back and forth on presets
+
 - specify settings via url
   - sample.com/?settings=123456
   - use bitly
