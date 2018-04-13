@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 import {
   Row,
@@ -80,13 +81,29 @@ class CustomSettings extends React.Component {
     this.state = {
       generatingUrl: false,
       customUrl: null,
+      copied: false,
     }
   }
   componentWillReceiveProps(props){
     this.setState({
       generatingUrl: false,
       customUrl: null,
+      copied: false,
     });
+  }
+  onCopy() {
+    this.setState({
+      copied: true,
+    });
+    const customUrl = this.state.customUrl;
+    setTimeout(() => {
+      const currentUrl = this.state.customUrl;
+      if (currentUrl === customUrl){
+        this.setState({
+          copied: false,
+        });
+      }
+    }, 1000);
   }
   onChange(elm){
     const newSettings = {};
@@ -99,17 +116,20 @@ class CustomSettings extends React.Component {
     this.setState({
       generatingUrl: false,
       customUrl: null,
+      copied: false,
     });
   }
   generateCustomUrl() {
     this.setState({
       generatingUrl: true,
       customUrl: null,
+      copied: false,
     });
     this.props.brain.generateCustomUrl().then(url => {
       this.setState({
         generatingUrl: false,
         customUrl: url,
+        copied: false,
       });
     });
   }
@@ -150,9 +170,18 @@ class CustomSettings extends React.Component {
         </Row>
         <Row>
           { customUrl ? (
+            <div>
             <Message>
-              permalink: <a href={customUrl}>{customUrl}</a>
+              permalink: <a target="_blank" href={customUrl}>{customUrl}</a>
             </Message>
+            <Message>
+              <CopyToClipboard text={customUrl} onCopy={() => this.onCopy()}>
+                <Button>
+                  {this.state.copied ? 'copied!' : 'copy to clipboard'}
+                </Button>
+              </CopyToClipboard>
+            </Message>
+            </div>
           ) : (
             generatingUrl ? (
               <Message>
