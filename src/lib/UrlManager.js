@@ -19,15 +19,18 @@ function b64DecodeUnicode(str) {
 class UrlManager {
   constructor(validTypes){
     this.validTypes = validTypes;
-    this.bitlyTokenPromise = fetch('https://static.mpaulweeks.com/files/bitly.json')
-      .then(resp => this.handleResponse(resp))
+    this.bitlyTokenPromise = this.fetchJSON('https://static.mpaulweeks.com/files/bitly.json')
       .then(data => data.bitly);
   }
-  handleResponse(resp){
-    if (resp.ok){
-      return resp.json();
-    }
-    throw 'bad request';
+  fetchJSON(url){
+    return fetch(url, {
+      cache: 'no-store',
+    }).then(resp => {
+      if (resp.ok){
+        return resp.json();
+      }
+      throw new Error('bad request');
+    });
   }
   processUrlParams(){
     return {
@@ -48,9 +51,8 @@ class UrlManager {
     return this.bitlyTokenPromise
       .then(bitlyToken => {
         const bitlyUrl = `https://api-ssl.bitly.com/v3/shorten?access_token=${bitlyToken}&longUrl=${encodedUrl}`;
-        return fetch(bitlyUrl);
+        return this.fetchJSON(bitlyUrl);
       })
-      .then(resp => this.handleResponse(resp))
       .then(data => data.data.url);
   }
   readUrlParams(){
