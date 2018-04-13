@@ -5,10 +5,6 @@ visual experiments (now with React)
 - keyboard support?
   - back and forth on presets
 
-- specify settings via url
-  - sample.com/?settings=123456
-  - use bitly
-
 - settings with dependencies
   - eg: if cube not rainbow, then choose color
   - settings wrapper that takes list, option obj of deps
