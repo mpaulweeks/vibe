@@ -2,9 +2,6 @@
 visual experiments (now with React)
 
 ## todo
-- gravity
-  - view mouse by drawing cursor (when not in hold)
-
 - specify settings via url
   - sample.com/?settings=123456
   - use bitly
