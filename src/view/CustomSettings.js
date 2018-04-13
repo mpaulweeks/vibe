@@ -203,15 +203,22 @@ class CustomSettings extends React.Component {
             </div>
           )}
           { !error && !customUrl && (
-            generatingUrl ? (
+            <div>
+              { generatingUrl ? (
+                <Message>
+                  please wait, generating bitly link...
+                </Message>
+              ) : (
+                <Message>
+                  want to share your custom settings?
+                </Message>
+              )}
               <Message>
-                please wait, generating bitly link...
+                <Button disabled={generatingUrl} onClick={() => this.generateCustomUrl()}>
+                  generate permalink
+                </Button>
               </Message>
-            ) : (
-              <Button onClick={() => this.generateCustomUrl()}>
-                generate permalink
-              </Button>
-            )
+            </div>
           )}
         </Row>
       </div>
