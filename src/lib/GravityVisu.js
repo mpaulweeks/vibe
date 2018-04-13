@@ -42,13 +42,13 @@ class GravityVisu extends BaseVisu {
   }
   setCustomSettings(newSettings) {
     this.settings = {
-      ...(this.settings || {}),
+      ...this.getCurrentSettings(),
       ...newSettings,
     };
     this.vm.setSettings(this.settings);
   }
   getCurrentSettings() {
-    return this.settings;
+    return this.settings || {};
   }
   onMouseClick(mouseData){
     // todo covered by up/down?

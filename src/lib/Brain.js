@@ -46,7 +46,7 @@ class Brain {
       this.visuApp().setCustomSettings(custom);
     }
   }
-  getCustomUrl() {
+  generateCustomUrl() {
     return this.urlManager.generateUrl(this.visuType, this.visuApp().getCurrentSettings());
   }
   init(canvasElm, otherClickables) {

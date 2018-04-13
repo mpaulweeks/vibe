@@ -27,9 +27,24 @@ class UrlManager {
     }
   }
   generateUrl(type, settingsObj){
+    // const base = window.location.origin;
+    const base = "https://vibe.mpaulweeks.com";
     const settingsJson = JSON.stringify(settingsObj);
     const customEncoded = b64EncodeUnicode(settingsJson);
-    return `${ window.location.origin }/?custom=${ customEncoded }#${ type }`;
+    const customUrl = `${base}/?custom=${customEncoded}#${type}`;
+    return this.generateBitly(customUrl);
+  }
+  generateBitly(customUrl){
+    const encodedUrl = window.encodeURIComponent(customUrl);
+    return fetch('https://static.mpaulweeks.com/files/bitly.json')
+      .then(resp => resp.json())
+      .then(data => {
+        const accessToken = data.bitly;
+        const bitlyUrl = `https://api-ssl.bitly.com/v3/shorten?access_token=${accessToken}&longUrl=${encodedUrl}`;
+        return fetch(bitlyUrl);
+      })
+      .then(resp => resp.json())
+      .then(data => data.data.url);
   }
   readUrlParams(){
     const queryString = window.location.search;

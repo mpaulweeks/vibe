@@ -5,6 +5,7 @@ import {
   Row,
   Message,
   SectionHeader,
+  Button,
 } from './Component';
 import ColorPicker from './ColorPicker';
 
@@ -76,6 +77,16 @@ class CustomSettings extends React.Component {
   constructor(props){
     super(props);
     this.settingElms = [];
+    this.state = {
+      generatingUrl: false,
+      customUrl: null,
+    }
+  }
+  componentWillReceiveProps(props){
+    this.setState({
+      generatingUrl: false,
+      customUrl: null,
+    });
   }
   onChange(elm){
     const newSettings = {};
@@ -84,19 +95,35 @@ class CustomSettings extends React.Component {
       value = parseInt(value, 10);
     }
     newSettings[elm.name] = value;
-    this.props.brain.visuApp().setCustomSetting(newSettings);
-    this.forceUpdate();
+    this.props.brain.visuApp().setCustomSettings(newSettings);
+    this.setState({
+      generatingUrl: false,
+      customUrl: null,
+    });
+  }
+  generateCustomUrl() {
+    this.setState({
+      generatingUrl: true,
+      customUrl: null,
+    });
+    this.props.brain.generateCustomUrl().then(url => {
+      this.setState({
+        generatingUrl: false,
+        customUrl: url,
+      });
+    });
   }
   render() {
     const visuApp = this.props.brain.visuApp();
     const current = visuApp.getCurrentSettings();
+    const { generatingUrl, customUrl } = this.state;
     return (
       <div>
         <Row>
           <SectionHeader>
             instructions
           </SectionHeader>
-          {visuApp.instructions.map((m, mi) => (
+          { visuApp.instructions.map((m, mi) => (
             <Message key={`instructions-${mi}`}>
               {m}
             </Message>
@@ -106,7 +133,7 @@ class CustomSettings extends React.Component {
           <SectionHeader>
             create your own pattern
           </SectionHeader>
-          {visuApp.settingOptions.map((s, si) => (
+          { visuApp.settingOptions.map((s, si) => (
             <SettingsRow key={si}>
               <SettingsLeft>
                 <label>{s.description}</label>
@@ -122,7 +149,21 @@ class CustomSettings extends React.Component {
           ))}
         </Row>
         <Row>
-          <a href={this.props.brain.getCustomUrl()}>permalink to these custom settings</a>
+          { customUrl ? (
+            <Message>
+              permalink: <a href={customUrl}>{customUrl}</a>
+            </Message>
+          ) : (
+            generatingUrl ? (
+              <Message>
+                please wait, generating bitly link...
+              </Message>
+            ) : (
+              <Button onClick={() => this.generateCustomUrl()}>
+                generate permalink
+              </Button>
+            )
+          )}
         </Row>
       </div>
     );

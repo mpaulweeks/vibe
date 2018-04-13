@@ -35,15 +35,12 @@ class CubeVisu extends BaseVisu {
     this.canvas.setSettings(this.patternManager.get());
     this.dummyMice = []; // reset mice position
   }
-  setCustomSetting(newSetting) {
-    const newSettings = {
-      ...this.getCurrentSettings(),
-      ...newSetting,
-    };
-    this.setCustomSettings(newSettings);
-  }
   setCustomSettings(newSettings) {
-    this.patternManager.newCustom(newSettings);
+    const mergedSettings = {
+      ...this.getCurrentSettings(),
+      ...newSettings,
+    };
+    this.patternManager.newCustom(mergedSettings);
     this.updateCanvasSettings();
   }
   getCurrentSettings() {
