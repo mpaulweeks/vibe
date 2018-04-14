@@ -8,12 +8,31 @@ class TailVisu extends BaseVisu {
       'tbd',
     ];
     this.settingOptions = [];
+    this.settings = {
+      colorFill: 'blue',
+      colorEdge: 'white',
+      distance: 70,
+      count: 3,
+      radius: 50,
+    }
+    this.state = {
+      rotation: 0,
+    }
   }
   createCanvas(canvasHelper) {
     return new TailCanvas(canvasHelper);
   }
+  getCanvasSettings(){
+    return {
+      ...this.settings,
+      ...this.state,
+    };
+  }
   tick() {
-    // do nothing for now, this is purely movement based
+    this.state.rotation = (this.state.rotation + 0.1) % (Math.PI * 2);
+  }
+  draw() {
+    this.canvas.draw(this.getCanvasSettings());
   }
 }
 
