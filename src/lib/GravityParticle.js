@@ -129,8 +129,7 @@ class ParticleManager {
   }
 
   newParticle(){
-    const { cvas, particles } = this;
-    var cSettings = cvas.getCanvasTools();
+    const { particles } = this;
     var angleStart = 0;
     var angleRange = Math.PI;
     var defaultAngle = angleStart + (angleRange - (2*angleRange*Math.random()));
