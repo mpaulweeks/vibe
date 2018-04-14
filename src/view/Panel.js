@@ -32,7 +32,7 @@ class Panel extends React.Component {
           <SectionHeader>
             change display
           </SectionHeader>
-          {brain.types.map((t, i) => (
+          {brain.types.map((t, i) => !t.hide && (
             <Button key={`type-${i}`} onClick={() => this.setType(t.type)}>
               {t.name}
             </Button>

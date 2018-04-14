@@ -5,6 +5,7 @@ import UrlManager from './UrlManager';
 import RainbowVisu from './RainbowVisu';
 import GravityVisu from './GravityVisu';
 import CubeVisu from './CubeVisu';
+import TailVisu from './TailVisu';
 
 function MobileAndTabletCheck() {
   // https://stackoverflow.com/a/11381730/6461842
@@ -26,6 +27,11 @@ const Types = [
   {
     type: 'cube',
     name: 'Cube',
+  },
+  {
+    type: 'tail',
+    name: 'Tail',
+    hide: true,
   },
 ];
 
@@ -59,6 +65,7 @@ class Brain {
       'rainbow': new RainbowVisu(this),
       'gravity': new GravityVisu(this),
       'cube': new CubeVisu(this),
+      'tail': new TailVisu(this),
     };
     this.handleUrl();
 
