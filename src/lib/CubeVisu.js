@@ -7,17 +7,17 @@ import {
 import {
   DummyMouse,
 } from './CubeHelper';
-import PatternManager from './CubeSettings';
+import CubeSettings from './CubeSettings';
 
 class CubeVisu extends BaseVisu {
   constructor(props) {
     super(props);
-    this.patternManager = new PatternManager();
-    this.updateCanvasSettings();
     this.instructions = [
       'move your mouse to make waves',
       'click anywhere in grid to change the pattern',
     ];
+    this.settingsManager = new CubeSettings();
+    this.updateCanvasSettings();
     this.settingOptions = [
       NewIntegerSetting('edge', 'Cube Size', 20, 200, 5),
       NewIntegerSetting('shrinkRate', 'Size Retention Rate %', 70, 99, 1),
@@ -31,8 +31,9 @@ class CubeVisu extends BaseVisu {
     ];
     this.dummyMice = [];
   }
+
   updateCanvasSettings() {
-    this.canvas.setSettings(this.patternManager.get());
+    this.canvas.setSettings(this.settingsManager.get());
     this.dummyMice = []; // reset mice position
   }
   setCustomSettings(newSettings) {
@@ -40,17 +41,18 @@ class CubeVisu extends BaseVisu {
       ...this.getCurrentSettings(),
       ...newSettings,
     };
-    this.patternManager.newCustom(mergedSettings);
+    this.settingsManager.newCustom(mergedSettings);
     this.updateCanvasSettings();
   }
   getCurrentSettings() {
-    return this.patternManager.get();
+    return this.settingsManager.get();
   }
+
   createCanvas(canvasHelper) {
     return new CubeCanvas(canvasHelper);
   }
   onMouseClick() {
-    this.patternManager.next();
+    this.settingsManager.next();
     this.updateCanvasSettings();
   }
   handleDummyMice() {
