@@ -4,6 +4,7 @@ import {
   NewIntegerSetting,
   NewColorSetting,
 } from './VisuSetting';
+import SettingsOptionManager from './SettingsOptionManager';
 import TailSettings from './TailSettings';
 
 class TailVisu extends BaseVisu {
@@ -13,14 +14,16 @@ class TailVisu extends BaseVisu {
       'tbd',
     ];
     this.settingsManager = new TailSettings();
-    this.settingOptions = [
+    this.settingOptions = new SettingsOptionManager([
       NewIntegerSetting('distance', 'Distance from Center', 0, 500, 5),
       NewIntegerSetting('radius', 'Circle Size', 5, 300, 5),
       NewIntegerSetting('count', 'Number of Circles', 1, 20, 1),
       NewIntegerSetting('rpm', 'Rotations per Minute', 0, 600, 1),
       NewColorSetting('colorFill', 'Inner Color'),
       NewColorSetting('colorEdge', 'Outer Color'),
-    ];
+    ], {
+      rpm: cs => cs.distance !== 0,
+    });
     this.state = {
       rotation: 0,
     }

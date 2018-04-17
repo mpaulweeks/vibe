@@ -7,6 +7,7 @@ import {
 import {
   DummyMouse,
 } from './CubeHelper';
+import SettingsOptionManager from './SettingsOptionManager';
 import CubeSettings from './CubeSettings';
 
 class CubeVisu extends BaseVisu {
@@ -18,7 +19,7 @@ class CubeVisu extends BaseVisu {
     ];
     this.settingsManager = new CubeSettings();
     this.updateCanvasSettings();
-    this.settingOptions = [
+    this.settingOptions = new SettingsOptionManager([
       NewIntegerSetting('edge', 'Cube Size', 20, 200, 5),
       NewIntegerSetting('shrinkRate', 'Size Retention Rate %', 70, 99, 1),
       NewIntegerSetting('spreadX', 'Splash Left/Right', 0, 20, 1),
@@ -28,7 +29,7 @@ class CubeVisu extends BaseVisu {
       NewColorSetting('colorEdge', 'Edge Color'),
       NewColorSetting('focusFace', 'Moving Cube Color'),
       NewColorSetting('focusEdge', 'Moving Edge Color'),
-    ];
+    ]);
     this.dummyMice = [];
   }
 

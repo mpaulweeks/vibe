@@ -167,7 +167,7 @@ class CustomSettings extends React.Component {
           <SectionHeader>
             create your own pattern
           </SectionHeader>
-          { visuApp.settingOptions.map((s, si) => (
+          { visuApp.settingOptions.get(current).map((s, si) => (
             <SettingsRow key={si}>
               <SettingsLeft>
                 <label>{s.description}</label>

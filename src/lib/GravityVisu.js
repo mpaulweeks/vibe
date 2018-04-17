@@ -4,6 +4,7 @@ import RainbowCanvas from './RainbowCanvas';
 import {
   NewIntegerSetting,
 } from './VisuSetting';
+import SettingsOptionManager from './SettingsOptionManager';
 
 import RingManager from './GravityRing';
 import ParticleManager from './GravityParticle';
@@ -28,10 +29,10 @@ class GravityVisu extends BaseVisu {
       'click and drag to change the size',
     ];
     this.setCustomSettings(defaultSettings);
-    this.settingOptions = [
+    this.settingOptions = new SettingsOptionManager([
       NewIntegerSetting('ringSize', 'Default Vortex Size', 40, 800, 20),
       NewIntegerSetting('growthDelta', 'Shrink Speed', 1, 100, 1),
-    ];
+    ]);
 
     for (var i = 0; i < 1000; i++){
       this.pm.newParticle();

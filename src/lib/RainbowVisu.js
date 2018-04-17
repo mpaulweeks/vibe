@@ -6,6 +6,7 @@ import {
   NewIntegerSetting,
   NewBooleanSetting,
 } from './VisuSetting';
+import SettingsOptionManager from './SettingsOptionManager';
 
 class RainbowVisu extends BaseVisu {
   createCanvas(canvasHelper) {
@@ -18,7 +19,7 @@ class RainbowVisu extends BaseVisu {
       'move your mouse to move the rainbow',
       'click anywhere in the rainbow to change the pattern',
     ]
-    this.settingOptions = [
+    this.settingOptions = new SettingsOptionManager([
       NewIntegerSetting('phaseDelta', 'RGB shift', 0, 32, 1),
       NewIntegerSetting('colorRange', 'contrast', 0, 127, 1),
       NewIntegerSetting('numSlices', 'number of Slices per Group', 1, 32, 1),
@@ -26,7 +27,7 @@ class RainbowVisu extends BaseVisu {
       NewIntegerSetting('groupWidth', 'Group width in pixels', 50, 950, 50),
       NewBooleanSetting('centered', 'is always centered?'),
       NewIntegerSetting('tiling', 'number of displays across', 1, 5, 1),
-    ];
+    ]);
   }
   getCurrentSettings() {
     return this.patterns.get().getSettings();
