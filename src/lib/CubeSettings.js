@@ -1,4 +1,4 @@
-import SettingsManager from './SettingsManager';
+import SettingsPresetManager from './SettingsPresetManager';
 
 const Colors = {
   Blue: 'rgb(38,57,131)',
@@ -42,7 +42,7 @@ const presets = [
   },
 ];
 
-class CubeSettings extends SettingsManager {
+class CubeSettings extends SettingsPresetManager {
   constructor() {
     super(presets, defaultSettings);
   }

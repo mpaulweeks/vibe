@@ -1,4 +1,4 @@
-import SettingsManager from './SettingsManager';
+import SettingsPresetManager from './SettingsPresetManager';
 
 const defaultSettings = {
   colorFill: 'blue',
@@ -13,7 +13,7 @@ const presets = [
  {},
 ]
 
-class TailSettings extends SettingsManager {
+class TailSettings extends SettingsPresetManager {
   constructor() {
     super(presets, defaultSettings);
   }
