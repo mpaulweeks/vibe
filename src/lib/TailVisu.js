@@ -1,9 +1,12 @@
 import BaseVisu from './BaseVisu';
 import TailCanvas from './TailCanvas';
 import {
+  NewBooleanSetting,
   NewIntegerSetting,
   NewColorSetting,
 } from './VisuSetting';
+
+import { GradientModifier } from './Gradient';
 import SettingsOptionManager from './SettingsOptionManager';
 import TailSettings from './TailSettings';
 
@@ -19,11 +22,16 @@ class TailVisu extends BaseVisu {
       NewIntegerSetting('radius', 'Circle Size', 5, 300, 5),
       NewIntegerSetting('count', 'Number of Circles', 1, 20, 1),
       NewIntegerSetting('rpm', 'Rotations per Minute', 0, 600, 1),
+      NewBooleanSetting('isRainbow', 'Rainbow?'),
       NewColorSetting('colorFill', 'Inner Color'),
       NewColorSetting('colorEdge', 'Outer Color'),
     ], {
       rpm: cs => cs.distance !== 0,
+      colorFill: cs => !cs.isRainbow,
+      colorEdge: cs => !cs.isRainbow,
     });
+
+    this.grad = new GradientModifier();
     this.state = {
       rotation: 0,
     }
@@ -44,15 +52,20 @@ class TailVisu extends BaseVisu {
     return new TailCanvas(canvasHelper);
   }
   getCanvasSettings(){
-    return {
+    const settings = {
       ...this.getCurrentSettings(),
       ...this.state,
+    };
+    return {
+      ...settings,
+      gradients: this.grad.rainbowSeries(settings)
     };
   }
   tick() {
     const { rpm } = this.getCurrentSettings();
     const rotationPerFrame = (rpm * Math.PI * 2) / (60 * 60);
     this.state.rotation = (this.state.rotation + rotationPerFrame) % (Math.PI * 2);
+    this.grad.step();
   }
   draw() {
     this.canvas.draw(this.getCanvasSettings());
