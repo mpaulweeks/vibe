@@ -1,12 +1,14 @@
 import BaseVisu from './BaseVisu';
 import CubeCanvas from './CubeCanvas';
 import {
+  NewBooleanSetting,
   NewIntegerSetting,
   NewColorSetting,
 } from './VisuSetting';
 import {
   DummyMouse,
 } from './CubeHelper';
+import { GradientModifier } from './Gradient';
 import SettingsOptionManager from './SettingsOptionManager';
 import CubeSettings from './CubeSettings';
 
@@ -25,11 +27,17 @@ class CubeVisu extends BaseVisu {
       NewIntegerSetting('spreadX', 'Splash Left/Right', 0, 20, 1),
       NewIntegerSetting('spreadY', 'Splash Up/Down', 0, 20, 1),
       NewIntegerSetting('countDummyMice', 'Automated Movers', 0, 30, 1),
+      NewBooleanSetting('colorFaceRainbow', 'Cube Rainbow'),
       NewColorSetting('colorFace', 'Cube Color'),
       NewColorSetting('colorEdge', 'Edge Color'),
+      NewBooleanSetting('focusFaceRainbow', 'Moving Cube Rainbow'),
       NewColorSetting('focusFace', 'Moving Cube Color'),
       NewColorSetting('focusEdge', 'Moving Edge Color'),
-    ]);
+    ], {
+      colorFace: cs => !cs.colorFaceRainbow,
+      focusFace: cs => !cs.focusFaceRainbow,
+    });
+    this.grad = new GradientModifier();
     this.dummyMice = [];
   }
 
@@ -76,6 +84,10 @@ class CubeVisu extends BaseVisu {
     const { shrinkRate } = this.getCurrentSettings();
     this.handleDummyMice();
     this.canvas.mt.slowDown(shrinkRate/100);
+    this.grad.step();
+  }
+  draw() {
+    this.canvas.draw(this.grad);
   }
 }
 

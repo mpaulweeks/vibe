@@ -5,7 +5,6 @@ import {
   NewIntegerSetting,
   NewColorSetting,
 } from './VisuSetting';
-
 import { GradientModifier } from './Gradient';
 import SettingsOptionManager from './SettingsOptionManager';
 import TailSettings from './TailSettings';
@@ -58,7 +57,7 @@ class TailVisu extends BaseVisu {
     };
     return {
       ...settings,
-      gradients: this.grad.rainbowSeries(settings)
+      gradients: this.grad.rainbowSeries(settings),
     };
   }
   tick() {

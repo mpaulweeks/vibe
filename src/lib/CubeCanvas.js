@@ -31,9 +31,16 @@ class CubeCanvas extends BaseCanvas {
     const { currMouse } = this.mt;
     return Math.sqrt(Math.pow(currMouse.x - x, 2) + Math.pow(currMouse.y - y, 2));
   }
-  drawHex(xGrid, yGrid) {
+  drawHex(xGrid, yGrid, modifiedGradient) {
     const { ctx } = this.getCanvasTools();
-    const { colorFace, colorEdge, focusFace, focusEdge } = this.settings;
+    const {
+      colorFaceRainbow,
+      colorFace,
+      colorEdge,
+      focusFaceRainbow,
+      focusFace,
+      focusEdge,
+    } = this.settings;
     let { edge, dx, dy, cubeWidth, cubeHeight } = this.measure;
     let x = xGrid * cubeWidth;
     let y = yGrid * cubeHeight / 2;
@@ -49,11 +56,17 @@ class CubeCanvas extends BaseCanvas {
       x = cx; //doesnt change
       y = cy - dy - edge/2;
 
-      ctx.fillStyle = focusFace;
       ctx.strokeStyle = focusEdge;
+      ctx.fillStyle = focusFace;
+      if (focusFaceRainbow){
+        ctx.fillStyle = modifiedGradient;
+      }
     } else {
-      ctx.fillStyle = colorFace;
       ctx.strokeStyle = colorEdge;
+      ctx.fillStyle = colorFace;
+      if (colorFaceRainbow){
+        ctx.fillStyle = modifiedGradient;
+      }
     }
 
     ctx.beginPath();
@@ -92,12 +105,19 @@ class CubeCanvas extends BaseCanvas {
     // debugging
     // ctx.strokeText(`${ xGrid },${ yGrid }`, cx-5, cy-5);
   }
-  draw() {
+  draw(grad) {
     const { ctx, canvasW, canvasH } = this.getCanvasTools();
-    const { colorFace } = this.settings;
+    const { colorFaceRainbow, colorFace } = this.settings;
+
     ctx.fillStyle = colorFace;
-    ctx.lineWidth = 1;
+    const gm = grad.rainbowSeries(this.settings)[0];
+    const rawGradient = ctx.createLinearGradient(0, 0, canvasW, 0);
+    const modifiedGradient = gm(rawGradient);
+    if (colorFaceRainbow){
+      ctx.fillStyle = modifiedGradient;
+    }
     ctx.fillRect(0, 0, canvasW, canvasH);
+    ctx.lineWidth = 1;
 
     const { cubeHeight, cubeWidth } = this.measure;
     const cubesY = 1 + (canvasH / (cubeHeight / 2));
@@ -105,7 +125,7 @@ class CubeCanvas extends BaseCanvas {
     for (let y = -1; y < cubesY; y += 1) {
       const xOffset = y % 2 === 0 ? 1 : 0;
       for (let x = -1 + xOffset; x <= cubesX; x += 2) {
-        this.drawHex(x, y);
+        this.drawHex(x, y, modifiedGradient);
       }
     }
   }
