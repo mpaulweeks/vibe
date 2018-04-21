@@ -34,6 +34,11 @@ class CanvasHandler {
         };
       }
     })
+    window.addEventListener('keypress', event => {
+      if (brain.onKeyPress(event)){
+        event.preventDefault();
+      }
+    });
   }
   ensureCanvasDimensions() {
     const { canvas } = this;

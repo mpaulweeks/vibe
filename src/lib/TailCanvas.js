@@ -8,50 +8,83 @@ class TailCanvas extends BaseCanvas {
       colorEdge: 'grey',
     };
   }
-  drawCircle(ctx, x, y, radius, noStroke) {
+  drawCircle(ctx, x, y, radius, strokeEdge) {
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, Math.PI*2);
     ctx.fill();
-    if (!noStroke){
+    if (strokeEdge){
       ctx.stroke();
     }
   }
-  drawSpiral(x, y, i) {
-    const { ctx } = this.getCanvasTools();
-    const angle = i * (Math.PI/8);
-    const distance = 100 + (i*4);
-    const dx = Math.cos(angle) * distance;
-    const dy = Math.sin(angle) * distance;
-    const radius = 50 + (i/2);
-    this.drawCircle(ctx, x + dx, y + dy, radius);
-  }
-  drawCluster(mSettings) {
-    const { ctx, mouseData } = this.getCanvasTools();
+  draw(state) {
+    const { ctx, canvasW, canvasH, mouseData } = this.getCanvasTools();
     const { x, y } = mouseData;
-    const { count, rotation, distance, radius } = mSettings;
-    const { isRainbow, colorFill, colorEdge, gradients } = mSettings;
+    const {
+      count,
+      distance,
+      radius,
+      isRainbow,
+      colorFill,
+      lineWidth,
+      colorEdge,
+      pattern,
+    } = this.settings;
+    const {
+      rotation,
+      gradients,
+    } = state;
+    const strokeEdge = lineWidth !== 0;
+
+    let rawGradient = null;
+    if (pattern === 'ring'){
+      rawGradient = ctx.createRadialGradient(x, y, 0, x, y, distance+radius);
+    }
+    if (pattern === 'spiral'){
+      rawGradient = ctx.createRadialGradient(x, y, 0, x, y, 2 * Math.max(canvasW, canvasH));
+    }
+
     if (isRainbow) {
       const gm = gradients[0];
-      const rawGradient = ctx.createRadialGradient(x, y, 0, x, y, distance+radius);
       ctx.fillStyle = gm(rawGradient);
-      ctx.strokeStyle = null;
-      ctx.lineWidth = 0;
     } else {
       ctx.fillStyle = colorFill;
-      ctx.strokeStyle = colorEdge;
-      ctx.lineWidth = 2;
     }
-    for (let i = 0; i < count; i++){
-      const angle = rotation + (i * Math.PI * 2 / count);
-      const dx = Math.cos(angle) * distance;
-      const dy = Math.sin(angle) * distance;
-      this.drawCircle(ctx, x + dx, y + dy, radius, isRainbow);
+    ctx.strokeStyle = colorEdge;
+    ctx.lineWidth = lineWidth;
+
+    if (pattern === 'ring') {
+      for (let i = 0; i < count; i++){
+        const angle = rotation + (i * Math.PI * 2 / count);
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+        this.drawCircle(ctx, x + dx, y + dy, radius, strokeEdge);
+      }
+    }
+    if (pattern === 'spiral') {
+      for (let i = 0; i < count; i++){
+        const angle = rotation + (i * Math.PI / 8) + (i/100);
+        const spiralDistance = distance + (i*4);
+        const dx = Math.cos(angle) * spiralDistance;
+        const dy = Math.sin(angle) * spiralDistance;
+        this.drawCircle(ctx, x + dx, y + dy, radius, strokeEdge);
+      }
     }
   }
-  draw(mSettings) {
-    this.drawCluster(mSettings);
+  clear(){
+    const { ctx, canvasW, canvasH } = this.getCanvasTools();
+    ctx.fillStyle = this.settings.colorBackground;
+    ctx.fillRect(0, 0, canvasW, canvasH);
   }
-  setSettings(newSettings) {}
+  onKeyPress(event) {
+    if (event.code === 'Space'){
+      this.clear();
+      return true;
+    }
+    return super.onKeyPress(event);
+  }
+  setSettings(newSettings) {
+    this.settings = newSettings;
+  }
 }
 
 export default TailCanvas;

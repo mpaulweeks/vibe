@@ -145,6 +145,9 @@ class Brain {
     this.clearTouchHoldTimer();
     this.onCanvasMouseUp(mouseData);
   }
+  onKeyPress(event) {
+    return this.visuApp().onKeyPress(event);
+  }
 }
 
 export default Brain;

@@ -24,6 +24,7 @@ class BaseCanvas {
     this.prevMouseData = this.mouseData;
     this.mouseData = mouseData;
   }
+  onKeyPress(event) {}
 
   getCanvasTools() {
     return {

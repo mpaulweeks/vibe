@@ -17,6 +17,9 @@ class BaseVisu {
   onMouseUp(mouseData) {
     this.canvas.onMouseUp(mouseData);
   }
+  onKeyPress(event) {
+    return this.canvas.onKeyPress(event);
+  }
 
   tick() {}
   draw() {
