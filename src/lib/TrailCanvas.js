@@ -1,6 +1,6 @@
 import BaseCanvas from './BaseCanvas';
 
-class TailCanvas extends BaseCanvas {
+class TrailCanvas extends BaseCanvas {
   constructor(...props) {
     super(...props);
     this.settings = {
@@ -87,4 +87,4 @@ class TailCanvas extends BaseCanvas {
   }
 }
 
-export default TailCanvas;
+export default TrailCanvas;

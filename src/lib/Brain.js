@@ -5,7 +5,7 @@ import UrlManager from './UrlManager';
 import RainbowVisu from './RainbowVisu';
 import GravityVisu from './GravityVisu';
 import CubeVisu from './CubeVisu';
-import TailVisu from './TailVisu';
+import TrailVisu from './TrailVisu';
 
 function MobileAndTabletCheck() {
   // https://stackoverflow.com/a/11381730/6461842
@@ -64,7 +64,7 @@ class Brain {
       'rainbow': new RainbowVisu(this),
       'gravity': new GravityVisu(this),
       'cube': new CubeVisu(this),
-      'trail': new TailVisu(this),
+      'trail': new TrailVisu(this),
     };
     this.handleUrl();
 

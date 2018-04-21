@@ -1,5 +1,5 @@
 import BaseVisu from './BaseVisu';
-import TailCanvas from './TailCanvas';
+import TrailCanvas from './TrailCanvas';
 import {
   NewVisuSetting,
   NewBooleanSetting,
@@ -8,16 +8,16 @@ import {
 } from './VisuSetting';
 import { GradientModifier } from './Gradient';
 import SettingsOptionManager from './SettingsOptionManager';
-import TailSettings from './TailSettings';
+import TrailSettings from './TrailSettings';
 
-class TailVisu extends BaseVisu {
+class TrailVisu extends BaseVisu {
   constructor(...props) {
     super(...props);
     this.instructions = [
       'press SPACEBAR to clear',
       'click anywhere in grid to see a new pattern',
     ];
-    this.settingsManager = new TailSettings();
+    this.settingsManager = new TrailSettings();
     this.updateCanvasSettings();
     this.settingOptions = new SettingsOptionManager([
       NewVisuSetting('pattern', 'Pattern', [
@@ -70,7 +70,7 @@ class TailVisu extends BaseVisu {
   }
 
   createCanvas(canvasHelper) {
-    return new TailCanvas(canvasHelper);
+    return new TrailCanvas(canvasHelper);
   }
   getCanvasState(){
     return {
@@ -89,4 +89,4 @@ class TailVisu extends BaseVisu {
   }
 }
 
-export default TailVisu;
+export default TrailVisu;

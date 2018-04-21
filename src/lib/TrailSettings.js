@@ -59,10 +59,10 @@ const presets = [
   },
 ]
 
-class TailSettings extends SettingsPresetManager {
+class TrailSettings extends SettingsPresetManager {
   constructor() {
     super(presets, defaultSettings);
   }
 }
 
-export default TailSettings;
+export default TrailSettings;
