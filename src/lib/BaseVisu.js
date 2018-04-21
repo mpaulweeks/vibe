@@ -5,6 +5,10 @@ class BaseVisu {
     this.settingOptions = [];
   }
 
+  onSwitch() {
+    // when this visu is switched to
+  }
+
   onMouseClick(mouseData) {
     this.canvas.onMouseClick(mouseData);
   }

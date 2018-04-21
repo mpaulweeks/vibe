@@ -60,6 +60,9 @@ class TailVisu extends BaseVisu {
     return this.settingsManager.get();
   }
 
+  onSwitch() {
+    this.canvas.clear();
+  }
   onMouseClick() {
     this.settingsManager.next();
     this.updateCanvasSettings();

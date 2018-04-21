@@ -29,9 +29,8 @@ const Types = [
     name: 'Cube',
   },
   {
-    type: 'tail',
-    name: 'Tail',
-    hide: true,
+    type: 'trail',
+    name: 'Trail',
   },
 ];
 
@@ -65,7 +64,7 @@ class Brain {
       'rainbow': new RainbowVisu(this),
       'gravity': new GravityVisu(this),
       'cube': new CubeVisu(this),
-      'tail': new TailVisu(this),
+      'trail': new TailVisu(this),
     };
     this.handleUrl();
 
@@ -82,6 +81,7 @@ class Brain {
   }
   setType(type) {
     this.visuType = type;
+    this.visuApp().onSwitch();
     this.urlManager.setUrl(this.visuType);
     this.clearTouchHoldTimer();
   }
