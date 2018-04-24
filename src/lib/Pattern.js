@@ -40,6 +40,7 @@ class RainbowPatterns {
       new Pattern(this.drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, phaseDelta: 1}),
       new Pattern(this.drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, phaseDelta: 3}),
       new Pattern(this.drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150, phaseDelta: 4}),
+      new Pattern(this.drawFunc, {numSlices: 18, sliceDifference: 2, groupWidth: 500, phaseDelta: 11}),
     ];
     this.patternIndex = 0;
     this.customPattern = null;
