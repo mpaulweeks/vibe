@@ -111,7 +111,7 @@ class Brain {
   startTouchHoldTimer() {
     this.clearTouchHoldTimer();
     if (this.touchHoldTimer === null){
-      this.touchHoldTimer = window.setTimeout(() => this.nextType(), 3000);
+      this.touchHoldTimer = window.setTimeout(() => this.nextType(), 2000);
     }
   }
   clearTouchHoldTimer() {
