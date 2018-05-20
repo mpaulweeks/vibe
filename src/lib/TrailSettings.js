@@ -21,6 +21,15 @@ const presets = [
     lineWidth: 0,
   },
   {
+    pattern: 'ring',
+    distance: 160,
+    radius: 25,
+    count: 50,
+    rpm: 60,
+    isRainbow: 1,
+    lineWidth: 0,
+  },
+  {
     pattern: 'spiral',
     isRainbow: 1,
     lineWidth: 0,
