@@ -68,6 +68,9 @@ class TrailVisu extends BaseVisu {
     this.updateCanvasSettings();
     this.canvas.clear();
   }
+  onFullScreen(){
+    this.canvas.clear();
+  }
 
   createCanvas(canvasHelper) {
     return new TrailCanvas(canvasHelper);

@@ -145,6 +145,12 @@ class Brain {
     this.clearTouchHoldTimer();
     this.onCanvasMouseUp(mouseData);
   }
+  goFullScreen() {
+    this.ch.goFullScreen();
+
+    // todo better solution
+    setTimeout(() => this.visuApp().onFullScreen(), 500);
+  }
   onKeyPress(event) {
     return this.visuApp().onKeyPress(event);
   }

@@ -21,6 +21,7 @@ class BaseVisu {
   onMouseUp(mouseData) {
     this.canvas.onMouseUp(mouseData);
   }
+  onFullScreen() {}
   onKeyPress(event) {
     return this.canvas.onKeyPress(event);
   }

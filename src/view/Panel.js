@@ -17,7 +17,7 @@ class Panel extends React.Component {
   }
   onFullscreen() {
     const { brain } = this.props;
-    brain.ch.goFullScreen();
+    brain.goFullScreen();
   }
   setType(type) {
     const { brain } = this.props;
