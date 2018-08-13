@@ -21,6 +21,7 @@ class UrlManager {
     this.validTypes = validTypes;
     this.bitlyTokenPromise = this.fetchJSON('https://static.mpaulweeks.com/files/bitly.json')
       .then(data => data.bitly);
+    // todo add catch
   }
   fetchJSON(url){
     return fetch(url, {
