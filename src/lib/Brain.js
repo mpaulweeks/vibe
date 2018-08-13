@@ -40,6 +40,7 @@ class Brain {
     this.touchHoldTimer = null;
     this.types = Types;
     this.urlManager = new UrlManager(this.types);
+    this.startingUrlData = {};
     this.callbackFunc = () => {};
   }
   handleUrl() {
@@ -51,8 +52,7 @@ class Brain {
       this.visuApp().setCustomSettings(custom);
     }
 
-    console.log(urlData);
-    return !!urlData.type;
+    this.startingUrlData = urlData;
   }
   generateCustomUrl() {
     return this.urlManager.generateUrl(this.visuType, this.visuApp().getCurrentSettings());
@@ -69,7 +69,7 @@ class Brain {
       'cube': new CubeVisu(this),
       'trail': new TrailVisu(this),
     };
-    const typedUrl = this.handleUrl();
+    this.handleUrl();
 
     Looper.logicLoop(looper => {
       this.loopTick();
@@ -81,8 +81,6 @@ class Brain {
         this.ch.drawStats(stats);
       }
     });
-    console.log(typedUrl);
-    return typedUrl;
   }
   setType(type) {
     this.visuType = type;

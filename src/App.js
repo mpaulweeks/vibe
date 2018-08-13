@@ -55,14 +55,10 @@ class App extends React.Component {
     window.brain = this.brain;
   }
   componentDidMount() {
-    const typedUrl = this.brain.init(
-      this.refs.canvas.elm,
-      []
-    );
+    this.brain.init(this.refs.canvas.elm);
     this.setState({
       isReady: true,
       isWelcome: true,
-      hasType: typedUrl,
     });
   }
   render() {

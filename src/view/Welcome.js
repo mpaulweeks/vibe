@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 const WelcomeContainer = styled.div`
   position: absolute;
@@ -66,7 +66,8 @@ class Desktop extends React.Component {
 
 export default class Welcome extends React.Component {
   render() {
-    const { isMobile } = this.props.brain;
+    const { isMobile, startingUrlData } = this.props.brain;
+    console.log(startingUrlData);
     return (
       <WelcomeContainer innerRef={e => this.elm = e}>
         <div>

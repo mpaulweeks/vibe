@@ -6,7 +6,7 @@ class CanvasHandler {
     this.lastEvt = null;
 
     const self = this;
-    const clickables = [this.canvas].concat(otherClickables);
+    const clickables = [this.canvas].concat(otherClickables || []);
 
     function addMouseEvent(elm, eventType, brainFunc){
       elm.addEventListener(eventType, evt => {
