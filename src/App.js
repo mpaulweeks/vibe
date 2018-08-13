@@ -7,7 +7,7 @@ import AudioManager from './lib/AudioManager';
 import Canvas from './view/Canvas';
 import Panel from './view/Panel';
 import Footer from './view/Footer';
-import Popup from './view/Popup';
+import Welcome from './view/Welcome';
 
 const hideable = styled.div`
   ${props => props.hidden && `
@@ -57,9 +57,7 @@ class App extends React.Component {
   componentDidMount() {
     const typedUrl = this.brain.init(
       this.refs.canvas.elm,
-      [
-        this.refs.popup.elm,
-      ]
+      []
     );
     this.setState({
       isReady: true,
@@ -86,11 +84,10 @@ class App extends React.Component {
               <Footer {...childrenProps}>></Footer>
             </FooterContainer>
             <WelcomeContainer hidden={!showWelcome}>
-              welcome!
+              <Welcome {...childrenProps}></Welcome>
             </WelcomeContainer>
           </div>
         )}
-        <Popup ref="popup" {...childrenProps}></Popup>
       </PageContainer>
     );
   }
