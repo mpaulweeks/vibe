@@ -48,7 +48,7 @@ class App extends React.Component {
     this.audio = new AudioManager(props.cookies);
     this.state = {
       isReady: false,
-      isWelcome: false,
+      isWelcome: true,
     };
 
     // debugging
@@ -58,7 +58,11 @@ class App extends React.Component {
     this.brain.init(this.refs.canvas.elm);
     this.setState({
       isReady: true,
-      isWelcome: true,
+    });
+  }
+  exitWelcome() {
+    this.setState({
+      isWelcome: false,
     });
   }
   render() {
@@ -67,6 +71,7 @@ class App extends React.Component {
     const childrenProps = {
       brain: this.brain,
       audio: this.audio,
+      exitWelcome: () => this.exitWelcome(),
     };
     const showFooter = !isMobile && !isWelcome;
     const showWelcome = !isMobile && isWelcome;

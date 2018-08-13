@@ -1,6 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import {
+  Row,
+  Button,
+} from './Component';
+
 const WelcomeContainer = styled.div`
   position: absolute;
   top: 30px;
@@ -83,6 +88,11 @@ export default class Welcome extends React.Component {
         ) : (
           <Desktop />
         )}
+        <Row>
+          <Button onClick={this.props.exitWelcome}>
+            ENTER
+          </Button>
+        </Row>
       </WelcomeContainer>
     )
   }
