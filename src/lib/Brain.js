@@ -50,6 +50,9 @@ class Brain {
     if (custom){
       this.visuApp().setCustomSettings(custom);
     }
+
+    console.log(urlData);
+    return !!urlData.type;
   }
   generateCustomUrl() {
     return this.urlManager.generateUrl(this.visuType, this.visuApp().getCurrentSettings());
@@ -66,7 +69,7 @@ class Brain {
       'cube': new CubeVisu(this),
       'trail': new TrailVisu(this),
     };
-    this.handleUrl();
+    const typedUrl = this.handleUrl();
 
     Looper.logicLoop(looper => {
       this.loopTick();
@@ -78,6 +81,8 @@ class Brain {
         this.ch.drawStats(stats);
       }
     });
+    console.log(typedUrl);
+    return typedUrl;
   }
   setType(type) {
     this.visuType = type;
