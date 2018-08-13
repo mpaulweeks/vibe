@@ -20,8 +20,8 @@ class UrlManager {
   constructor(validTypes){
     this.validTypes = validTypes;
     this.bitlyTokenPromise = this.fetchJSON('https://static.mpaulweeks.com/files/bitly.json')
-      .then(data => data.bitly);
-    // todo add catch
+      .then(data => data.bitly)
+      .catch(() => null)
   }
   fetchJSON(url){
     return fetch(url, {
@@ -51,10 +51,13 @@ class UrlManager {
     const encodedUrl = window.encodeURIComponent(customUrl);
     return this.bitlyTokenPromise
       .then(bitlyToken => {
-        const bitlyUrl = `https://api-ssl.bitly.com/v3/shorten?access_token=${bitlyToken}&longUrl=${encodedUrl}`;
-        return this.fetchJSON(bitlyUrl);
+        if (bitlyToken) {
+          const bitlyUrl = `https://api-ssl.bitly.com/v3/shorten?access_token=${bitlyToken}&longUrl=${encodedUrl}`;
+          return this.fetchJSON(bitlyUrl);
+        }
+        throw new Error('missing bitlyToken');
       })
-      .then(data => data.data.url);
+      .then(data => data.data.url)
   }
   readUrlParams(){
     const queryString = window.location.search;
