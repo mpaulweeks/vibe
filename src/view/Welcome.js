@@ -10,7 +10,8 @@ const WelcomeContainer = styled.div`
   position: absolute;
   top: 30px;
   left: 50%;
-  width: 300px;
+  width: calc(100% - 20px);
+  max-width: 400px;
   transform: translate(-50%, 0%);
 
   text-align: center;
@@ -34,6 +35,7 @@ const PopupTitle = styled.div`
 
 class Mobile extends React.Component {
   render() {
+    console.log('rendering mobile welcome')
     return (
       <div>
         <div>
@@ -70,8 +72,12 @@ class Desktop extends React.Component {
 }
 
 export default class Welcome extends React.Component {
+  setType(type) {
+    const { brain } = this.props;
+    brain.setType(type);
+  }
   render() {
-    const { isMobile, startingUrlData } = this.props.brain;
+    const { isMobile, startingUrlData, types } = this.props.brain;
     console.log(startingUrlData);
     return (
       <WelcomeContainer innerRef={e => this.elm = e}>
@@ -83,6 +89,17 @@ export default class Welcome extends React.Component {
             <span role="img" aria-label="Rainbow">🌈</span>
           </PopupTitle>
         </div>
+        <div>
+          CHOOSE A VISUALIZATION
+          {types.map((t, i) => !t.hide && (
+            <div key={`welcome-type-${i}`}>
+              <Button onClick={() => this.setType(t.type)}>
+                {t.name}
+              </Button>
+            </div>
+          ))}
+        </div>
+
         {isMobile ? (
           <Mobile />
         ) : (

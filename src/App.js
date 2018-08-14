@@ -74,7 +74,7 @@ class App extends React.Component {
       exitWelcome: () => this.exitWelcome(),
     };
     const showFooter = !isMobile && !isWelcome;
-    const showWelcome = !isMobile && isWelcome;
+    const showWelcome = isWelcome;
     return (
       <PageContainer>
         <Canvas ref="canvas"></Canvas>
