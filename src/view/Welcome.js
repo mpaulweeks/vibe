@@ -36,6 +36,7 @@ const PopupTitle = styled.div`
 const TypeRow = styled.div`
   display: flex;
   justify-content: space-around;
+  flex-wrap: nowrap;
 `;
 
 class Mobile extends React.Component {
@@ -44,13 +45,13 @@ class Mobile extends React.Component {
     return (
       <div>
         <div>
-          TAP AND DRAG TO INTERACT
+          Tap and drag to interact
         </div>
         <div>
-          HOLD IN PLACE FOR 3 SECONDS TO SWITCH APPS
+          Tap and hold to switch apps
         </div>
         <div>
-          OPEN ON DESKTOP FOR MORE OPTIONS
+          Open on desktop for more options
         </div>
       </div>
     );
@@ -62,14 +63,14 @@ class Desktop extends React.Component {
     return (
       <div>
         <div>
-          MOVE YOUR MOUSE
+          Move your mouse
           <br/>
-          CLICK ANYWHERE
+          Click anywhere
           <br/>
-          SEE WHAT HAPPENS
+          See what happens
         </div>
         <div>
-          SCROLL DOWN FOR MORE
+          Scroll down for more
         </div>
       </div>
     );
@@ -87,7 +88,7 @@ export default class Welcome extends React.Component {
     return (
       <WelcomeContainer innerRef={e => this.elm = e}>
         <div>
-          WELCOME TO
+          Welcome to
           <PopupTitle>
             <span role="img" aria-label="Rainbow">🌈</span>
             VIBE
@@ -95,7 +96,7 @@ export default class Welcome extends React.Component {
           </PopupTitle>
         </div>
         <div>
-          CHOOSE A VISUALIZATION
+          Choose a visualization
           <TypeRow>
             {types.map((t, i) => !t.hide && (
               <div key={`welcome-type-${i}`}>
@@ -114,7 +115,7 @@ export default class Welcome extends React.Component {
         )}
         <Row>
           <Button onClick={this.props.exitWelcome}>
-            ENTER
+            Enter
           </Button>
         </Row>
       </WelcomeContainer>
