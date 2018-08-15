@@ -1,12 +1,13 @@
 class CanvasHandler {
-  constructor(brain, canvasElm, otherClickables) {
+  constructor(brain, canvasElm, otherMouseTrackers) {
     this.canvas = canvasElm;
     this.ensureCanvasDimensions();
     this.ctx = this.canvas.getContext('2d');
     this.lastEvt = null;
 
     const self = this;
-    const clickables = [this.canvas].concat(otherClickables || []);
+    const clickables = [this.canvas];
+    const trackables = [this.canvas].concat(otherMouseTrackers || []);
 
     function addMouseEvent(elm, eventType, brainFunc){
       elm.addEventListener(eventType, evt => {
@@ -19,10 +20,8 @@ class CanvasHandler {
     }
     clickables.forEach(c => {
       addMouseEvent(c, 'click', md => brain.onCanvasMouseClick(md));
-      addMouseEvent(c, 'mousemove', md => brain.onCanvasMouseMove(md));
       addMouseEvent(c, 'mousedown', md => brain.onCanvasMouseDown(md));
       addMouseEvent(c, 'mouseup', md => brain.onCanvasMouseUp(md));
-      addMouseEvent(c, 'touchmove', md => brain.onCanvasTouchMove(md));
       addMouseEvent(c, 'touchstart', md => brain.onCanvasTouchDown(md));
       addMouseEvent(c, 'touchend', md => brain.onCanvasTouchUp(md));
       if (brain.isMobile){
@@ -33,6 +32,10 @@ class CanvasHandler {
           return false;
         };
       }
+    })
+    trackables.forEach(c => {
+      addMouseEvent(c, 'mousemove', md => brain.onCanvasMouseMove(md));
+      addMouseEvent(c, 'touchmove', md => brain.onCanvasTouchMove(md));
     })
     window.addEventListener('keypress', event => {
       if (brain.onKeyPress(event)){
