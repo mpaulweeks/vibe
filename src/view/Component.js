@@ -15,6 +15,7 @@ const SectionHeader = styled(Message)`
 `;
 
 const Button = styled.button`
+  cursor: pointer;
   margin: 0px 5px;
   padding: 3px 6px;
   font-size: 14px;

@@ -55,7 +55,12 @@ class App extends React.Component {
     window.brain = this.brain;
   }
   componentDidMount() {
-    this.brain.init(this.refs.canvas.elm);
+    this.brain.init(
+      this.refs.canvas.elm,
+      [
+        this.refs.welcome.elm,
+      ]
+    );
     this.setState({
       isReady: true,
     });
@@ -84,11 +89,11 @@ class App extends React.Component {
               <Panel {...childrenProps}></Panel>
               <Footer {...childrenProps}>></Footer>
             </FooterContainer>
-            <WelcomeContainer hidden={!showWelcome}>
-              <Welcome {...childrenProps}></Welcome>
-            </WelcomeContainer>
           </div>
         )}
+        <WelcomeContainer hidden={!showWelcome}>
+          <Welcome ref="welcome" {...childrenProps}></Welcome>
+        </WelcomeContainer>
       </PageContainer>
     );
   }

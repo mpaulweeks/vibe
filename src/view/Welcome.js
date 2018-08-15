@@ -16,7 +16,7 @@ const WelcomeContainer = styled.div`
 
   text-align: center;
   font-size: 16px;
-  cursor: none;
+  cursor: default;
   background-color: #000000;
   border: 3px solid #FFFFFF;
   border-radius: 20px;
@@ -31,6 +31,11 @@ const WelcomeContainer = styled.div`
 const PopupTitle = styled.div`
   font-size: 18px;
   font-weight: bold;
+`;
+
+const TypeRow = styled.div`
+  display: flex;
+  justify-content: space-around;
 `;
 
 class Mobile extends React.Component {
@@ -91,13 +96,15 @@ export default class Welcome extends React.Component {
         </div>
         <div>
           CHOOSE A VISUALIZATION
-          {types.map((t, i) => !t.hide && (
-            <div key={`welcome-type-${i}`}>
-              <Button onClick={() => this.setType(t.type)}>
-                {t.name}
-              </Button>
-            </div>
-          ))}
+          <TypeRow>
+            {types.map((t, i) => !t.hide && (
+              <div key={`welcome-type-${i}`}>
+                <Button onClick={() => this.setType(t.type)}>
+                  {t.name}
+                </Button>
+              </div>
+            ))}
+          </TypeRow>
         </div>
 
         {isMobile ? (
