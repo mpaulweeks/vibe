@@ -53,9 +53,12 @@ class AudioManager {
     }
     this.setCookie();
   }
-  togglePlay(){
-    this.isPlaying = !this.isPlaying;
+  setPlay(isPlaying){
+    this.isPlaying = isPlaying;
     this.setCookie();
+  }
+  togglePlay(){
+    this.setPlay(!this.isPlaying);
   }
   setPlaylistStyle(value){
     console.log(value);

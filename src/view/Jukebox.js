@@ -36,7 +36,7 @@ class Jukebox extends React.Component {
   }
   updateState() {
     const { audio } = this;
-    const { data } = this.state
+    const { data } = this.state;
     const newData = this.props.audio.getData();
 
     if (data.src !== newData.src){

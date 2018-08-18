@@ -65,7 +65,8 @@ class App extends React.Component {
       isReady: true,
     });
   }
-  exitWelcome() {
+  exitWelcome(isPlaying) {
+    this.audio.setPlay(isPlaying);
     this.setState({
       isWelcome: false,
     });
@@ -76,16 +77,16 @@ class App extends React.Component {
     const childrenProps = {
       brain: this.brain,
       audio: this.audio,
-      exitWelcome: () => this.exitWelcome(),
+      exitWelcome: (...args) => this.exitWelcome(...args),
     };
     const showFooter = !isMobile && !isWelcome;
-    const showWelcome = isWelcome;
+    const showWelcome = isReady && isWelcome;
     return (
       <PageContainer>
         <Canvas ref="canvas"></Canvas>
-        {isReady && (
+        {showFooter && (
           <div>
-            <FooterContainer hidden={!showFooter}>
+            <FooterContainer>
               <Panel {...childrenProps}></Panel>
               <Footer {...childrenProps}>></Footer>
             </FooterContainer>

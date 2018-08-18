@@ -78,12 +78,29 @@ class Desktop extends React.Component {
 }
 
 export default class Welcome extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isPlaying: props.audio.isPlaying,
+    };
+  }
+  togglePlay() {
+    this.setState({
+      isPlaying: !this.state.isPlaying,
+    });
+  }
   setType(type) {
     const { brain } = this.props;
     brain.setType(type);
   }
+  onSubmit() {
+    this.props.exitWelcome(this.state.isPlaying);
+  }
   render() {
     const { isMobile, startingUrlData, types } = this.props.brain;
+    const { isPlaying } = this.state;
+
+    // todo check if coming from bitly
     console.log(startingUrlData);
     return (
       <WelcomeContainer innerRef={e => this.elm = e}>
@@ -108,13 +125,18 @@ export default class Welcome extends React.Component {
           </TypeRow>
         </div>
 
+        <div>
+          Play music?
+          <input type="checkbox" checked={isPlaying} onChange={() => this.togglePlay()} />
+        </div>
+
         {isMobile ? (
           <Mobile />
         ) : (
           <Desktop />
         )}
         <Row>
-          <Button onClick={this.props.exitWelcome}>
+          <Button onClick={() => this.onSubmit()}>
             Enter
           </Button>
         </Row>
