@@ -21,7 +21,7 @@ const PageContainer = styled.div`
 `;
 
 const FooterContainer = styled(hideable)`
-  border-top: 10px solid white;
+  border-top: 10px solid var(--foreground);
   text-align: center;
   font-size: 16px;
   padding: 10px 0px;
