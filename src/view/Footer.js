@@ -6,7 +6,7 @@ import {
   Row,
   AuthorFootnote,
   CookieFootnote,
-} from './Component';
+} from './Common';
 
 class Footer extends React.Component {
   render() {

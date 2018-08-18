@@ -6,7 +6,7 @@ import {
   Row,
   SectionHeader,
   Button,
-} from './Component';
+} from './Common';
 
 class Panel extends React.Component {
   componentDidMount() {

@@ -5,7 +5,7 @@ import {
   Message,
   Button,
   BigSelect,
-} from './Component';
+} from './Common';
 
 const JukeboxContainer = styled.div`
 `;

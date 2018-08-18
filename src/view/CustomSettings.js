@@ -7,7 +7,7 @@ import {
   Message,
   SectionHeader,
   Button,
-} from './Component';
+} from './Common';
 import ColorPicker from './ColorPicker';
 
 const SettingsRow = styled.div`

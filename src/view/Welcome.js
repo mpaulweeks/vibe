@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {
   Row,
   Button,
-} from './Component';
+} from './Common';
 
 const WelcomeContainer = styled.div`
   position: absolute;
