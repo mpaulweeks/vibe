@@ -27,7 +27,6 @@ class RainbowPatterns {
     this.patterns = [
       new Pattern(this.drawFunc, {numSlices: 3, sliceDifference: 5, groupWidth: 150}),
       new Pattern(this.drawFunc, {numSlices: 1, sliceDifference: 0, groupWidth: 950}),
-      new Pattern(this.drawFunc, {numSlices: 4, sliceDifference: 2, groupWidth: 150}),
       new Pattern(this.drawFunc, {numSlices: 32, sliceDifference: 1, groupWidth: 500}),
       new Pattern(this.drawFunc, {numSlices: 16, sliceDifference: 8, groupWidth: 500}),
       new Pattern(this.drawFunc, {numSlices: 32, sliceDifference: 16, groupWidth: 500}),
