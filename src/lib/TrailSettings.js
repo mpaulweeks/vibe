@@ -15,10 +15,17 @@ const defaultSettings = new Settings({
 });
 
 const presets = [
-  {},
   {
+    pattern: 'spiral',
     isRainbow: 1,
     lineWidth: 0,
+    distance: 100,
+    rpm: 60,
+    count: 1000,
+    radius: 25,
+  },
+  {
+    isRainbow: 1,
   },
   {
     pattern: 'ring',
@@ -42,15 +49,6 @@ const presets = [
     pattern: 'spiral',
     isRainbow: 1,
     lineWidth: 0,
-    distance: 100,
-    rpm: 60,
-    count: 1000,
-    radius: 25,
-  },
-  {
-    pattern: 'spiral',
-    isRainbow: 1,
-    lineWidth: 0,
     distance: 0,
     rpm: 1,
     count: 1000,
@@ -64,7 +62,7 @@ const presets = [
     distance: 0,
     rpm: 30,
     count: 1000,
-    radius: 15,
+    radius: 5,
   },
 ]
 
