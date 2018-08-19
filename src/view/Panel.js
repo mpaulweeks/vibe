@@ -8,6 +8,10 @@ import {
   SectionHeader,
   Button,
 } from './Common';
+import {
+  OptionRow,
+  OptionButton,
+} from './Option';
 
 class Panel extends React.Component {
   componentDidMount() {
@@ -33,17 +37,16 @@ class Panel extends React.Component {
           <SectionHeader>
             change display
           </SectionHeader>
-          <SubRow>
+          <OptionRow width='400px'>
             {brain.types.map((t, i) => !t.hide && (
-              <Button
-                key={`type-${i}`}
-                onClick={() => this.setType(t.type)}
-                highlight={brain.visuType === t.type}
-              >
-                {t.name}
-              </Button>
+              <OptionButton key={`type-${i}`}
+                label={t.name}
+                value={t.type}
+                isFocused={t.type === brain.visuType}
+                callback={value => this.setType(value)}
+              />
             ))}
-          </SubRow>
+          </OptionRow>
           <SubRow>
             <Button onClick={() => this.onFullscreen()}>
               View Fullscreen
