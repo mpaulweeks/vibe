@@ -22,6 +22,8 @@ class Footer extends React.Component {
           </AuthorFootnote>
           <CookieFootnote>
             this site uses cookies to remember your music preferences for future visits
+            <br/>
+            this information is only saved in your browser and not collected in any way
           </CookieFootnote>
         </Row>
       </div>

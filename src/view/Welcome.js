@@ -110,7 +110,7 @@ export default class Welcome extends React.Component {
           Welcome to
           <PopupTitle>
             <span role="img" aria-label="Rainbow">🌈</span>
-            VIBE
+            &nbsp;VIBE&nbsp;
             <span role="img" aria-label="Rainbow">🌈</span>
           </PopupTitle>
         </Row>

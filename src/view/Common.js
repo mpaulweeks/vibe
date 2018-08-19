@@ -5,12 +5,12 @@ const Row = styled.div`
 `;
 
 const SubRow = styled.div`
-  padding: 3px 0px;
+  padding: 4px 0px;
+  font-size: 16px;
 `;
 
-const Message = styled.div`
+const Message = styled(SubRow)`
   padding: 2px 0px;
-  font-size: 16px;
 `;
 
 const SectionHeader = styled(Message)`

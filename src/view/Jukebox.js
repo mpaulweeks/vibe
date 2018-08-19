@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import {
-  Message,
+  SubRow,
   Button,
   BigSelect,
 } from './Common';
@@ -79,11 +79,11 @@ class Jukebox extends React.Component {
 
         { data.isPlaying ? (
           <div>
-            <Message>you are currently listening to</Message>
+            <SubRow>you are currently listening to</SubRow>
             <SongTitle>
               <a target="_blank" href={ data.url }>{ data.description }</a>
             </SongTitle>
-            <Message>
+            <SubRow>
               <Button onClick={() => this.prev()}>
                 prev track
               </Button>
@@ -98,13 +98,12 @@ class Jukebox extends React.Component {
                 <option value={ audio.PlaylistStyle.Shuffle }>shuffle</option>
                 <option value={ audio.PlaylistStyle.RepeatSong }>repeat track</option>
               </BigSelect>
-            </Message>
-            <Message>
-              <br/>
+            </SubRow>
+            <SubRow>
               <Button onClick={() => this.togglePlay()}>
                 stop music
               </Button>
-            </Message>
+            </SubRow>
           </div>
         ) : (
           <Button onClick={() => this.togglePlay()}>
