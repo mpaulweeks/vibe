@@ -33,7 +33,7 @@ const OptionButtonContainer = styled.div`
   border-color: var(--foreground);
   text-align: center;
   cursor: pointer;
-  height: 40px;
+  height: 30px;
   padding: 0px 10px;
   margin: 0px;
 
