@@ -52,7 +52,7 @@ export default class Welcome extends React.Component {
           </ModalTitle>
         </Row>
         <Row>
-          <SubRow>Choose a visualization</SubRow>
+          <SubRow>Choose a visualization to start</SubRow>
           <SubRow>
             <TypeRow>
               {types.map((t, i) => !t.hide && (
@@ -87,19 +87,11 @@ export default class Welcome extends React.Component {
           </Row>
         )}
 
-        {isMobile ? (
+        {isMobile && (
           <Row>
             Tap and drag to interact
             <br/>
-            Tap and hold to switch apps
-          </Row>
-        ) : (
-          <Row>
-            Move your mouse
-            <br/>
-            Click anywhere
-            <br/>
-            See what happens
+            Tap and hold to switch visualizations
           </Row>
         )}
         <Row>

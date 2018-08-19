@@ -83,6 +83,7 @@ class App extends React.Component {
     };
     const showFooter = !isMobile && !isWelcome;
     const showWelcome = isReady && isWelcome;
+    const showPopup = !showWelcome;
     return (
       <PageContainer>
         <Canvas ref="canvas"></Canvas>
@@ -97,7 +98,7 @@ class App extends React.Component {
         <WelcomeContainer hidden={!showWelcome}>
           <Welcome ref="welcome" {...childrenProps}></Welcome>
         </WelcomeContainer>
-        <PopupContainer hidden={showWelcome}>
+        <PopupContainer hidden={!showPopup}>
           <Popup ref="popup" {...childrenProps}></Popup>
         </PopupContainer>
       </PageContainer>
