@@ -61,7 +61,6 @@ class AudioManager {
     this.setPlay(!this.isPlaying);
   }
   setPlaylistStyle(value){
-    console.log(value);
     this.playlistStyle = value;
     this.setCookie();
   }

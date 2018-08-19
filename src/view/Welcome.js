@@ -11,7 +11,7 @@ import {
 
 const TypeRow = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: nowrap;
 `;
 
@@ -37,7 +37,6 @@ export default class Welcome extends React.Component {
   }
   render() {
     const { isMobile, startingUrlData, types, visuType } = this.props.brain;
-    console.log(visuType);
     const { isPlaying } = this.state;
 
     // todo check if coming from bitly
@@ -73,7 +72,18 @@ export default class Welcome extends React.Component {
         {!isMobile && (
           <Row>
             Play music?
-            <input type="checkbox" checked={isPlaying} onChange={() => this.togglePlay()} />
+            <Button
+              onClick={() => this.togglePlay()}
+              highlight={isPlaying}
+            >
+              Yes
+            </Button>
+            <Button
+              onClick={() => this.togglePlay()}
+              highlight={!isPlaying}
+            >
+              No
+            </Button>
           </Row>
         )}
 
