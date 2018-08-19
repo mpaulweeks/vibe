@@ -95,7 +95,7 @@ export default class Welcome extends React.Component {
         )}
         <Row>
           <Button onClick={() => this.onSubmit()}>
-            Enter
+            enter
           </Button>
         </Row>
       </ModalContainer>

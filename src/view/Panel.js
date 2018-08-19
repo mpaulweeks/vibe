@@ -34,6 +34,11 @@ class Panel extends React.Component {
     return (
       <div>
         <Row>
+          <Button onClick={() => this.onFullscreen()}>
+            view fullscreen
+          </Button>
+        </Row>
+        <Row>
           <SectionHeader>
             change display
           </SectionHeader>
@@ -47,11 +52,6 @@ class Panel extends React.Component {
               />
             ))}
           </OptionRow>
-          <SubRow>
-            <Button onClick={() => this.onFullscreen()}>
-              View Fullscreen
-            </Button>
-          </SubRow>
         </Row>
         <Row>
           <CustomSettings brain={ brain }></CustomSettings>
