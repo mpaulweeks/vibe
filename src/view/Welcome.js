@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import {
   Row,
@@ -8,12 +7,10 @@ import {
   ModalContainer,
   ModalTitle,
 } from './Common';
-
-const TypeRow = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: nowrap;
-`;
+import {
+  OptionRow,
+  OptionButton,
+} from './Option';
 
 export default class Welcome extends React.Component {
   constructor(props) {
@@ -22,9 +19,9 @@ export default class Welcome extends React.Component {
       isPlaying: props.audio.isPlaying,
     };
   }
-  togglePlay() {
+  setPlay(isPlaying) {
     this.setState({
-      isPlaying: !this.state.isPlaying,
+      isPlaying: isPlaying,
     });
   }
   setType(type) {
@@ -54,36 +51,36 @@ export default class Welcome extends React.Component {
         <Row>
           <SubRow>Choose a visualization to start</SubRow>
           <SubRow>
-            <TypeRow>
+            <OptionRow>
               {types.map((t, i) => !t.hide && (
-                <div key={`welcome-type-${i}`}>
-                  <Button
-                    onClick={() => this.setType(t.type)}
-                    highlight={visuType === t.type}
-                  >
-                    {t.name}
-                  </Button>
-                </div>
+                <OptionButton key={`welcome-type-${i}`}
+                  label={t.name}
+                  value={t.type}
+                  isFocused={t.type === visuType}
+                  callback={value => this.setType(value)}
+                />
               ))}
-            </TypeRow>
+            </OptionRow>
           </SubRow>
         </Row>
 
         {!isMobile && (
           <Row>
-            Play music?
-            <Button
-              onClick={() => this.togglePlay()}
-              highlight={isPlaying}
-            >
-              Yes
-            </Button>
-            <Button
-              onClick={() => this.togglePlay()}
-              highlight={!isPlaying}
-            >
-              No
-            </Button>
+            <SubRow>Play music?</SubRow>
+            <OptionRow width='50%'>
+              <OptionButton
+                label={'Yes'}
+                value={true}
+                callback={value => this.setPlay(value)}
+                isFocused={isPlaying}
+              />
+              <OptionButton
+                label={'No'}
+                value={false}
+                callback={value => this.setPlay(value)}
+                isFocused={!isPlaying}
+              />
+            </OptionRow>
           </Row>
         )}
 

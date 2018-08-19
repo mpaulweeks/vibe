@@ -2,9 +2,15 @@ import styled from 'styled-components';
 
 const Row = styled.div`
   padding: 10px 0px;
+
+  ${props => props.width && `
+    width: ${props.width};
+    margin-left: auto;
+    margin-right: auto;
+  `}
 `;
 
-const SubRow = styled.div`
+const SubRow = styled(Row)`
   padding: 4px 0px;
   font-size: 16px;
 `;
