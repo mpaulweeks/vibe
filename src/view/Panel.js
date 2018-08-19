@@ -4,6 +4,7 @@ import CustomSettings from './CustomSettings';
 
 import {
   Row,
+  SubRow,
   SectionHeader,
   Button,
 } from './Common';
@@ -32,14 +33,22 @@ class Panel extends React.Component {
           <SectionHeader>
             change display
           </SectionHeader>
-          {brain.types.map((t, i) => !t.hide && (
-            <Button key={`type-${i}`} onClick={() => this.setType(t.type)}>
-              {t.name}
+          <SubRow>
+            {brain.types.map((t, i) => !t.hide && (
+              <Button
+                key={`type-${i}`}
+                onClick={() => this.setType(t.type)}
+                highlight={brain.visuType === t.type}
+              >
+                {t.name}
+              </Button>
+            ))}
+          </SubRow>
+          <SubRow>
+            <Button onClick={() => this.onFullscreen()}>
+              View Fullscreen
             </Button>
-          ))}
-          <Button onClick={() => this.onFullscreen()}>
-            View Fullscreen
-          </Button>
+          </SubRow>
         </Row>
         <Row>
           <CustomSettings brain={ brain }></CustomSettings>

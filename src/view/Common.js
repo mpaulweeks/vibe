@@ -4,6 +4,10 @@ const Row = styled.div`
   padding: 10px 0px;
 `;
 
+const SubRow = styled.div`
+  padding: 3px 0px;
+`;
+
 const Message = styled.div`
   padding: 2px 0px;
   font-size: 16px;
@@ -24,6 +28,16 @@ const Button = styled.span`
 
   border: 2px solid var(--foreground);
   box-shadow: 3px 3px var(--shadow);
+
+  &:hover {
+    color: var(--background);
+    background-color: var(--foreground);
+  }
+
+  ${props => props.highlight && `
+    color: var(--background);
+    background-color: var(--foreground);
+  `}
 `;
 
 const BigSelect = styled.select`
@@ -42,6 +56,7 @@ const CookieFootnote = styled.div`
 
 export {
   Row,
+  SubRow,
   Message,
   SectionHeader,
   Button,

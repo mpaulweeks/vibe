@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import {
   Row,
+  SubRow,
   Button,
 } from './Common';
 
@@ -43,17 +44,16 @@ class Mobile extends React.Component {
   render() {
     console.log('rendering mobile welcome')
     return (
-      <div>
-        <div>
+      <Row>
+        <SubRow>
           Tap and drag to interact
-        </div>
-        <div>
+          <br/>
           Tap and hold to switch apps
-        </div>
-        <div>
+        </SubRow>
+        <SubRow>
           Open on desktop for more options
-        </div>
-      </div>
+        </SubRow>
+      </Row>
     );
   }
 }
@@ -61,18 +61,18 @@ class Mobile extends React.Component {
 class Desktop extends React.Component {
   render() {
     return (
-      <div>
-        <div>
+      <Row>
+        <SubRow>
           Move your mouse
           <br/>
           Click anywhere
           <br/>
           See what happens
-        </div>
-        <div>
+        </SubRow>
+        <SubRow>
           Scroll down for more
-        </div>
-      </div>
+        </SubRow>
+      </Row>
     );
   }
 }
@@ -92,43 +92,48 @@ export default class Welcome extends React.Component {
   setType(type) {
     const { brain } = this.props;
     brain.setType(type);
+    this.forceUpdate();
   }
   onSubmit() {
     this.props.exitWelcome(this.state.isPlaying);
   }
   render() {
-    const { isMobile, startingUrlData, types } = this.props.brain;
+    const { isMobile, startingUrlData, types, visuType } = this.props.brain;
+    console.log(visuType);
     const { isPlaying } = this.state;
 
     // todo check if coming from bitly
     console.log(startingUrlData);
     return (
       <WelcomeContainer innerRef={e => this.elm = e}>
-        <div>
+        <Row>
           Welcome to
           <PopupTitle>
             <span role="img" aria-label="Rainbow">🌈</span>
             VIBE
             <span role="img" aria-label="Rainbow">🌈</span>
           </PopupTitle>
-        </div>
-        <div>
+        </Row>
+        <Row>
           Choose a visualization
           <TypeRow>
             {types.map((t, i) => !t.hide && (
               <div key={`welcome-type-${i}`}>
-                <Button onClick={() => this.setType(t.type)}>
+                <Button
+                  onClick={() => this.setType(t.type)}
+                  highlight={visuType === t.type}
+                >
                   {t.name}
                 </Button>
               </div>
             ))}
           </TypeRow>
-        </div>
+        </Row>
 
-        <div>
+        <Row>
           Play music?
           <input type="checkbox" checked={isPlaying} onChange={() => this.togglePlay()} />
-        </div>
+        </Row>
 
         {isMobile ? (
           <Mobile />
