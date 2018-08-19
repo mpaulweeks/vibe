@@ -14,8 +14,9 @@ class TrailVisu extends BaseVisu {
   constructor(...props) {
     super(...props);
     this.instructions = [
+      'move your cursor to move the center of the trail',
       'press SPACEBAR to clear',
-      'click anywhere in grid to see a new pattern',
+      'click anywhere to see a new pattern',
     ];
     this.settingsManager = new TrailSettings();
     this.updateCanvasSettings();

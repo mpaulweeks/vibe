@@ -16,8 +16,8 @@ class CubeVisu extends BaseVisu {
   constructor(props) {
     super(props);
     this.instructions = [
-      'move your mouse to make waves',
-      'click anywhere in grid to change the pattern',
+      'move your cursor to make waves',
+      'click anywhere to see a new pattern',
     ];
     this.settingsManager = new CubeSettings();
     this.updateCanvasSettings();

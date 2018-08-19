@@ -16,8 +16,8 @@ class RainbowVisu extends BaseVisu {
     super(...props);
     this.patterns = new RainbowPatterns(this.canvas);
     this.instructions = [
-      'move your mouse to move the rainbow',
-      'click anywhere in the rainbow to change the pattern',
+      'move your cursor to move the rainbow',
+      'click anywhere to see a new pattern',
     ]
     this.settingOptions = new SettingsOptionManager([
       NewIntegerSetting('phaseDelta', 'RGB shift', 0, 32, 1),
