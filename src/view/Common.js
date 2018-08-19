@@ -54,6 +54,29 @@ const CookieFootnote = styled.div`
   font-size: 12px;
 `;
 
+const ModalContainer = styled.div`
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  width: calc(100% - 20px);
+  max-width: 400px;
+  transform: translate(-50%, 0%);
+
+  text-align: center;
+  font-size: 16px;
+  cursor: default;
+  background-color: #000000;
+  border: 3px solid #FFFFFF;
+  border-radius: 20px;
+  box-sizing: border-box;
+  padding: 20px;
+`;
+
+const ModalTitle = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+`;
+
 export {
   Row,
   SubRow,
@@ -63,4 +86,6 @@ export {
   BigSelect,
   AuthorFootnote,
   CookieFootnote,
+  ModalContainer,
+  ModalTitle,
 };

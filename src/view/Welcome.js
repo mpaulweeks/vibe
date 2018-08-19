@@ -3,35 +3,11 @@ import styled from 'styled-components';
 
 import {
   Row,
+  SubRow,
   Button,
+  ModalContainer,
+  ModalTitle,
 } from './Common';
-
-const WelcomeContainer = styled.div`
-  position: absolute;
-  top: 30px;
-  left: 50%;
-  width: calc(100% - 20px);
-  max-width: 400px;
-  transform: translate(-50%, 0%);
-
-  text-align: center;
-  font-size: 16px;
-  cursor: default;
-  background-color: #000000;
-  border: 3px solid #FFFFFF;
-  border-radius: 20px;
-  box-sizing: border-box;
-  padding: 20px;
-
-  & div {
-    padding: 5px 0px;
-  }
-`;
-
-const PopupTitle = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-`;
 
 const TypeRow = styled.div`
   display: flex;
@@ -67,29 +43,31 @@ export default class Welcome extends React.Component {
     // todo check if coming from bitly
     console.log(startingUrlData);
     return (
-      <WelcomeContainer innerRef={e => this.elm = e}>
+      <ModalContainer innerRef={e => this.elm = e}>
         <Row>
           Welcome to
-          <PopupTitle>
+          <ModalTitle>
             <span role="img" aria-label="Rainbow">🌈</span>
             &nbsp;VIBE&nbsp;
             <span role="img" aria-label="Rainbow">🌈</span>
-          </PopupTitle>
+          </ModalTitle>
         </Row>
         <Row>
-          Choose a visualization
-          <TypeRow>
-            {types.map((t, i) => !t.hide && (
-              <div key={`welcome-type-${i}`}>
-                <Button
-                  onClick={() => this.setType(t.type)}
-                  highlight={visuType === t.type}
-                >
-                  {t.name}
-                </Button>
-              </div>
-            ))}
-          </TypeRow>
+          <SubRow>Choose a visualization</SubRow>
+          <SubRow>
+            <TypeRow>
+              {types.map((t, i) => !t.hide && (
+                <div key={`welcome-type-${i}`}>
+                  <Button
+                    onClick={() => this.setType(t.type)}
+                    highlight={visuType === t.type}
+                  >
+                    {t.name}
+                  </Button>
+                </div>
+              ))}
+            </TypeRow>
+          </SubRow>
         </Row>
 
         {!isMobile && (
@@ -124,7 +102,7 @@ export default class Welcome extends React.Component {
             Note: open on desktop for more options
           </Row>
         )}
-      </WelcomeContainer>
+      </ModalContainer>
     )
   }
 }

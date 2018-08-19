@@ -105,6 +105,15 @@ class Brain {
   visuApp() {
     return this.visuLookup[this.visuType];
   }
+  visuName() {
+    for (var index in this.types){
+      const vt = this.types[index];
+      if (vt.type === this.visuType) {
+        return vt.name;
+      }
+    }
+    return '???';
+  }
   loopTick() {
     this.visuApp().tick();
   }
