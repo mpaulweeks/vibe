@@ -56,13 +56,9 @@ export default class Popup extends React.Component {
           ))}
         </Row>
 
-        {!brain.isMobile ? (
+        {!brain.isMobile && (
           <Row>
             scroll down for more options
-          </Row>
-        ) : (
-          <Row>
-            view on desktop for more options
           </Row>
         )}
       </PopupContainer>

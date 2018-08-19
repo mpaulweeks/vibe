@@ -92,6 +92,8 @@ export default class Welcome extends React.Component {
             Tap and drag to interact
             <br/>
             Tap and hold to switch visualizations
+            <br/>
+            Note: open on desktop for more options
           </Row>
         )}
         <Row>
@@ -99,11 +101,6 @@ export default class Welcome extends React.Component {
             Enter
           </Button>
         </Row>
-        {isMobile && (
-          <Row>
-            Note: open on desktop for more options
-          </Row>
-        )}
       </ModalContainer>
     )
   }
