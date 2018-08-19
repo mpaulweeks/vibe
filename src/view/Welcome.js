@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import {
   Row,
-  SubRow,
   Button,
 } from './Common';
 
@@ -39,43 +38,6 @@ const TypeRow = styled.div`
   justify-content: space-around;
   flex-wrap: nowrap;
 `;
-
-class Mobile extends React.Component {
-  render() {
-    console.log('rendering mobile welcome')
-    return (
-      <Row>
-        <SubRow>
-          Tap and drag to interact
-          <br/>
-          Tap and hold to switch apps
-        </SubRow>
-        <SubRow>
-          Open on desktop for more options
-        </SubRow>
-      </Row>
-    );
-  }
-}
-
-class Desktop extends React.Component {
-  render() {
-    return (
-      <Row>
-        <SubRow>
-          Move your mouse
-          <br/>
-          Click anywhere
-          <br/>
-          See what happens
-        </SubRow>
-        <SubRow>
-          Scroll down for more
-        </SubRow>
-      </Row>
-    );
-  }
-}
 
 export default class Welcome extends React.Component {
   constructor(props) {
@@ -130,21 +92,38 @@ export default class Welcome extends React.Component {
           </TypeRow>
         </Row>
 
-        <Row>
-          Play music?
-          <input type="checkbox" checked={isPlaying} onChange={() => this.togglePlay()} />
-        </Row>
+        {!isMobile && (
+          <Row>
+            Play music?
+            <input type="checkbox" checked={isPlaying} onChange={() => this.togglePlay()} />
+          </Row>
+        )}
 
         {isMobile ? (
-          <Mobile />
+          <Row>
+            Tap and drag to interact
+            <br/>
+            Tap and hold to switch apps
+          </Row>
         ) : (
-          <Desktop />
+          <Row>
+            Move your mouse
+            <br/>
+            Click anywhere
+            <br/>
+            See what happens
+          </Row>
         )}
         <Row>
           <Button onClick={() => this.onSubmit()}>
             Enter
           </Button>
         </Row>
+        {isMobile && (
+          <Row>
+            Note: open on desktop for more options
+          </Row>
+        )}
       </WelcomeContainer>
     )
   }
