@@ -4,7 +4,6 @@ import CustomSettings from './CustomSettings';
 
 import {
   Row,
-  SubRow,
   SectionHeader,
   Button,
 } from './Common';
