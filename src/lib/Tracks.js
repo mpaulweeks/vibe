@@ -1,7 +1,7 @@
 
 const Tracks = [
   [
-    'FIRSTAID_VibeWithYou.mp3',
+    'FIRSTAID_VibeWithYou_trimmed.mp3',
     'FIRSTAID - Vibe With You',
     'https://first-aid.bandcamp.com/track/vibe-with-you'
   ],
