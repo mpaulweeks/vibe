@@ -66,6 +66,9 @@ class TrailCanvas extends BaseCanvas {
         // increase radius at constant rate without modulo-ing
         // use linear func to translate that to distance
 
+        // todo make i/100 noise a configurable var
+        // 0 => wheel spokes
+
         const angle = rotation + (i * Math.PI / 8) + (i/100);
         const spiralDistance = distance + (i*4);
         const dx = Math.cos(angle) * spiralDistance;
