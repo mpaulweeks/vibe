@@ -16,3 +16,6 @@ visual experiments (now with React)
 
 - songs
   - Rainbow (Eureka7)
+
+- versioned deploys
+  - https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#now
