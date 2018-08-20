@@ -8,7 +8,6 @@ import Canvas from './view/Canvas';
 import Panel from './view/Panel';
 import Footer from './view/Footer';
 import Welcome from './view/Welcome';
-import Popup from './view/Popup';
 
 const hideable = styled.div`
   ${props => props.hidden && `
@@ -39,7 +38,6 @@ const FooterContainer = styled(hideable)`
 `;
 
 const WelcomeContainer = styled(hideable)``;
-const PopupContainer = styled(hideable)``;
 
 class App extends React.Component {
   constructor(props){
@@ -60,7 +58,6 @@ class App extends React.Component {
       this.refs.canvas.elm,
       [
         this.refs.welcome.elm,
-        this.refs.popup.elm,
       ]
     );
     this.setState({
@@ -83,7 +80,6 @@ class App extends React.Component {
     };
     const showFooter = !isMobile && !isWelcome;
     const showWelcome = isReady && isWelcome;
-    const showPopup = !showWelcome;
     return (
       <PageContainer>
         <Canvas ref="canvas"></Canvas>
@@ -98,9 +94,6 @@ class App extends React.Component {
         <WelcomeContainer hidden={!showWelcome}>
           <Welcome ref="welcome" {...childrenProps}></Welcome>
         </WelcomeContainer>
-        <PopupContainer hidden={!showPopup}>
-          <Popup ref="popup" {...childrenProps}></Popup>
-        </PopupContainer>
       </PageContainer>
     );
   }

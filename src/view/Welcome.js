@@ -4,6 +4,8 @@ import {
   Row,
   SubRow,
   Button,
+  SectionHeader,
+  Message,
   ModalContainer,
   ModalTitle,
 } from './Common';
@@ -33,11 +35,14 @@ export default class Welcome extends React.Component {
     this.props.exitWelcome(this.state.isPlaying);
   }
   render() {
-    const { isMobile, startingUrlData, types, visuType } = this.props.brain;
+    const { brain } = this.props;
     const { isPlaying } = this.state;
 
+    const visuApp = brain.visuType && brain.visuApp();
+    const instructions = visuApp ? visuApp.instructions : [];
+
     // todo check if coming from bitly
-    console.log(startingUrlData);
+    console.log(brain.startingUrlData);
     return (
       <ModalContainer innerRef={e => this.elm = e}>
         <Row>
@@ -52,19 +57,27 @@ export default class Welcome extends React.Component {
           <SubRow>Choose a visualization to start</SubRow>
           <SubRow>
             <OptionRow>
-              {types.map((t, i) => !t.hide && (
+              {brain.types.map((t, i) => !t.hide && (
                 <OptionButton key={`welcome-type-${i}`}
                   label={t.name}
                   value={t.type}
-                  isFocused={t.type === visuType}
+                  isFocused={t.type === brain.visuType}
                   callback={value => this.setType(value)}
                 />
               ))}
             </OptionRow>
           </SubRow>
+          <SectionHeader>
+            instructions
+          </SectionHeader>
+          { instructions.map((m, mi) => (
+            <Message key={`instructions-${mi}`}>
+              {m}
+            </Message>
+          ))}
         </Row>
 
-        {!isMobile && (
+        {!brain.isMobile && (
           <Row>
             <SubRow>Play music?</SubRow>
             <OptionRow width='50%'>
@@ -84,18 +97,20 @@ export default class Welcome extends React.Component {
           </Row>
         )}
 
-        {isMobile && (
+        {brain.isMobile ? (
           <Row>
-            Tap and drag to interact
-            <br/>
             Tap and hold to switch visualizations
             <br/>
             Note: open on desktop for more options
           </Row>
+        ) : (
+          <Row>
+            scroll down for more options
+          </Row>
         )}
         <Row>
           <Button onClick={() => this.onSubmit()}>
-            enter
+            OK
           </Button>
         </Row>
       </ModalContainer>
