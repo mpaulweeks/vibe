@@ -37,7 +37,7 @@ class CanvasHandler {
       addMouseEvent(c, 'mousemove', md => brain.onCanvasMouseMove(md));
       addMouseEvent(c, 'touchmove', md => brain.onCanvasTouchMove(md));
     })
-    window.addEventListener('keypress', event => {
+    window.addEventListener('keydown', event => {
       if (brain.onKeyPress(event)){
         event.preventDefault();
       }
