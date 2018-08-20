@@ -44,7 +44,7 @@ class App extends React.Component {
     super(props)
 
     this.brain = new Brain();
-    this.audio = new AudioManager(props.cookies);
+    this.audio = new AudioManager(this.brain, props.cookies);
     this.state = {
       isReady: false,
       isWelcome: true,
@@ -81,7 +81,7 @@ class App extends React.Component {
       audio: this.audio,
       exitWelcome: (...args) => this.exitWelcome(...args),
     };
-    const showFooter = !isMobile && !isWelcome;
+    const showFooter = isReady && !isMobile;
     const showWelcome = isReady && isWelcome;
     return (
       <PageContainer>

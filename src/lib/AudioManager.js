@@ -23,7 +23,8 @@ const PlaylistStyle = {
 };
 
 class AudioManager {
-  constructor(cookie){
+  constructor(brain, cookie){
+    this.brain = brain;
     this.cookie = cookie;
 
     this.tracks = Tracks.map(t => new AudioTrack(t));
@@ -56,6 +57,7 @@ class AudioManager {
   setPlay(isPlaying){
     this.isPlaying = isPlaying;
     this.setCookie();
+    this.brain.updateAll();
   }
   togglePlay(){
     this.setPlay(!this.isPlaying);

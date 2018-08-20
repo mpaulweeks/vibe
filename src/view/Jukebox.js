@@ -25,6 +25,11 @@ class Jukebox extends React.Component {
     };
   }
   componentDidMount() {
+    const { brain } = this.props;
+    brain.addCallback(() => {
+      this.updateState()
+    });
+
     this.audio.addEventListener('ended', () => {
       this.next(true);
     });

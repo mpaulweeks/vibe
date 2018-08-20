@@ -89,6 +89,10 @@ class Brain {
     this.visuApp().onSwitch();
     this.urlManager.setUrl(this.visuType);
     this.clearTouchHoldTimer();
+    this.updateAll();
+  }
+  updateAll() {
+    this.callbackFunc();
   }
   nextType() {
     let index = -1;
@@ -101,8 +105,12 @@ class Brain {
     const newType = Types[newIndex].type;
     this.setType(newType);
   }
-  setCallback(func) {
-    this.callbackFunc = func;
+  addCallback(newFunc) {
+    const oldFunc = this.callbackFunc;
+    this.callbackFunc = () => {
+      oldFunc();
+      newFunc();
+    };
   }
   visuApp() {
     return this.visuLookup[this.visuType];

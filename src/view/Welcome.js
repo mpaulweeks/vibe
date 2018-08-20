@@ -15,28 +15,25 @@ import {
 } from './Option';
 
 export default class Welcome extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isPlaying: props.audio.isPlaying,
-    };
+  componentDidMount() {
+    const { brain } = this.props;
+    brain.addCallback(() => {
+      this.forceUpdate()
+    });
   }
   setPlay(isPlaying) {
-    this.setState({
-      isPlaying: isPlaying,
-    });
+    const { audio } = this.props;
+    audio.setPlay(isPlaying);
   }
   setType(type) {
     const { brain } = this.props;
     brain.setType(type);
-    this.forceUpdate();
   }
   onSubmit() {
-    this.props.exitWelcome(this.state.isPlaying);
+    this.props.exitWelcome();
   }
   render() {
-    const { brain } = this.props;
-    const { isPlaying } = this.state;
+    const { audio, brain } = this.props;
 
     const visuApp = brain.visuType && brain.visuApp();
     const instructions = visuApp ? visuApp.instructions : [];
@@ -85,13 +82,13 @@ export default class Welcome extends React.Component {
                 label={'Yes'}
                 value={true}
                 callback={value => this.setPlay(value)}
-                isFocused={isPlaying}
+                isFocused={audio.isPlaying}
               />
               <OptionButton
                 label={'No'}
                 value={false}
                 callback={value => this.setPlay(value)}
-                isFocused={!isPlaying}
+                isFocused={!audio.isPlaying}
               />
             </OptionRow>
           </Row>

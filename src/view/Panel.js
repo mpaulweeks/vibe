@@ -15,7 +15,7 @@ import {
 class Panel extends React.Component {
   componentDidMount() {
     const { brain } = this.props;
-    brain.setCallback(() => {
+    brain.addCallback(() => {
       this.forceUpdate()
     });
   }
