@@ -16,7 +16,7 @@ class Panel extends React.Component {
   componentDidMount() {
     const { brain } = this.props;
     brain.addCallback(() => {
-      this.forceUpdate()
+      this.forceUpdate();
     });
   }
   onFullscreen() {
