@@ -42,6 +42,7 @@ class Brain {
     this.urlManager = new UrlManager(this.types);
     this.startingUrlData = {};
     this.callbackFunc = () => {};
+    this.exitWelcome = () => {};
   }
   handleUrl() {
     const urlData = this.urlManager.processUrlParams();
@@ -57,7 +58,7 @@ class Brain {
   generateCustomUrl() {
     return this.urlManager.generateUrl(this.visuType, this.visuApp().getCurrentSettings());
   }
-  init(canvasElm, otherClickables) {
+  init(canvasElm, otherClickables, exitWelcome) {
     this.ch = new CanvasHandler(
       this,
       canvasElm,
@@ -70,6 +71,7 @@ class Brain {
       'trail': new TrailVisu(this),
     };
     this.handleUrl();
+    this.exitWelcome = exitWelcome;
 
     Looper.logicLoop(looper => {
       this.loopTick();
@@ -164,6 +166,9 @@ class Brain {
     setTimeout(() => this.visuApp().onFullScreen(), 500);
   }
   onKeyPress(event) {
+    if (event.code === 'Escape'){
+      this.exitWelcome();
+    }
     return this.visuApp().onKeyPress(event);
   }
 }

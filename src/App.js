@@ -58,14 +58,17 @@ class App extends React.Component {
       this.refs.canvas.elm,
       [
         this.refs.welcome.elm,
-      ]
+      ],
+      () => this.exitWelcome(),
     );
     this.setState({
       isReady: true,
     });
   }
   exitWelcome(isPlaying) {
-    this.audio.setPlay(isPlaying);
+    if (isPlaying !== undefined) {
+      this.audio.setPlay(isPlaying);
+    }
     this.setState({
       isWelcome: false,
     });
