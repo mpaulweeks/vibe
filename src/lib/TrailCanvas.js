@@ -62,6 +62,10 @@ class TrailCanvas extends BaseCanvas {
     }
     if (pattern === 'spiral') {
       for (let i = 0; i < count; i++){
+        // todo r = theta type of spiral
+        // increase radius at constant rate without modulo-ing
+        // use linear func to translate that to distance
+
         const angle = rotation + (i * Math.PI / 8) + (i/100);
         const spiralDistance = distance + (i*4);
         const dx = Math.cos(angle) * spiralDistance;
