@@ -30,28 +30,26 @@ class Jukebox extends React.Component {
       this.updateState();
     });
 
-    this.audio.addEventListener('ended', () => {
+    this.audioElm.addEventListener('ended', () => {
       this.next(true);
     });
     this.updateState();
-
-    // debugging
-    window.audio = this.audio;
-    // this.audio.currentTime = 185;
   }
   updateState() {
-    const { audio } = this;
+    const { audioElm } = this;
     const { data } = this.state;
     const newData = this.props.audio.getData();
 
     if (data.src !== newData.src){
-      audio.src = newData.src;
+      audioElm.src = newData.src;
     }
-    if (audio.paused === newData.isPlaying){
+    if (audioElm.paused === newData.isPlaying){
       if (newData.isPlaying) {
-        audio.play();
+        audioElm.play().catch(error => {
+          this.togglePlay();
+        });
       } else {
-        audio.pause();
+        audioElm.pause();
       }
     }
 
@@ -80,7 +78,7 @@ class Jukebox extends React.Component {
     const { data } = this.state;
     return (
       <JukeboxContainer>
-        <AudioElm innerRef={ elm => this.audio = elm }></AudioElm>
+        <AudioElm innerRef={ elm => this.audioElm = elm }></AudioElm>
 
         { data.isPlaying ? (
           <div>
