@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import scrollToComponent from 'react-scroll-to-component';
 
 import Brain from './lib/Brain';
 import AudioManager from './lib/AudioManager';
@@ -65,6 +66,14 @@ class App extends React.Component {
       isReady: true,
     });
   }
+  scrollToFooter() {
+    scrollToComponent(this.refs.footer, {
+      offset: 0,
+      align: 'top',
+      ease: 'inOutCirc',
+      duration: 1500,
+    });
+  }
   exitWelcome(isPlaying) {
     if (isPlaying !== undefined) {
       this.audio.setPlay(isPlaying);
@@ -79,6 +88,7 @@ class App extends React.Component {
     const childrenProps = {
       brain: this.brain,
       audio: this.audio,
+      scrollToFooter: (...args) => this.scrollToFooter(...args),
       exitWelcome: (...args) => this.exitWelcome(...args),
     };
     const showFooter = isReady && !isMobile;
@@ -87,7 +97,7 @@ class App extends React.Component {
       <PageContainer>
         <Canvas ref="canvas"></Canvas>
         {showFooter && (
-          <div>
+          <div ref="footer">
             <FooterContainer>
               <Panel {...childrenProps}></Panel>
               <Footer {...childrenProps}>></Footer>

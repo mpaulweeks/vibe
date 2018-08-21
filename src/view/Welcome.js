@@ -29,6 +29,10 @@ export default class Welcome extends React.Component {
     const { brain } = this.props;
     brain.setType(type);
   }
+  onScrollClick(event) {
+    event.preventDefault();
+    this.props.scrollToFooter();
+  }
   onSubmit() {
     this.props.exitWelcome();
   }
@@ -102,7 +106,12 @@ export default class Welcome extends React.Component {
           </Row>
         ) : (
           <Row>
-            scroll down for more options
+            <a
+              href=""
+              onClick={e => this.onScrollClick(e)}
+            >
+              scroll down for more options
+            </a>
           </Row>
         )}
         <Row>
