@@ -40,6 +40,13 @@ const FooterContainer = styled(hideable)`
 
 const WelcomeContainer = styled(hideable)``;
 
+// https://stackoverflow.com/a/5354536
+function checkVisible(elm) {
+  var rect = elm.getBoundingClientRect();
+  var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+  return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+}
+
 class App extends React.Component {
   constructor(props){
     super(props)
