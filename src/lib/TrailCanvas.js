@@ -39,7 +39,7 @@ class TrailCanvas extends BaseCanvas {
     if (pattern === 'ring'){
       rawGradient = ctx.createRadialGradient(x, y, 0, x, y, distance+radius);
     }
-    if (pattern === 'spiral'){
+    if (pattern === 'spiral' || pattern === 'hypno'){
       rawGradient = ctx.createRadialGradient(x, y, 0, x, y, 2 * Math.max(canvasW, canvasH));
     }
 
@@ -52,29 +52,31 @@ class TrailCanvas extends BaseCanvas {
     ctx.strokeStyle = colorEdge;
     ctx.lineWidth = lineWidth;
 
-    if (pattern === 'ring') {
-      for (let i = 0; i < count; i++){
-        const angle = rotation + (i * Math.PI * 2 / count);
-        const dx = Math.cos(angle) * distance;
-        const dy = Math.sin(angle) * distance;
-        this.drawCircle(ctx, x + dx, y + dy, radius, strokeEdge);
-      }
-    }
-    if (pattern === 'spiral') {
-      for (let i = 0; i < count; i++){
-        // todo r = theta type of spiral
-        // increase radius at constant rate without modulo-ing
-        // use linear func to translate that to distance
+    // todo r = theta type of spiral
+    // increase radius at constant rate without modulo-ing
+    // use linear func to translate that to distance
 
-        // todo make i/100 noise a configurable var
-        // 0 => wheel spokes
+    // todo make i/100 noise a configurable var
+    // 0 => wheel spokes
 
-        const angle = rotation + (i * Math.PI / 8) + (i/100);
-        const spiralDistance = distance + (i*4);
-        const dx = Math.cos(angle) * spiralDistance;
-        const dy = Math.sin(angle) * spiralDistance;
-        this.drawCircle(ctx, x + dx, y + dy, radius, strokeEdge);
+    let itemAngle = null;
+    let itemDistance = null;
+    for (let i = 0; i < count; i++){
+      if (pattern === 'ring') {
+        itemAngle = rotation + (i * Math.PI * 2 / count);
+        itemDistance = distance;
       }
+      if (pattern === 'spiral') {
+        itemAngle = rotation + (i * Math.PI / 8) + (i/100);
+        itemDistance = distance + (i*4);
+      }
+      if (pattern === 'hypno') {
+        itemAngle = rotation + (Math.sqrt(i) * 2);
+        itemDistance = distance + (i*4);
+      }
+      const dx = Math.cos(itemAngle) * itemDistance;
+      const dy = Math.sin(itemAngle) * itemDistance;
+      this.drawCircle(ctx, x + dx, y + dy, radius, strokeEdge);
     }
   }
   clear(){

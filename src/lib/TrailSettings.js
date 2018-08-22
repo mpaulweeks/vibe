@@ -16,6 +16,15 @@ const defaultSettings = new Settings({
 
 const presets = [
   {
+    pattern: 'hypno',
+    isRainbow: 0,
+    lineWidth: 1,
+    distance: 0,
+    rpm: 0,
+    count: 100,
+    radius: 25,
+  },
+  {
     pattern: 'spiral',
     isRainbow: 1,
     lineWidth: 0,

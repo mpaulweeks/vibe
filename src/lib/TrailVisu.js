@@ -24,6 +24,7 @@ class TrailVisu extends BaseVisu {
       NewVisuSetting('pattern', 'Pattern', [
         ['ring', 'Ring'],
         ['spiral', 'Spiral'],
+        ['hypno', 'Hypno'],
       ]),
       NewIntegerSetting('distance', 'Distance from Center', 0, 500, 5),
       NewIntegerSetting('radius', 'Circle Size', 5, 300, 5),
