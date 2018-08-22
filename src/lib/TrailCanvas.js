@@ -16,6 +16,19 @@ class TrailCanvas extends BaseCanvas {
       ctx.stroke();
     }
   }
+  lawOfCosines(adj1, adj2, far){
+    adj1 = adj1 || 1;
+    adj2 = adj2 || 1;
+    let cosine = (
+      (Math.pow(adj1, 2) + Math.pow(adj2, 2) - Math.pow(far, 2)) /
+      (2 * adj1 * adj2)
+    );
+    while (cosine < -1){
+      // todo make better?
+      cosine += 2;
+    }
+    return Math.acos(cosine);
+  }
   draw(state) {
     const { ctx, canvasW, canvasH, mouseData } = this.getCanvasTools();
     const { x, y } = mouseData;
@@ -59,21 +72,34 @@ class TrailCanvas extends BaseCanvas {
     // todo make i/100 noise a configurable var
     // 0 => wheel spokes
 
-    let itemAngle = null;
-    let itemDistance = null;
+    let lastAngle = rotation;
     for (let i = 0; i < count; i++){
+      let itemAngle = 0;
+      let itemDistance = 0;
+
       if (pattern === 'ring') {
         itemAngle = rotation + (i * Math.PI * 2 / count);
         itemDistance = distance;
       }
       if (pattern === 'spiral') {
         itemAngle = rotation + (i * Math.PI / 8) + (i/100);
-        itemDistance = distance + (i*4);
+        itemDistance = distance + (i * 4);
       }
       if (pattern === 'hypno') {
-        itemAngle = rotation + (Math.sqrt(i) * 2);
-        itemDistance = distance + (i*4);
+        // naive solution
+        // itemAngle = rotation + (Math.sqrt(i) * 2);
+        // itemDistance = distance + (i*4);
+
+        // todo config these
+        const distanceMultiplier = radius/8;
+        const distanceBetweenPairs = radius * 2;
+        itemDistance = distance + (i * distanceMultiplier);
+        const nextDistance = itemDistance + distanceMultiplier;
+        const newSliceAngle = this.lawOfCosines(itemDistance, nextDistance, distanceBetweenPairs);
+        itemAngle = lastAngle + newSliceAngle;
+        lastAngle = itemAngle;
       }
+
       const dx = Math.cos(itemAngle) * itemDistance;
       const dy = Math.sin(itemAngle) * itemDistance;
       this.drawCircle(ctx, x + dx, y + dy, radius, strokeEdge);

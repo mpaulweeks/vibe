@@ -25,6 +25,15 @@ const presets = [
     radius: 25,
   },
   {
+    pattern: 'hypno',
+    isRainbow: 1,
+    lineWidth: 1,
+    distance: 100,
+    rpm: 60,
+    count: 600,
+    radius: 25,
+  },
+  {
     pattern: 'spiral',
     isRainbow: 1,
     lineWidth: 0,
