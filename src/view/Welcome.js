@@ -6,7 +6,9 @@ import {
   Button,
   SectionHeader,
   Message,
-  ModalContainer,
+  ModalContainerOuter,
+  ModalContainerInner,
+  ModalCornerExit,
   ModalTitle,
 } from './Common';
 import {
@@ -45,81 +47,81 @@ export default class Welcome extends React.Component {
     // todo check if coming from bitly
     console.log(brain.startingUrlData);
     return (
-      <ModalContainer innerRef={e => this.elm = e}>
-        <Row>
-          Welcome to
-          <ModalTitle>
-            <span role="img" aria-label="Rainbow">🌈</span>
-            &nbsp;VIBE&nbsp;
-            <span role="img" aria-label="Rainbow">🌈</span>
-          </ModalTitle>
-        </Row>
-        <Row>
-          <SubRow>Choose a visualization to start</SubRow>
-          <SubRow>
-            <OptionRow>
-              {brain.types.map((t, i) => !t.hide && (
-                <OptionButton key={`welcome-type-${i}`}
-                  label={t.name}
-                  value={t.type}
-                  isFocused={t.type === brain.visuType}
-                  callback={value => this.setType(value)}
+      <ModalContainerOuter innerRef={e => this.elm = e}>
+        <ModalContainerInner>
+          <Row>
+            Welcome to
+            <ModalTitle>
+              <span role="img" aria-label="Rainbow">🌈</span>
+              &nbsp;VIBE&nbsp;
+              <span role="img" aria-label="Rainbow">🌈</span>
+            </ModalTitle>
+          </Row>
+          <Row>
+            <SubRow>Choose a visualization to start</SubRow>
+            <SubRow>
+              <OptionRow>
+                {brain.types.map((t, i) => !t.hide && (
+                  <OptionButton key={`welcome-type-${i}`}
+                    label={t.name}
+                    value={t.type}
+                    isFocused={t.type === brain.visuType}
+                    callback={value => this.setType(value)}
+                  />
+                ))}
+              </OptionRow>
+            </SubRow>
+            <SectionHeader>
+              instructions
+            </SectionHeader>
+            { instructions.map((m, mi) => (
+              <Message key={`instructions-${mi}`}>
+                {m}
+              </Message>
+            ))}
+          </Row>
+
+          {!brain.isMobile && (
+            <Row>
+              <SubRow>Play music?</SubRow>
+              <OptionRow width='50%'>
+                <OptionButton
+                  label={'Yes'}
+                  value={true}
+                  callback={value => this.setPlay(value)}
+                  isFocused={audio.isPlaying}
                 />
-              ))}
-            </OptionRow>
-          </SubRow>
-          <SectionHeader>
-            instructions
-          </SectionHeader>
-          { instructions.map((m, mi) => (
-            <Message key={`instructions-${mi}`}>
-              {m}
-            </Message>
-          ))}
-        </Row>
+                <OptionButton
+                  label={'No'}
+                  value={false}
+                  callback={value => this.setPlay(value)}
+                  isFocused={!audio.isPlaying}
+                />
+              </OptionRow>
+            </Row>
+          )}
 
-        {!brain.isMobile && (
-          <Row>
-            <SubRow>Play music?</SubRow>
-            <OptionRow width='50%'>
-              <OptionButton
-                label={'Yes'}
-                value={true}
-                callback={value => this.setPlay(value)}
-                isFocused={audio.isPlaying}
-              />
-              <OptionButton
-                label={'No'}
-                value={false}
-                callback={value => this.setPlay(value)}
-                isFocused={!audio.isPlaying}
-              />
-            </OptionRow>
-          </Row>
-        )}
-
-        {brain.isMobile ? (
-          <Row>
-            Tap and hold to switch visualizations
-            <br/>
-            Note: open on desktop for more options
-          </Row>
-        ) : (
-          <Row>
-            <a
-              href=""
-              onClick={e => this.onScrollClick(e)}
-            >
-              scroll down for more options
-            </a>
-          </Row>
-        )}
-        <Row>
-          <Button onClick={() => this.onSubmit()}>
-            OK
-          </Button>
-        </Row>
-      </ModalContainer>
+          {brain.isMobile ? (
+            <Row>
+              Tap and hold to switch visualizations
+              <br/>
+              Note: open on desktop for more options
+            </Row>
+          ) : (
+            <Row>
+              <a
+                href=""
+                onClick={e => this.onScrollClick(e)}
+              >
+                scroll down for more options
+              </a>
+            </Row>
+          )}
+          <ModalCornerExit onClick={() => this.onSubmit()}>
+            X
+          </ModalCornerExit>
+        </ModalContainerInner>
+      </ModalContainerOuter>
     )
   }
 }

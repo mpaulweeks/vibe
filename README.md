@@ -17,6 +17,4 @@ visual experiments (now with React)
   - https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#now
 
 ## usability testing todo
-- click corner X to remove welcome
-- scrolling removes welcome
 - option to auto-wipe for trail

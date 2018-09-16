@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const Row = styled.div`
@@ -60,7 +61,7 @@ const CookieFootnote = styled.div`
   font-size: 12px;
 `;
 
-const ModalContainer = styled.div`
+const ModalContainerOuter = styled.div`
   position: absolute;
   top: 30px;
   left: 50%;
@@ -68,14 +69,48 @@ const ModalContainer = styled.div`
   max-width: 400px;
   transform: translate(-50%, 0%);
 
+  --foreground: white;
+  --background: black;
+`;
+
+const ModalContainerInner = styled.div`
+  position: relative;
+
   text-align: center;
   font-size: 16px;
   cursor: default;
-  background-color: #000000;
-  border: 3px solid #FFFFFF;
-  border-radius: 20px;
-  box-sizing: border-box;
+  background-color: var(--background);
+  border: 3px solid var(--foreground);
   padding: 20px;
+  background-color: var(--background);
+  border: 2px solid var(--foreground);
+  /* border-radius: 50px 0px 50px 50px; */
+  box-sizing: border-box;
+`;
+
+const ModalCornerExit = styled.div`
+  position: absolute;
+  top: -2px;
+  right: -2px;
+
+  --size: 20px;
+  width: calc(2 * var(--size));
+  height: calc(2 * var(--size));
+  box-sizing: border-box;
+
+  cursor: pointer;
+  color: var(--foreground);
+  background-color: var(--background);
+  border: 2px solid var(--foreground);
+
+  &:hover {
+    color: var(--background);
+    background-color: var(--foreground);
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ModalTitle = styled.div`
@@ -92,6 +127,8 @@ export {
   BigSelect,
   AuthorFootnote,
   CookieFootnote,
-  ModalContainer,
+  ModalContainerOuter,
+  ModalContainerInner,
+  ModalCornerExit,
   ModalTitle,
 };
