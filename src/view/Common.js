@@ -77,6 +77,7 @@ const ModalContainerInner = styled.div`
   position: relative;
 
   text-align: center;
+  user-select: none; /* fix highlight on hold issue with mobile */
   font-size: 16px;
   cursor: default;
   padding: 20px;
