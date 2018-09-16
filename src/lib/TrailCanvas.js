@@ -94,7 +94,17 @@ class TrailCanvas extends BaseCanvas {
         const distanceMultiplier = radius/8;
         const distanceBetweenPairs = radius * 2;
         itemDistance = distance + (i * distanceMultiplier);
-        const nextDistance = itemDistance + distanceMultiplier;
+        const nextDistance = distance + ((i+1) * distanceMultiplier);
+        const newSliceAngle = this.lawOfCosines(itemDistance, nextDistance, distanceBetweenPairs);
+        itemAngle = lastAngle + newSliceAngle;
+        lastAngle = itemAngle;
+      }
+      if (pattern === 'hypno-tight') {
+        // prototype
+        const distanceMultiplier = radius;
+        const distanceBetweenPairs = radius * 2;
+        itemDistance = distance + radius + (Math.sqrt(i+1) * distanceMultiplier);
+        const nextDistance = distance + radius + (Math.sqrt(i+2) * distanceMultiplier);
         const newSliceAngle = this.lawOfCosines(itemDistance, nextDistance, distanceBetweenPairs);
         itemAngle = lastAngle + newSliceAngle;
         lastAngle = itemAngle;
