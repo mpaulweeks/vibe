@@ -25,6 +25,11 @@ const SectionHeader = styled(Message)`
   font-size: 18px;
 `;
 
+const highlightColors = `
+  color: var(--background);
+  background-color: var(--foreground);
+`;
+
 const Button = styled.span`
   display: inline-block;
   cursor: pointer;
@@ -37,13 +42,11 @@ const Button = styled.span`
   box-shadow: 3px 3px var(--shadow);
 
   &:hover {
-    color: var(--background);
-    background-color: var(--foreground);
+    ${highlightColors}
   }
 
   ${props => props.highlight && `
-    color: var(--background);
-    background-color: var(--foreground);
+    ${highlightColors}
   `}
 `;
 
@@ -68,9 +71,7 @@ const ModalContainerOuter = styled.div`
   width: calc(100% - 20px);
   max-width: 400px;
   transform: translate(-50%, 0%);
-
-  --foreground: white;
-  --background: black;
+  background-color: var(--background);
 `;
 
 const ModalContainerInner = styled.div`
@@ -79,10 +80,7 @@ const ModalContainerInner = styled.div`
   text-align: center;
   font-size: 16px;
   cursor: default;
-  background-color: var(--background);
-  border: 3px solid var(--foreground);
   padding: 20px;
-  background-color: var(--background);
   border: 2px solid var(--foreground);
   /* border-radius: 50px 0px 50px 50px; */
   box-sizing: border-box;
@@ -99,13 +97,10 @@ const ModalCornerExit = styled.div`
   box-sizing: border-box;
 
   cursor: pointer;
-  color: var(--foreground);
-  background-color: var(--background);
   border: 2px solid var(--foreground);
 
   &:hover {
-    color: var(--background);
-    background-color: var(--foreground);
+    ${highlightColors}
   }
 
   display: flex;
