@@ -46,7 +46,7 @@ class Brain {
   }
   handleUrl() {
     const urlData = this.urlManager.processUrlParams();
-    this.setType(urlData.type || Types[0].type);
+    this.setType(urlData.type || Types[3].type);
 
     const { custom } = urlData.params;
     if (custom){
