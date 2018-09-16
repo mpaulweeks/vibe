@@ -45,7 +45,7 @@ export default class Welcome extends React.Component {
     const instructions = visuApp ? visuApp.instructions : [];
 
     // todo check if coming from bitly
-    console.log(brain.startingUrlData);
+    // console.log(brain.startingUrlData);
     return (
       <ModalContainerOuter innerRef={e => this.elm = e}>
         <ModalContainerInner>

@@ -64,7 +64,6 @@ class UrlManager {
     if (queryString.includes('custom=')){
       const customString = queryString.split('custom=')[1].split('&')[0];
       const customSettings = JSON.parse(b64DecodeUnicode(customString));
-      console.log(customSettings);
       return {
         custom: customSettings,
       };
