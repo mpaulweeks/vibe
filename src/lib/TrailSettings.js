@@ -15,14 +15,25 @@ const defaultSettings = new Settings({
 });
 
 const presets = [
+  // testing hypno config
+  // {
+  //   pattern: 'hypno',
+  //   isRainbow: 0,
+  //   lineWidth: 1,
+  //   distance: 0,
+  //   rpm: 0,
+  //   count: 100,
+  //   radius: 25,
+  // },
   {
-    pattern: 'hypno',
-    isRainbow: 0,
+    pattern: 'spiral',
+    isRainbow: 1,
     lineWidth: 1,
+    colorEdge: 'black',
     distance: 0,
-    rpm: 0,
-    count: 100,
-    radius: 25,
+    rpm: 60,
+    count: 1000,
+    radius: 5,
   },
   {
     pattern: 'hypno',
