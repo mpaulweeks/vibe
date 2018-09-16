@@ -6,14 +6,12 @@ html, body, #root {
   --background: black;
   --hover: #555555;
   --shadow: #888888;
+  --link: #91D2FA;
 }
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-size: 16px;
-}
-a {
-  color: var(--foreground);
 }
 @media only screen and (max-width: 600px) {
   /* prevent scrolling on mobile */

@@ -57,7 +57,6 @@ const BigSelect = styled.select`
 `;
 
 const AuthorFootnote = styled.div`
-  font-size: 14px;
 `;
 const CookieFootnote = styled.div`
   font-size: 12px;

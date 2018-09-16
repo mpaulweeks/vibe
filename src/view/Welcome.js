@@ -54,7 +54,7 @@ export default class Welcome extends React.Component {
       <ModalContainerOuter innerRef={e => this.elm = e}>
         <ModalContainerInner>
           <Row>
-            Welcome to
+            welcome to
             <ModalTitle>
               <span role="img" aria-label="Rainbow">🌈</span>
               &nbsp;VIBE&nbsp;
@@ -62,7 +62,9 @@ export default class Welcome extends React.Component {
             </ModalTitle>
           </Row>
           <Row>
-            <SubRow>Choose a visualization to start</SubRow>
+            <SectionHeader>
+              choose a visualization to start
+            </SectionHeader>
             <SubRow>
               <OptionRow>
                 {brain.types.map((t, i) => !t.hide && (
@@ -87,7 +89,9 @@ export default class Welcome extends React.Component {
 
           {!brain.isMobile && (
             <Row>
-              <SubRow>Play music?</SubRow>
+              <SectionHeader>
+                play music?
+              </SectionHeader>
               <OptionRow width='50%'>
                 <OptionButton
                   label={'Yes'}

@@ -28,7 +28,7 @@ const FooterContainer = styled(hideable)`
   padding: 10px 0px;
 
   & a {
-    color: #91D2FA;
+    color: var(--link);
   }
   & button:hover {
     cursor: pointer;
@@ -38,7 +38,16 @@ const FooterContainer = styled(hideable)`
   }
 `;
 
-const WelcomeContainer = styled(hideable)``;
+const WelcomeContainer = styled(hideable)`
+  & a {
+    color: var(--foreground);
+    text-decoration: none;
+  }
+  & a:hover {
+    color: var(--link);
+    text-decoration: underline;
+  }
+`;
 
 class App extends React.Component {
   constructor(props){
