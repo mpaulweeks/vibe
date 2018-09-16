@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import {
+  isHighlighted,
   SubRow,
 } from './Common';
 
@@ -43,10 +44,16 @@ const OptionButtonContainer = styled.div`
   align-items: center;
   flex: 1;
 
+  &:hover {
+    background-color: var(--hover);
+  }
+
   ${props => props.isFocused && `
-    border-color: var(--highlight);
-    background-color: var(--highlight);
-    color: var(--background);
+    ${isHighlighted}
+
+    &:hover {
+      ${isHighlighted}
+    }
   `};
 `;
 export class OptionButton extends Component {

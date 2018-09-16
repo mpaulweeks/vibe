@@ -24,7 +24,7 @@ const SectionHeader = styled(Message)`
   font-size: 18px;
 `;
 
-const highlightColors = `
+const isHighlighted = `
   color: var(--background);
   background-color: var(--foreground);
 `;
@@ -41,11 +41,11 @@ const Button = styled.span`
   box-shadow: 3px 3px var(--shadow);
 
   &:hover {
-    ${highlightColors}
+    ${isHighlighted}
   }
 
   ${props => props.highlight && `
-    ${highlightColors}
+    ${isHighlighted}
   `}
 `;
 
@@ -100,7 +100,7 @@ const ModalCornerExit = styled.div`
   border: 2px solid var(--foreground);
 
   &:hover {
-    ${highlightColors}
+    ${isHighlighted}
   }
 
   display: flex;
@@ -114,6 +114,7 @@ const ModalTitle = styled.div`
 `;
 
 export {
+  isHighlighted,
   Row,
   SubRow,
   Message,
