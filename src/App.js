@@ -64,9 +64,7 @@ class App extends React.Component {
   componentDidMount() {
     this.brain.init(
       this.refs.canvas.elm,
-      [
-        this.refs.welcome.elm,
-      ],
+      this.refs.welcome.elm,
       () => this.exitWelcome(),
     );
     this.setState({
@@ -85,9 +83,11 @@ class App extends React.Component {
     if (isPlaying !== undefined) {
       this.audio.setPlay(isPlaying);
     }
-    this.setState({
-      isWelcome: false,
-    });
+    if (this.state.isWelcome) {
+      this.setState({
+        isWelcome: false,
+      });
+    }
   }
   render() {
     const { isReady, isWelcome } = this.state;

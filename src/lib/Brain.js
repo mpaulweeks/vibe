@@ -58,12 +58,12 @@ class Brain {
   generateCustomUrl() {
     return this.urlManager.generateUrl(this.visuType, this.visuApp().getCurrentSettings());
   }
-  init(canvasElm, otherClickables, exitWelcome) {
+  init(canvasElm, welcomeElm, exitWelcome) {
     this.ch = new CanvasHandler(
       this,
       canvasElm,
-      otherClickables,
-    )
+      [welcomeElm],
+    );
     this.visuLookup = {
       'rainbow': new RainbowVisu(this),
       'gravity': new GravityVisu(this),
@@ -71,6 +71,7 @@ class Brain {
       'trail': new TrailVisu(this),
     };
     this.handleUrl();
+    this.welcomeElm = welcomeElm;
     this.exitWelcome = exitWelcome;
 
     Looper.logicLoop(looper => {
@@ -178,6 +179,12 @@ class Brain {
       this.exitWelcome();
     }
     return this.visuApp().onKeyPress(event);
+  }
+  onScroll() {
+    const { bottom } = this.welcomeElm.getBoundingClientRect();
+    if (bottom <= 0) {
+      this.exitWelcome();
+    }
   }
 }
 

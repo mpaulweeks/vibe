@@ -38,7 +38,7 @@ class CanvasHandler {
       addMouseEvent(c, 'touchmove', md => brain.onCanvasTouchMove(md));
     })
     window.addEventListener('scroll', event => {
-      console.log(window.scrollY);
+      brain.onScroll();
     });
     window.addEventListener('keydown', event => {
       if (brain.onKeyPress(event)){
