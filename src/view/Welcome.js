@@ -41,7 +41,12 @@ export default class Welcome extends React.Component {
     const { audio, brain } = this.props;
 
     const visuApp = brain.visuType && brain.visuApp();
-    const instructions = visuApp ? visuApp.instructions : [];
+    const instructions = visuApp ? visuApp.instructions.concat() : [];
+    while (instructions.length < 3) {
+      // 3 is the current max on instructions (trail)
+      // this enforces same height for Welcome modal
+      instructions.push('');
+    }
 
     // todo check if coming from bitly
     // console.log(brain.startingUrlData);
@@ -75,7 +80,7 @@ export default class Welcome extends React.Component {
             </SectionHeader>
             { instructions.map((m, mi) => (
               <Message key={`instructions-${mi}`}>
-                {m}
+                {m || <span>&nbsp;</span>}
               </Message>
             ))}
           </Row>
