@@ -4,8 +4,8 @@ https://casesandberg.github.io/react-color/#examples
 */
 
 import React from 'react';
-import styled from 'styled-components';
 import { ChromePicker } from 'react-color';
+import styled from 'styled-components';
 
 const ColorPickerContainer = styled.div`
   display: flex;
@@ -51,8 +51,10 @@ class ColorPicker extends React.Component {
       color: this.props.value,
     };
   }
-  componentWillReceiveProps(props){
-    this.setState({ color: props.value });
+  componentDidUpdate(){
+    if (this.props.value !== this.state.color) {
+      this.setState({ color: this.props.value });
+    }
   }
 
   handleClick = () => {

@@ -1,14 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import styled from 'styled-components';
 
-import {
-  Row,
-  Message,
-  SectionHeader,
-  Button,
-} from './Common';
 import ColorPicker from './ColorPicker';
+import {
+  Button,
+  Message,
+  Row,
+  SectionHeader,
+} from './Common';
 
 const SettingsRow = styled.div`
   width: 100%;
@@ -85,13 +85,15 @@ class CustomSettings extends React.Component {
       copied: false,
     }
   }
-  componentWillReceiveProps(props){
-    this.setState({
-      generatingUrl: false,
-      customUrl: null,
-      error: false,
-      copied: false,
-    });
+  componentDidUpdate(oldProps){
+    if (this.props !== oldProps) {
+      this.setState({
+        generatingUrl: false,
+        customUrl: null,
+        error: false,
+        copied: false,
+      });
+    }
   }
   onCopy() {
     this.setState({
