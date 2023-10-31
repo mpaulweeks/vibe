@@ -1,5 +1,5 @@
 import React from 'react';
-import scrollToComponent from 'react-scroll-to-component';
+import { scroller } from 'react-scroll';
 import styled from 'styled-components';
 
 import AudioManager from './lib/AudioManager';
@@ -77,11 +77,9 @@ class App extends React.Component {
     });
   }
   scrollToFooter() {
-    scrollToComponent(this.refs.footer, {
-      offset: 0,
-      align: 'top',
-      ease: 'inOutCirc',
+    scroller.scrollTo('footer', {
       duration: 1500,
+      smooth: 'easeInOutQuart',
     });
   }
   exitWelcome(isPlaying) {
@@ -109,12 +107,10 @@ class App extends React.Component {
       <PageContainer>
         <Canvas ref={this.canvasRef}></Canvas>
         {showFooter && (
-          <div ref="footer">
-            <FooterContainer>
-              <Panel {...childrenProps}></Panel>
-              <Footer {...childrenProps}></Footer>
-            </FooterContainer>
-          </div>
+          <FooterContainer name="footer">
+            <Panel {...childrenProps}></Panel>
+            <Footer {...childrenProps}></Footer>
+          </FooterContainer>
         )}
         <WelcomeContainer hidden={!showWelcome}>
           <Welcome ref={this.welcomeRef} {...childrenProps}></Welcome>
