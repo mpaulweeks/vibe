@@ -23,9 +23,10 @@ class UrlManager {
       .then(data => data.bitly)
       .catch(() => null)
   }
-  fetchJSON(url){
+  fetchJSON(url, opts){
     return fetch(url, {
       cache: 'no-store',
+      ...(opts ?? {}),
     }).then(resp => {
       if (resp.ok){
         return resp.json();
@@ -52,12 +53,21 @@ class UrlManager {
     return this.bitlyTokenPromise
       .then(bitlyToken => {
         if (bitlyToken) {
-          const bitlyUrl = `https://api-ssl.bitly.com/v3/shorten?access_token=${bitlyToken}&longUrl=${encodedUrl}`;
-          return this.fetchJSON(bitlyUrl);
+          const bitlyUrl = `https://api-ssl.bitly.com/v4/shorten`;
+          return this.fetchJSON(bitlyUrl, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${bitlyToken}`,
+              'Content-Type': `application/json`,
+            },
+            body: JSON.stringify({
+              long_url: customUrl,
+            }),
+          });
         }
         throw new Error('missing bitlyToken');
       })
-      .then(data => data.data.url)
+      .then(data => data.link)
   }
   readUrlParams(){
     const queryString = window.location.search;
