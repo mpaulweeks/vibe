@@ -3,9 +3,9 @@ import React from 'react';
 import Jukebox from './Jukebox';
 
 import {
-  Row,
   AuthorFootnote,
   CookieFootnote,
+  Row,
 } from './Common';
 
 class Footer extends React.Component {
@@ -24,6 +24,8 @@ class Footer extends React.Component {
             this site uses cookies to remember your music preferences for future visits
             <br/>
             this information is only saved in your browser and not collected in any way
+            <br/>
+            last updated: 2023-10-31
           </CookieFootnote>
         </Row>
       </div>
