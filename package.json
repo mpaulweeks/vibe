@@ -4,7 +4,6 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
-    "gh-pages": "^1.1.0",
     "react": "^16.2.0",
     "react-color": "^2.14.0",
     "react-cookie": "^2.1.4",
