@@ -12,10 +12,11 @@ const CanvasElm = styled.canvas`
 `;
 
 class Canvas extends React.Component {
+  elm = React.createRef();
   render() {
     return (
       <CanvasContainer>
-        <CanvasElm innerRef={e => this.elm = e}></CanvasElm>
+        <CanvasElm ref={this.elm}></CanvasElm>
       </CanvasContainer>
     );
   }

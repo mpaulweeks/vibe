@@ -1,21 +1,22 @@
 import React from 'react';
 
 import {
-  Row,
-  SubRow,
-  SectionHeader,
   Message,
-  ModalContainerOuter,
   ModalContainerInner,
+  ModalContainerOuter,
   ModalCornerExit,
   ModalTitle,
+  Row,
+  SectionHeader,
+  SubRow,
 } from './Common';
 import {
-  OptionRow,
   OptionButton,
+  OptionRow,
 } from './Option';
 
 export default class Welcome extends React.Component {
+  elm = React.createRef();
   componentDidMount() {
     const { brain } = this.props;
     brain.addCallback(() => {
@@ -51,7 +52,7 @@ export default class Welcome extends React.Component {
     // todo check if coming from bitly
     // console.log(brain.startingUrlData);
     return (
-      <ModalContainerOuter innerRef={e => this.elm = e}>
+      <ModalContainerOuter ref={this.elm}>
         <ModalContainerInner>
           <Row>
             welcome to

@@ -3,13 +3,13 @@ import React from 'react';
 import CustomSettings from './CustomSettings';
 
 import {
+  Button,
   Row,
   SectionHeader,
-  Button,
 } from './Common';
 import {
-  OptionRow,
   OptionButton,
+  OptionRow,
 } from './Option';
 
 class Panel extends React.Component {

@@ -1,13 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
 import scrollToComponent from 'react-scroll-to-component';
+import styled from 'styled-components';
 
-import Brain from './lib/Brain';
 import AudioManager from './lib/AudioManager';
+import Brain from './lib/Brain';
 
 import Canvas from './view/Canvas';
-import Panel from './view/Panel';
 import Footer from './view/Footer';
+import Panel from './view/Panel';
 import Welcome from './view/Welcome';
 
 const hideable = styled.div`
@@ -50,6 +50,9 @@ const WelcomeContainer = styled(hideable)`
 `;
 
 class App extends React.Component {
+  canvasRef = React.createRef();
+  welcomeRef = React.createRef();
+
   constructor(props){
     super(props)
 
@@ -65,8 +68,8 @@ class App extends React.Component {
   }
   componentDidMount() {
     this.brain.init(
-      this.refs.canvas.elm,
-      this.refs.welcome.elm,
+      this.canvasRef.current.elm.current,
+      this.welcomeRef.current.elm.current,
       () => this.exitWelcome(),
     );
     this.setState({
@@ -104,17 +107,17 @@ class App extends React.Component {
     const showWelcome = isReady && isWelcome;
     return (
       <PageContainer>
-        <Canvas ref="canvas"></Canvas>
+        <Canvas ref={this.canvasRef}></Canvas>
         {showFooter && (
           <div ref="footer">
             <FooterContainer>
               <Panel {...childrenProps}></Panel>
-              <Footer {...childrenProps}>></Footer>
+              <Footer {...childrenProps}></Footer>
             </FooterContainer>
           </div>
         )}
         <WelcomeContainer hidden={!showWelcome}>
-          <Welcome ref="welcome" {...childrenProps}></Welcome>
+          <Welcome ref={this.welcomeRef} {...childrenProps}></Welcome>
         </WelcomeContainer>
       </PageContainer>
     );

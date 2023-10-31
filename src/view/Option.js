@@ -48,7 +48,7 @@ const OptionButtonContainer = styled.div`
     background-color: var(--hover);
   }
 
-  ${props => props.isFocused && `
+  ${props => props.$isFocused && `
     ${isHighlighted}
 
     &:hover {
@@ -66,12 +66,12 @@ export class OptionButton extends Component {
     } = this.props;
     const onClick = () => callback(value);
     return (
-      <OptionButtonContainer onClick={onClick} isFocused={isFocused}>
+      <OptionButtonContainer onClick={onClick} $isFocused={isFocused ? 'true' : ''}>
         {label}
       </OptionButtonContainer>
     );
   }
 }
 export {
-  OptionRow,
+  OptionRow
 };

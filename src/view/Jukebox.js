@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import {
-  SubRow,
-  Button,
   BigSelect,
+  Button,
+  SubRow,
 } from './Common';
 
 const JukeboxContainer = styled.div`
@@ -18,6 +18,7 @@ const AudioElm = styled.audio`
 `;
 
 class Jukebox extends React.Component {
+  audioElm = React.createRef();
   constructor(props){
     super(props);
     this.state = {
@@ -30,7 +31,7 @@ class Jukebox extends React.Component {
       this.updateState();
     });
 
-    this.audioElm.addEventListener('ended', () => {
+    this.audioElm.current.addEventListener('ended', () => {
       this.next(true);
     });
     this.updateState();
@@ -41,15 +42,15 @@ class Jukebox extends React.Component {
     const newData = this.props.audio.getData();
 
     if (data.src !== newData.src){
-      audioElm.src = newData.src;
+      audioElm.current.src = newData.src;
     }
-    if (audioElm.paused === newData.isPlaying){
+    if (audioElm.current.paused === newData.isPlaying){
       if (newData.isPlaying) {
-        audioElm.play().catch(error => {
+        audioElm.current.play().catch(error => {
           this.togglePlay();
         });
       } else {
-        audioElm.pause();
+        audioElm.current.pause();
       }
     }
 
@@ -78,7 +79,7 @@ class Jukebox extends React.Component {
     const { data } = this.state;
     return (
       <JukeboxContainer>
-        <AudioElm innerRef={ elm => this.audioElm = elm }></AudioElm>
+        <AudioElm ref={this.audioElm}></AudioElm>
 
         { data.isPlaying ? (
           <div>
