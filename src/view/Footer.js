@@ -25,7 +25,7 @@ class Footer extends React.Component {
             <br/>
             this information is only saved in your browser and not collected in any way
             <br/>
-            last updated: 2023-10-31
+            last updated: 2023-11-06
           </CookieFootnote>
         </Row>
       </div>
