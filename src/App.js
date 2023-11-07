@@ -49,6 +49,8 @@ const WelcomeContainer = styled(hideable)`
   }
 `;
 
+const skipWelcome = !!new URLSearchParams(window.location.search).get('skipwelcome');
+
 class App extends React.Component {
   canvasRef = React.createRef();
   welcomeRef = React.createRef();
@@ -60,7 +62,7 @@ class App extends React.Component {
     this.audio = new AudioManager(this.brain, props.cookies);
     this.state = {
       isReady: false,
-      isWelcome: true,
+      isWelcome: !skipWelcome,
     };
 
     // debugging
